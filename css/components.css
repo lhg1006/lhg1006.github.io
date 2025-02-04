@@ -51,7 +51,7 @@
 
 /* fullPage.js 네비게이션 스타일 */
 #fp-nav {
-    top: 50% !important;
+    top: 15% !important;
     right: 17px !important;
     transform: translateY(-50%) !important;
 }

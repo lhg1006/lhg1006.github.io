@@ -1,25 +1,40 @@
 // fullPage 설정
 const initFullPage = () => {
-    new fullpage('#fullpage', {
-        autoScrolling: true,
-        scrollHorizontally: true,
-        navigation: true,
-        navigationPosition: 'right',
-        showActiveTooltip: true,
-        slidesNavigation: true,
-        controlArrows: true,
-        scrollingSpeed: 700,
-        offsetSections: true,
-        fitToSection: true,
-        fitToSectionDelay: 600,
-        scrollOverflow: true,
-        touchSensitivity: 15,
-        normalScrollElements: '.experience-cards',
-        
-        onLeave: handleSectionLeave,
-        afterLoad: handleSectionLoad,
-        afterResize: adjustSectionOffset
-    });
+    // 모바일 환경 체크
+    const isMobile = window.innerWidth <= 768;
+    
+    if (!isMobile) {
+        new fullpage('#fullpage', {
+            autoScrolling: true,
+            scrollHorizontally: true,
+            navigation: true,
+            navigationPosition: 'right',
+            navigationTooltips: ['소개', '경력', '프로젝트', '연락처'],
+            showActiveTooltip: true,
+            slidesNavigation: true,
+            controlArrows: true,
+            scrollingSpeed: 700,
+            offsetSections: true,
+            fitToSection: true,
+            fitToSectionDelay: 600,
+            scrollOverflow: true,
+            touchSensitivity: 15,
+            normalScrollElements: '.experience-cards',
+            
+            onLeave: handleSectionLeave,
+            afterLoad: handleSectionLoad,
+            afterResize: adjustSectionOffset
+        });
+    } else {
+        // 모바일에서는 일반 스크롤 적용
+        document.querySelector('#fullpage').style.overflow = 'auto';
+        document.querySelectorAll('.section').forEach(section => {
+            section.style.height = 'auto';
+            section.style.minHeight = '100vh';
+            section.style.paddingTop = '80px'; // 헤더 높이만큼 여백
+            section.style.paddingBottom = '60px'; // 푸터 높이만큼 여백
+        });
+    }
 };
 
 // 섹션 전환 처리
@@ -42,7 +57,7 @@ const handleSectionLoad = (origin, destination, direction) => {
         const headerHeight = document.querySelector('header').offsetHeight;
         const content = destination.item.querySelector('.section-content');
         if (content) {
-            content.style.marginTop = `${headerHeight}px`;
+            // content.style.marginTop = `${headerHeight}px`;
         }
     }
 };
@@ -59,7 +74,7 @@ const adjustSectionOffset = () => {
             
             const content = section.querySelector('.section-content');
             if (content) {
-                content.style.marginTop = `${headerHeight}px`;
+                // content.style.marginTop = `${headerHeight}px`;
             }
         } else {
             section.style.paddingTop = '0';
@@ -74,22 +89,40 @@ const adjustSectionOffset = () => {
 // 경력 슬라이더 초기화
 const initExperienceSlider = () => {
     const slider = document.querySelector('.experience-cards');
-    const prevBtn = document.querySelector('.slider-nav .prev');
-    const nextBtn = document.querySelector('.slider-nav .next');
-    
+    const prevBtn = document.querySelector('.slider-btn.prev');
+    const nextBtn = document.querySelector('.slider-btn.next');
+    const cards = document.querySelectorAll('.experience-card');
+    let currentIndex = 0;
+
+    // 초기 버튼 상태 설정
+    updateButtonState();
+
+    function updateButtonState() {
+        prevBtn.style.opacity = currentIndex === 0 ? '0.5' : '1';
+        prevBtn.style.pointerEvents = currentIndex === 0 ? 'none' : 'auto';
+        
+        nextBtn.style.opacity = currentIndex === cards.length - 1 ? '0.5' : '1';
+        nextBtn.style.pointerEvents = currentIndex === cards.length - 1 ? 'none' : 'auto';
+    }
+
+    function updateSliderPosition() {
+        slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+        updateButtonState();
+    }
+
     if (prevBtn && nextBtn) {
         prevBtn.addEventListener('click', () => {
-            slider.scrollBy({
-                left: -520,
-                behavior: 'smooth'
-            });
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateSliderPosition();
+            }
         });
 
         nextBtn.addEventListener('click', () => {
-            slider.scrollBy({
-                left: 520,
-                behavior: 'smooth'
-            });
+            if (currentIndex < cards.length - 1) {
+                currentIndex++;
+                updateSliderPosition();
+            }
         });
     }
 };
@@ -99,7 +132,10 @@ const handleResize = () => {
     let resizeTimer;
     window.addEventListener('resize', () => {
         clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(adjustSectionOffset, 250);
+        resizeTimer = setTimeout(() => {
+            // 화면 크기가 변경될 때 페이지 새로고침
+            location.reload();
+        }, 250);
     });
 };
 
