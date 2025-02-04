@@ -1,49 +1,163 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>포트폴리오</title>
-    <link rel="stylesheet" href="css/style.css">
+    <!-- 외부 라이브러리 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/4.0.20/fullpage.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- 기본 스타일 -->
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    
+    <!-- 섹션별 스타일 -->
+    <link rel="stylesheet" href="css/sections/about.css">
+    <link rel="stylesheet" href="css/sections/experience.css">
+    <link rel="stylesheet" href="css/sections/contact.css">
+    
+    <!-- 반응형 스타일 -->
+    <link rel="stylesheet" href="css/responsive.css">
 </head>
 <body>
+    <button class="theme-toggle" aria-label="테마 변경">
+        <i class="fas fa-sun"></i>
+        <i class="fas fa-moon"></i>
+    </button>
     <header>
         <nav>
             <ul>
-                <li><a href="#home">홈</a></li>
                 <li><a href="#about">소개</a></li>
+                <li><a href="#experience">경력</a></li>
                 <li><a href="#projects">프로젝트</a></li>
                 <li><a href="#contact">연락처</a></li>
             </ul>
         </nav>
     </header>
 
-    <main>
-        <section id="home">
-            <h1>환영합니다</h1>
-            <p>저의 포트폴리오 페이지입니다</p>
-        </section>
+    <div id="fullpage">
+        <div class="section" id="about">
+            <div class="section-content">
+                <div class="about-container">
+                    <div class="profile-image">
+                        <img src="images/profile.png" alt="이효규 프로필 사진">
+                    </div>
+                    <div class="profile-content">
+                        <h3>이효규</h3>
+                        <p class="job-title">풀스택 개발자</p>
+                        <div class="profile-description">
+                            <p>안녕하세요! 백엔드부터 프론트엔드까지 다양한 경험을 가진 풀스택 개발자입니다.</p>
+                            <p>Spring Boot와 React를 주력으로 사용하며, 새로운 기술 습득에 대한 열정을 가지고 있습니다.</p>
+                            <p>사용자 경험과 코드 품질을 모두 중요시하며, 효율적이고 확장 가능한 웹 서비스 개발을 지향합니다.</p>
+                            <p class="skills-title">주요 기술 스택:</p>
+                            <ul class="skills-list">
+                                <li>Java</li>
+                                <li>Spring Boot</li>
+                                <li>MySQL</li>
+                                <li>PostgreSQL</li>
+                                <li>JavaScript / TypeScript</li>
+                                <li>React</li>
+                                <li>Next.js</li>
+                                <li>HTML5 / CSS3</li>
+                                <li>AWS</li>
+                                <li>Docker</li>
+                                <li>Git</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-        <section id="about">
-            <h2>소개</h2>
-            <!-- 여기에 자기소개를 작성하세요 -->
-        </section>
+        <div class="section" id="experience">
+            <div class="experience-slider">
+                <div class="experience-cards">
+                    <!-- 현재 직장 -->
+                    <div class="experience-card">
+                        <div class="card-header">
+                            <div class="timeline-date">2024.07 - 현재</div>
+                            <span class="status current">재직중</span>
+                        </div>
+                        <div class="card-content">
+                            <h4>(주)지피티코리아</h4>
+                            <p class="job-position">개발팀 · 사원/팀원 · 웹개발</p>
+                            <div class="job-description">
+                                <p>웹 서비스 개발</p>
+                                <div class="job-skills">
+                                    <span>Java</span>
+                                    <span>Spring Boot</span>
+                                    <span>MySQL</span>
+                                    <span>PostgreSQL</span>
+                                    <span>JS / TS</span>
+                                    <span>Next.js</span>
+                                    <span>React</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-        <section id="projects">
+                    <!-- 이전 직장 -->
+                    <div class="experience-card">
+                        <div class="card-header">
+                            <div class="timeline-date">2022.05 - 2023.12</div>
+                        </div>
+                        <div class="card-content">
+                            <h4>(주)여보야</h4>
+                            <p class="job-position">글로벌사업부 · 사원/팀원 2년차 · 웹개발</p>
+                            <div class="job-description">
+                                <p>여보야 Service & admin 개발 및 유지 보수<br>(API 개발 & 화면 이벤트 처리)</p>
+                                <ul>
+                                    <li>성혼지수 이벤트 개발</li>
+                                    <li>좋아요 랭킹 이벤트 개발</li>
+                                    <li>밸런스 게임 이벤트 개발</li>
+                                    <li>마일리지 제도 개발</li>
+                                </ul>
+                                <div class="job-skills">
+                                    <span>Java</span>
+                                    <span>Spring Boot</span>
+                                    <span>MySQL</span>
+                                    <span>JS / TS</span>
+                                    <span>React</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="projects">
             <h2>프로젝트</h2>
             <!-- 여기에 프로젝트 목록을 추가하세요 -->
-        </section>
+        </div>
 
-        <section id="contact">
-            <h2>연락처</h2>
-            <!-- 여기에 연락처 정보를 추가하세요 -->
-        </section>
-    </main>
+        <div class="section" id="contact">
+            <div class="contact-container">
+                <div class="contact-links">
+                    <a href="mailto:lhg961006@gmail.com" class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>이메일</span>
+                    </a>
+                    <a href="https://www.linkedin.com/in/hyo-lee-13b536340" target="_blank" class="contact-item">
+                        <i class="fab fa-linkedin"></i>
+                        <span>LinkedIn</span>
+                    </a>
+                    <a href="https://github.com/lhg1006" target="_blank" class="contact-item">
+                        <i class="fab fa-github"></i>
+                        <span>GitHub</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <footer>
-        <p>&copy; 2025 내 포트폴리오. All rights reserved.</p>
+        <p>&copy; 2025 이효규 포트폴리오. All rights reserved.</p>
     </footer>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/4.0.20/fullpage.min.js"></script>
     <script src="js/main.js"></script>
 </body>
 </html> 

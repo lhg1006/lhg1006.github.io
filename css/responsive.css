@@ -1,0 +1,121 @@
+/* 태블릿 스타일 */
+@media (max-width: 1024px) {
+    .about-container {
+        padding: 1rem;
+        gap: 2rem;
+    }
+}
+
+/* 모바일 스타일 */
+@media (max-width: 768px) {
+    /* 네비게이션 */
+    nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    nav ul li {
+        margin: 0.5rem 1rem;
+    }
+
+    /* About 섹션 */
+    .about-container {
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .profile-image {
+        flex: 0 0 auto;
+        max-width: 250px;
+        margin: 0 auto;
+    }
+
+    .profile-content {
+        text-align: center;
+    }
+
+    /* Experience 섹션 */
+    .experience-slider {
+        width: 100vw;
+        max-width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+
+    .experience-cards {
+        gap: 0;
+        scroll-snap-type: x mandatory;
+    }
+
+    .experience-card {
+        flex: 0 0 100vw;
+        border-radius: 0;
+        padding: 0 20px;
+    }
+
+    /* Contact 섹션 */
+    .contact-container {
+        padding: 1rem;
+    }
+
+    .contact-links {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .contact-item {
+        width: 120px;
+        height: 120px;
+        padding: 1rem;
+    }
+
+    .contact-item i {
+        font-size: 2rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .contact-item span {
+        font-size: 0.9rem;
+    }
+}
+
+/* 작은 모바일 스타일 */
+@media (max-width: 480px) {
+    .section {
+        padding-top: 70px !important;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    .profile-content h3 {
+        font-size: 1.6rem;
+    }
+
+    .job-title {
+        font-size: 1.1rem;
+    }
+
+    .skills-title {
+        font-size: 1.1rem;
+    }
+
+    .contact-item {
+        width: 100px;
+        height: 100px;
+    }
+
+    .contact-item i {
+        font-size: 1.8rem;
+    }
+
+    .contact-item span {
+        font-size: 0.8rem;
+    }
+} 

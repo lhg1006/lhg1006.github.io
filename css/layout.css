@@ -1,0 +1,128 @@
+/* 헤더 레이아웃 */
+header {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 1rem;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    box-shadow: var(--shadow-sm);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--bg-secondary);
+    transition: all 0.3s ease;
+}
+
+[data-theme="dark"] header {
+    background-color: rgba(17, 24, 39, 0.8);
+    border-bottom: 1px solid var(--bg-dark);
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+nav ul li {
+    margin: 0 2rem;
+}
+
+nav ul li a {
+    color: var(--text-primary);
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 500;
+    text-align: center;
+    padding: 0.5rem 0;
+    position: relative;
+    opacity: 0.8;
+    transition: all 0.3s ease;
+}
+
+nav ul li a:hover {
+    opacity: 1;
+}
+
+nav ul li a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--primary-color);
+    transition: width 0.3s ease;
+}
+
+nav ul li a:hover::after {
+    width: 100%;
+}
+
+/* 메인 레이아웃 */
+main {
+    margin-top: 60px;
+}
+
+/* 섹션 레이아웃 */
+.section {
+    position: relative;
+    min-height: 100vh;
+    transition: padding-top 0.3s ease;
+    background-color: var(--bg-primary);
+}
+
+.section:nth-child(even) {
+    background-color: var(--bg-secondary);
+}
+
+.section-content {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    transition: transform 0.3s ease;
+}
+
+/* 푸터 레이아웃 */
+footer {
+    background-color: var(--bg-dark);
+    color: var(--bg-primary);
+    text-align: center;
+    padding: 1rem;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 1000;
+    font-size: 0.9rem;
+    border-top: 1px solid var(--bg-secondary);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+[data-theme="dark"] footer {
+    background-color: rgba(15, 23, 42, 0.9);
+    border-top: 1px solid var(--bg-dark);
+}
+
+/* 스크롤바 스타일 */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--secondary-color);
+} 
