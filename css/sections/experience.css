@@ -6,7 +6,7 @@
     margin: 0 auto;
     padding: 0 60px;
     overflow: hidden;
-    padding-bottom: 80px; /* 버튼을 위한 여백 추가 */
+    padding-bottom: 40px; /* 버튼을 위한 여백 추가 */
 }
 
 .experience-cards {
