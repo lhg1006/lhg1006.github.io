@@ -20,9 +20,16 @@ const initFullPage = () => {
             scrollOverflow: true,
             touchSensitivity: 15,
             normalScrollElements: '.experience-cards',
+            keyboardScrolling: false, // 키보드 스크롤 비활성화
+            animateAnchor: false, // 앵커 애니메이션 비활성화
             
             onLeave: handleSectionLeave,
             afterLoad: handleSectionLoad,
+            afterRender: () => {
+                // 초기 렌더링 후 포커스 제거
+                document.querySelector('#about').blur();
+                document.activeElement.blur();
+            },
             afterResize: adjustSectionOffset
         });
     } else {

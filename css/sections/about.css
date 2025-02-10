@@ -1,4 +1,12 @@
 /* About 섹션 스타일 */
+.section#about {
+    outline: none !important;
+}
+
+.section-content {
+    outline: none !important;
+}
+
 .about-container {
     display: flex;
     align-items: center;
@@ -27,6 +35,7 @@
     outline: none !important;
     -webkit-tap-highlight-color: transparent;
     user-select: none;
+    pointer-events: none;
 }
 
 .profile-content {
@@ -35,13 +44,19 @@
     -webkit-tap-highlight-color: transparent;
 }
 
-/* 포커스 방지를 위한 추가 스타일 */
-.about-container *,
-.about-container *:focus,
-.about-container *:active {
+.profile-description {
     outline: none !important;
-    -webkit-tap-highlight-color: transparent;
-    -webkit-focus-ring-color: transparent;
+}
+
+/* 포커스 방지를 위한 추가 스타일 */
+#about *,
+#about *:focus,
+#about *:active,
+#about *:hover {
+    outline: none !important;
+    -webkit-tap-highlight-color: transparent !important;
+    -webkit-focus-ring-color: transparent !important;
+    box-shadow: none !important;
 }
 
 .profile-content h3 {
