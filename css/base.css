@@ -39,6 +39,20 @@
     --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.4);
 }
 
+/* 라이트 테마 */
+:root[data-theme='light'] {
+    /* fullpage.js 툴팁 스타일 */
+    --tooltip-bg: rgba(0, 0, 0, 0.8);
+    --tooltip-color: #fff;
+}
+
+/* 다크 테마 */
+:root[data-theme='dark'] {
+    /* fullpage.js 툴팁 스타일 */
+    --tooltip-bg: rgba(255, 255, 255, 0.8);
+    --tooltip-color: #000;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -90,4 +104,18 @@ a:hover {
 img {
     max-width: 100%;
     height: auto;
+}
+
+/* fullpage.js 툴팁 커스텀 스타일 */
+#fp-nav ul li .fp-tooltip {
+    background-color: var(--tooltip-bg);
+    color: var(--tooltip-color);
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+#fp-nav ul li .fp-tooltip.fp-right {
+    right: 30px;
 } 
