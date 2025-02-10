@@ -1,0 +1,107 @@
+.certifications-section {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.certifications-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.certification-category {
+    background: var(--card-bg);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: slideIn 0.6s ease-out forwards;
+}
+
+.certification-category:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+.certification-category h3 {
+    color: var(--text-primary);
+    margin-bottom: 2rem;
+    font-size: 1.5rem;
+    position: relative;
+    padding-bottom: 0.5rem;
+}
+
+.certification-category h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40px;
+    height: 3px;
+    background: var(--accent-color);
+    border-radius: 2px;
+}
+
+.certification-item {
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(var(--accent-color-rgb), 0.1);
+}
+
+.certification-item:last-child {
+    border-bottom: none;
+}
+
+.certification-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.5rem;
+}
+
+.certification-name {
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 1.1rem;
+}
+
+.certification-date {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    background: rgba(var(--accent-color-rgb), 0.1);
+    padding: 0.3rem 0.8rem;
+    border-radius: 12px;
+    white-space: nowrap;
+}
+
+.certification-issuer {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
+}
+
+.certification-description {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.certification-category:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+@media (max-width: 768px) {
+    .certifications-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .certification-header {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .certification-date {
+        align-self: flex-start;
+    }
+} 

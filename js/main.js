@@ -9,7 +9,7 @@ const initFullPage = () => {
             scrollHorizontally: true,
             navigation: true,
             navigationPosition: 'right',
-            navigationTooltips: ['소개', '경력', '프로젝트', '연락처'],
+            navigationTooltips: ['소개', '경력', '기술', '자격증', '프로젝트', '연락처'],
             showActiveTooltip: true,
             slidesNavigation: true,
             controlArrows: true,
@@ -170,6 +170,119 @@ const initTheme = () => {
     });
 };
 
+// 스킬 프로그레스 바 초기화
+function initializeSkillBars() {
+    const progressBars = document.querySelectorAll('.skill-progress-bar');
+    
+    const animateProgressBar = (bar) => {
+        const level = bar.dataset.level;
+        bar.style.width = `${level}%`;
+    };
+
+    // Intersection Observer를 사용하여 화면에 보일 때 애니메이션 시작
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                animateProgressBar(entry.target);
+                observer.unobserve(entry.target); // 한 번만 애니메이션 실행
+            }
+        });
+    }, { threshold: 0.5 });
+
+    progressBars.forEach(bar => {
+        observer.observe(bar);
+    });
+}
+
+// 로딩 처리
+const handleLoading = () => {
+    const loader = document.querySelector('.loader-container');
+    
+    // 모든 이미지 로딩 완료 대기
+    const images = document.querySelectorAll('img');
+    const imagePromises = Array.from(images).map(img => {
+        if (img.complete) {
+            return Promise.resolve();
+        }
+        return new Promise(resolve => {
+            img.addEventListener('load', resolve);
+            img.addEventListener('error', resolve); // 에러 시에도 진행
+        });
+    });
+
+    // 이미지 및 폰트 로딩 완료 후 로더 제거
+    Promise.all([
+        ...imagePromises,
+        document.fonts.ready // 웹폰트 로딩 대기
+    ]).then(() => {
+        loader.classList.add('loader-hidden');
+        setTimeout(() => {
+            loader.style.display = 'none';
+        }, 500);
+    });
+};
+
+// 키보드 네비게이션 처리
+const handleKeyboardNavigation = () => {
+    const navLinks = document.querySelectorAll('nav a');
+    
+    navLinks.forEach((link, index) => {
+        link.addEventListener('keydown', (e) => {
+            let targetLink;
+            
+            switch(e.key) {
+                case 'ArrowRight':
+                    targetLink = navLinks[index + 1] || navLinks[0];
+                    break;
+                case 'ArrowLeft':
+                    targetLink = navLinks[index - 1] || navLinks[navLinks.length - 1];
+                    break;
+            }
+            
+            if (targetLink) {
+                e.preventDefault();
+                targetLink.focus();
+            }
+        });
+    });
+};
+
+// 이미지 지연 로딩
+const initLazyLoading = () => {
+    const images = document.querySelectorAll('img[data-src]');
+    
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                img.src = img.dataset.src;
+                img.removeAttribute('data-src');
+                observer.unobserve(img);
+            }
+        });
+    });
+
+    images.forEach(img => imageObserver.observe(img));
+};
+
+// 성능 최적화: 디바운스 함수
+const debounce = (func, wait) => {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+};
+
+// 스크롤 이벤트 최적화
+const handleOptimizedScroll = debounce(() => {
+    // 스크롤 관련 처리
+}, 150);
+
 // 초기화
 document.addEventListener('DOMContentLoaded', () => {
     initTheme();
@@ -177,4 +290,10 @@ document.addEventListener('DOMContentLoaded', () => {
     initExperienceSlider();
     adjustSectionOffset();
     handleResize();
+    initializeSkillBars();
+    handleLoading();
+    handleKeyboardNavigation();
+    initLazyLoading();
+    
+    window.addEventListener('scroll', handleOptimizedScroll, { passive: true });
 }); 

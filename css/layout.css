@@ -90,23 +90,29 @@ main {
 
 /* 푸터 레이아웃 */
 footer {
-    background-color: var(--bg-dark);
-    color: var(--bg-primary);
-    text-align: center;
-    padding: 1rem;
     position: fixed;
     bottom: 0;
+    left: 0;
     width: 100%;
-    z-index: 1000;
+    padding: 1rem;
+    text-align: center;
     font-size: 0.9rem;
-    border-top: 1px solid var(--bg-secondary);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    z-index: 100;
+    background: var(--card-bg);
 }
 
-[data-theme="dark"] footer {
-    background-color: rgba(15, 23, 42, 0.9);
-    border-top: 1px solid var(--bg-dark);
+footer p {
+    color: var(--text-primary);
+    margin: 0;
+    opacity: 0.8;
+}
+
+[data-theme="light"] footer p {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] footer p {
+    color: var(--text-primary);
 }
 
 /* 스크롤바 스타일 */
