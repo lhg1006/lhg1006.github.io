@@ -243,4 +243,46 @@
 
 .skip-nav:focus {
     top: 0;
-} 
+}
+
+/* 언어 선택 버튼 */
+.language-toggle {
+    position: fixed;
+    bottom: 5rem;
+    right: 6rem;
+    z-index: 1001;
+    background: var(--bg-primary);
+    border: 2px solid var(--bg-secondary);
+    border-radius: 25px;
+    padding: 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: var(--shadow-md);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.language-toggle:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.language-toggle span {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.language-toggle i {
+    font-size: 1.1rem;
+    color: var(--text-primary);
+}
+
+@media (max-width: 768px) {
+    .language-toggle {
+        bottom: auto;
+        top: 1rem;
+        right: 5rem;
+    }
+}

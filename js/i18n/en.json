@@ -1,0 +1,74 @@
+{
+    "nav": {
+        "about": "About",
+        "experience": "Experience",
+        "skills": "Skills",
+        "certifications": "Certifications",
+        "projects": "Projects",
+        "contact": "Contact"
+    },
+    "about": {
+        "title": "Hyogyu Lee",
+        "jobTitle": "Full Stack Developer",
+        "intro": {
+            "p1": "Hello! I'm a full-stack developer with diverse experience from backend to frontend.",
+            "p2": "I primarily use Spring Boot and React, and I'm passionate about learning new technologies.",
+            "p3": "I value both user experience and code quality, aiming to develop efficient and scalable web services."
+        },
+        "skillsTitle": "Main Tech Stack:"
+    },
+    "experience": {
+        "current": "Current",
+        "companies": {
+            "gptkorea": {
+                "name": "GPTKorea Inc.",
+                "position": "Development Team · Staff · Web Development",
+                "period": "2024.07 - Present",
+                "description": "Web Service Development"
+            },
+            "yeoboya": {
+                "name": "Yeoboya Inc.",
+                "position": "Global Business Division · Staff 2nd Year · Web Development",
+                "period": "2022.05 - 2023.12",
+                "description": "Yeoboya Service & Admin Development and Maintenance",
+                "achievements": {
+                    "item1": "Marriage Success Rate Event Development",
+                    "item2": "Like Ranking Event Development",
+                    "item3": "Balance Game Event Development",
+                    "item4": "Mileage System Development"
+                }
+            }
+        }
+    },
+    "skills": {
+        "backend": "Backend",
+        "frontend": "Frontend",
+        "database": "Database",
+        "learning": "Learning"
+    },
+    "certifications": {
+        "title": "Certifications",
+        "education": "Education"
+    },
+    "projects": {
+        "portfolio": {
+            "title": "Personal Portfolio Website",
+            "description": "A responsive portfolio website showcasing\nmy capabilities and experience as a full-stack developer."
+        },
+        "tap": {
+            "title": "take-a-picture : TAP",
+            "description": "A mobile-first web service\ninspired by Instagram."
+        }
+    },
+    "contact": {
+        "email": "Email",
+        "linkedin": "LinkedIn",
+        "github": "GitHub"
+    },
+    "common": {
+        "downloadResume": "Download Resume",
+        "loading": "Loading...",
+        "skipToMain": "Skip to main content",
+        "languageSelect": "Select Language"
+    }
+} 

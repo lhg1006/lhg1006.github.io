@@ -1,5 +1,114 @@
+// 언어 관리
+let currentLang = 'ko';
+let translations = {};
+
+const initI18n = async () => {
+    try {
+        // 번역 파일 로드
+        const [koResponse, enResponse] = await Promise.all([
+            fetch('js/i18n/ko.json'),
+            fetch('js/i18n/en.json')
+        ]);
+        
+        if (!koResponse.ok || !enResponse.ok) {
+            throw new Error('Failed to load translation files');
+        }
+
+        translations = {
+            ko: await koResponse.json(),
+            en: await enResponse.json()
+        };
+
+        // 저장된 언어 설정 확인
+        const savedLang = localStorage.getItem('language');
+        if (savedLang && ['ko', 'en'].includes(savedLang)) {
+            currentLang = savedLang;
+            document.documentElement.lang = currentLang;
+            updateLanguage(currentLang);
+        }
+
+        // 언어 변경 이벤트 리스너
+        const langToggle = document.querySelector('.language-toggle');
+        if (langToggle) {
+            langToggle.addEventListener('click', () => {
+                const currentSection = fullpage_api.getActiveSection().index;
+                currentLang = currentLang === 'ko' ? 'en' : 'ko';
+                document.documentElement.lang = currentLang;
+                updateLanguage(currentLang);
+                localStorage.setItem('language', currentLang);
+
+                // fullPage.js 네비게이션 툴팁 업데이트
+                const tooltips = [
+                    translations[currentLang].nav.about,
+                    translations[currentLang].nav.experience,
+                    translations[currentLang].nav.skills,
+                    translations[currentLang].nav.certifications,
+                    translations[currentLang].nav.projects,
+                    translations[currentLang].nav.contact
+                ];
+                
+                if (fullpage_api) {
+                    fullpage_api.destroy('all');
+                    initFullPage(tooltips);
+                    // 이전 섹션으로 이동
+                    fullpage_api.silentMoveTo(currentSection + 1);
+                }
+            });
+        }
+    } catch (error) {
+        console.error('Failed to initialize translations:', error);
+    }
+};
+
+const updateLanguage = (lang) => {
+    try {
+        // 현재 언어 표시 업데이트
+        const langDisplay = document.querySelector('.current-lang');
+        if (langDisplay) {
+            langDisplay.textContent = lang.toUpperCase();
+        }
+        
+        // 모든 번역 요소 업데이트
+        document.querySelectorAll('[data-i18n]').forEach(element => {
+            const key = element.getAttribute('data-i18n');
+            const translation = getNestedTranslation(translations[lang], key);
+            if (translation) {
+                if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                    element.placeholder = translation;
+                } else {
+                    element.textContent = translation;
+                }
+            }
+        });
+
+        // ARIA 레이블 업데이트
+        document.querySelectorAll('[aria-label]').forEach(element => {
+            const key = element.getAttribute('data-i18n-aria');
+            if (key) {
+                const translation = getNestedTranslation(translations[lang], key);
+                if (translation) {
+                    element.setAttribute('aria-label', translation);
+                }
+            }
+        });
+    } catch (error) {
+        console.error('Error updating language:', error);
+    }
+};
+
+const getNestedTranslation = (obj, path) => {
+    try {
+        return path.split('.').reduce((prev, curr) => {
+            return prev ? prev[curr] : null;
+        }, obj);
+    } catch (error) {
+        console.error('Error getting translation:', error);
+        return null;
+    }
+};
+
 // fullPage 설정
-const initFullPage = () => {
+const initFullPage = (tooltips = ['소개', '경력', '기술', '자격증', '프로젝트', '연락처']) => {
     // 모바일 환경 체크
     const isMobile = window.innerWidth <= 768;
     
@@ -9,7 +118,7 @@ const initFullPage = () => {
             scrollHorizontally: true,
             navigation: true,
             navigationPosition: 'right',
-            navigationTooltips: ['소개', '경력', '기술', '자격증', '프로젝트', '연락처'],
+            navigationTooltips: tooltips,
             showActiveTooltip: true,
             slidesNavigation: true,
             controlArrows: true,
@@ -301,6 +410,7 @@ document.addEventListener('DOMContentLoaded', () => {
     handleLoading();
     handleKeyboardNavigation();
     initLazyLoading();
+    initI18n();
     
     window.addEventListener('scroll', handleOptimizedScroll, { passive: true });
 }); 

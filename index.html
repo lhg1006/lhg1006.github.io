@@ -35,46 +35,51 @@
     </div>
 
     <!-- 스킵 네비게이션 -->
-    <a href="#main-content" class="skip-nav">메인 콘텐츠로 바로가기</a>
+    <a href="#main-content" class="skip-nav" data-i18n="common.skipToMain">메인 콘텐츠로 바로가기</a>
 
+    <!-- 테마 토글 버튼 -->
     <button class="theme-toggle" aria-label="테마 변경" title="라이트/다크 모드 전환">
         <i class="fas fa-sun" aria-hidden="true"></i>
         <i class="fas fa-moon" aria-hidden="true"></i>
     </button>
+
+    <!-- 언어 선택 버튼 -->
+    <button class="language-toggle" aria-label="언어 선택" title="한국어/영어 전환">
+        <i class="fas fa-globe" aria-hidden="true"></i>
+        <span class="current-lang">KO</span>
+    </button>
+
     <header role="banner">
         <nav role="navigation" aria-label="메인 네비게이션">
             <ul>
-                <li><a href="#about">소개</a></li>
-                <li><a href="#experience">경력</a></li>
-                <li><a href="#skills">기술</a></li>
-                <li><a href="#certifications">자격증</a></li>
-                <li><a href="#projects">프로젝트</a></li>
-                <li><a href="#contact">연락처</a></li>
+                <li><a href="#about" data-i18n="nav.about">소개</a></li>
+                <li><a href="#experience" data-i18n="nav.experience">경력</a></li>
+                <li><a href="#skills" data-i18n="nav.skills">기술</a></li>
+                <li><a href="#certifications" data-i18n="nav.certifications">자격증</a></li>
+                <li><a href="#projects" data-i18n="nav.projects">프로젝트</a></li>
+                <li><a href="#contact" data-i18n="nav.contact">연락처</a></li>
             </ul>
         </nav>
     </header>
 
     <main id="main-content" role="main">
         <div id="fullpage">
-            <div class="section" id="about" role="region" aria-label="소개" tabindex="-1">
-                <div class="section-content" tabindex="-1">
-                    <div class="about-container" tabindex="-1">
-                        <div class="profile-image" tabindex="-1">
+            <div class="section" id="about" role="region" aria-label="소개">
+                <div class="section-content">
+                    <div class="about-container">
+                        <div class="profile-image">
                             <img src="https://raw.githubusercontent.com/lhg1006/portfolio-images/5032de1886111f194687dad5a893497f89fd12fe/images/common/profileImage.png" 
-                                alt="이효규 프로필 사진"
-                                tabindex="-1"
-                                draggable="false"
-                                style="pointer-events: none;">
+                                alt="이효규 프로필 사진">
                         </div>
-                        <div class="profile-content" tabindex="-1">
-                            <h3 tabindex="-1">이효규</h3>
-                            <p class="job-title" tabindex="-1">풀스택 개발자</p>
-                            <div class="profile-description" tabindex="-1">
-                                <p tabindex="-1">안녕하세요! 백엔드부터 프론트엔드까지 다양한 경험을 가진 풀스택 개발자입니다.</p>
-                                <p tabindex="-1">Spring Boot와 React를 주력으로 사용하며, 새로운 기술 습득에 대한 열정을 가지고 있습니다.</p>
-                                <p tabindex="-1">사용자 경험과 코드 품질을 모두 중요시하며, 효율적이고 확장 가능한 웹 서비스 개발을 지향합니다.</p>
-                                <p class="skills-title" tabindex="-1">주요 기술 스택:</p>
-                                <ul class="skills-list" tabindex="-1">
+                        <div class="profile-content">
+                            <h3 data-i18n="about.title">이효규</h3>
+                            <p class="job-title" data-i18n="about.jobTitle">풀스택 개발자</p>
+                            <div class="profile-description">
+                                <p data-i18n="about.intro.p1">안녕하세요! 백엔드부터 프론트엔드까지 다양한 경험을 가진 풀스택 개발자입니다.</p>
+                                <p data-i18n="about.intro.p2">Spring Boot와 React를 주력으로 사용하며, 새로운 기술 습득에 대한 열정을 가지고 있습니다.</p>
+                                <p data-i18n="about.intro.p3">사용자 경험과 코드 품질을 모두 중요시하며, 효율적이고 확장 가능한 웹 서비스 개발을 지향합니다.</p>
+                                <p class="skills-title" data-i18n="about.skillsTitle">주요 기술 스택:</p>
+                                <ul class="skills-list">
                                     <li>Java</li>
                                     <li>Spring Boot</li>
                                     <li>MySQL</li>
@@ -103,10 +108,10 @@
                                 <span class="status current">재직중</span>
                             </div>
                             <div class="card-content">
-                                <h4>(주)지피티코리아</h4>
-                                <p class="job-position">개발팀 · 사원/팀원 · 웹개발</p>
+                                <h4 data-i18n="experience.companies.gptkorea.name">(주)지피티코리아</h4>
+                                <p class="job-position" data-i18n="experience.companies.gptkorea.position">개발팀 · 사원/팀원 · 웹개발</p>
                                 <div class="job-description">
-                                    <p>웹 서비스 개발</p>
+                                    <p data-i18n="experience.companies.gptkorea.description">웹 서비스 개발</p>
                                     <div class="job-skills">
                                         <span>Java</span>
                                         <span>Spring Boot</span>
@@ -126,15 +131,15 @@
                                 <div class="timeline-date">2022.05 - 2023.12</div>
                             </div>
                             <div class="card-content">
-                                <h4>(주)여보야</h4>
-                                <p class="job-position">글로벌사업부 · 사원/팀원 2년차 · 웹개발</p>
+                                <h4 data-i18n="experience.companies.yeoboya.name">(주)여보야</h4>
+                                <p class="job-position" data-i18n="experience.companies.yeoboya.position">글로벌사업부 · 사원/팀원 2년차 · 웹개발</p>
                                 <div class="job-description">
-                                    <p>여보야 Service & admin 개발 및 유지 보수<br>(API 개발 & 화면 이벤트 처리)</p>
+                                    <p data-i18n="experience.companies.yeoboya.description">여보야 Service & admin 개발 및 유지 보수</p>
                                     <ul>
-                                        <li>성혼지수 이벤트 개발</li>
-                                        <li>좋아요 랭킹 이벤트 개발</li>
-                                        <li>밸런스 게임 이벤트 개발</li>
-                                        <li>마일리지 제도 개발</li>
+                                        <li data-i18n="experience.companies.yeoboya.achievements.item1">성혼지수 이벤트 개발</li>
+                                        <li data-i18n="experience.companies.yeoboya.achievements.item2">좋아요 랭킹 이벤트 개발</li>
+                                        <li data-i18n="experience.companies.yeoboya.achievements.item3">밸런스 게임 이벤트 개발</li>
+                                        <li data-i18n="experience.companies.yeoboya.achievements.item4">마일리지 제도 개발</li>
                                     </ul>
                                     <div class="job-skills">
                                         <span>Java</span>
@@ -160,7 +165,7 @@
                 <div class="section-content skills-section">
                     <div class="skills-grid">
                         <div class="skill-category">
-                            <h3>백엔드</h3>
+                            <h3 data-i18n="skills.backend">백엔드</h3>
                             <div class="skill-item">
                                 <div class="skill-header">
                                     <span class="skill-name">Java</span>
@@ -182,7 +187,7 @@
                         </div>
 
                         <div class="skill-category">
-                            <h3>프론트엔드</h3>
+                            <h3 data-i18n="skills.frontend">프론트엔드</h3>
                             <div class="skill-item">
                                 <div class="skill-header">
                                     <span class="skill-name">React</span>
@@ -204,7 +209,7 @@
                         </div>
 
                         <div class="skill-category">
-                            <h3>데이터베이스</h3>
+                            <h3 data-i18n="skills.database">데이터베이스</h3>
                             <div class="skill-item">
                                 <div class="skill-header">
                                     <span class="skill-name">MySQL</span>
@@ -226,7 +231,7 @@
                         </div>
 
                         <div class="skill-category">
-                            <h3>학습 중인 기술</h3>
+                            <h3 data-i18n="skills.learning">학습 중인 기술</h3>
                             <div class="learning-skills">
                                 <span class="learning-skill-tag">
                                     <i class="fas fa-graduation-cap"></i>
@@ -250,7 +255,7 @@
                 <div class="section-content certifications-section">
                     <div class="certifications-grid">
                         <div class="certification-category">
-                            <h3>자격증</h3>
+                            <h3 data-i18n="certifications.title">자격증</h3>
                             <div class="certification-item">
                                 <div class="certification-header">
                                     <span class="certification-name"> </span>
@@ -270,7 +275,7 @@
                         </div>
 
                         <div class="certification-category">
-                            <h3>교육 이수</h3>
+                            <h3 data-i18n="certifications.education">교육 이수</h3>
                             <div class="certification-item">
                                 <div class="certification-header">
                                     <span class="certification-name"> </span>
@@ -301,8 +306,8 @@
                                 <img src="https://raw.githubusercontent.com/lhg1006/portfolio-images/7726310b5883116df60b99587bf7b8a1b606da75/images/project/pfs-0.png" alt="포트폴리오 프로젝트">
                             </div>
                             <div class="project-info">
-                                <h3>개인 포트폴리오 웹 사이트</h3>
-                                <p class="project-description">
+                                <h3 data-i18n="projects.portfolio.title">개인 포트폴리오 웹 사이트</h3>
+                                <p class="project-description" data-i18n="projects.portfolio.description">
                                     풀스택 개발자로서의 역량과 경험을 보여주는
                                     <br>
                                     반응형 포트폴리오 웹사이트입니다.
@@ -325,9 +330,10 @@
                                 <img src="https://raw.githubusercontent.com/lhg1006/portfolio-images/2d28ecc0cfe5317675dcc42ac4f4fa020d17af21/images/project/tap-0.png" alt="프로젝트 2">
                             </div>
                             <div class="project-info">
-                                <h3>take-a-picture : TAP</h3>
-                                <p class="project-description">
-                                    모바일 화면 기준으로 만들어졌으며<br>
+                                <h3 data-i18n="projects.tap.title">take-a-picture : TAP</h3>
+                                <p class="project-description" data-i18n="projects.tap.description">
+                                    모바일 화면 기준으로 만들어졌으며
+                                    <br>
                                     인스타그램을 모티브로 한 웹 서비스입니다.
                                 </p>
                                 <div class="project-skills">
@@ -350,15 +356,15 @@
                     <div class="contact-links">
                         <a href="mailto:lhg961006@gmail.com" class="contact-item">
                             <i class="fas fa-envelope"></i>
-                            <span>이메일</span>
+                            <span data-i18n="contact.email">이메일</span>
                         </a>
                         <a href="https://www.linkedin.com/in/hyo-lee-13b536340" target="_blank" class="contact-item">
                             <i class="fab fa-linkedin"></i>
-                            <span>LinkedIn</span>
+                            <span data-i18n="contact.linkedin">LinkedIn</span>
                         </a>
                         <a href="https://github.com/lhg1006" target="_blank" class="contact-item">
                             <i class="fab fa-github"></i>
-                            <span>GitHub</span>
+                            <span data-i18n="contact.github">GitHub</span>
                         </a>
                     </div>
                 </div>
