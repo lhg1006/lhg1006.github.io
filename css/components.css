@@ -244,7 +244,6 @@
 .skip-nav:focus {
     top: 0;
 }
-
 /* 언어 선택 버튼 */
 .language-toggle {
     position: fixed;

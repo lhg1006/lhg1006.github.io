@@ -24,27 +24,89 @@
                 "name": "GPTKorea Inc.",
                 "position": "Development Team · Staff · Web Development",
                 "period": "2024.07 - Present",
-                "description": "Web Service Development"
+                "description": "AI-based Web Service Full Stack Development",
+                "achievements": {
+                    "item1": "Independent Frontend Development with Next.js",
+                    "item1_1": "RESTful API Integration and State Management Implementation",
+                    "item1_2": "Responsive UI/UX Design and Development",
+                    "item2": "Spring Boot Backend API Server Development",
+                    "item2_1": "RESTful API Design and Implementation",
+                    "item2_2": "PostgreSQL Database Design and Integration",
+                    "item2_3": "AI Model API Integration and Prompt Engineering Implementation",
+                    "item3": "AI Feature Implementation",
+                    "item3_1": "OpenAI API Integration and Prompt Feature Development",
+                    "item3_2": "Embedding-based Similarity Search System Implementation using PostgreSQL Vector Search",
+                    "item4": "Server Infrastructure Setup and Deployment Management",
+                    "item4_1": "Ubuntu Server Environment Setup and Apache Web Server Configuration",
+                    "item4_2": "Automated Deployment Pipeline Implementation using Shell Script",
+                    "item4_3": "Secure Remote Server Management and Operation via SSH"
+                }
             },
             "yeoboya": {
                 "name": "Yeoboya Inc.",
                 "position": "Global Business Division · Staff 2nd Year · Web Development",
                 "period": "2022.05 - 2023.12",
-                "description": "Yeoboya Service & Admin Development and Maintenance",
+                "description": "Yeoboya (Matching Service) - Backend/Frontend Development",
                 "achievements": {
-                    "item1": "Marriage Success Rate Event Development",
-                    "item2": "Like Ranking Event Development",
-                    "item3": "Balance Game Event Development",
-                    "item4": "Mileage System Development"
+                    "item1": "Service Maintenance and Development",
+                    "item1_1": "Backend System Development for Matching Service with RESTful API",
+                    "item1_2": "User Participation Event System Design and Implementation",
+                    "item1_3": "Marriage Success Rate Event System Implementation",
+                    "item1_4": "Like Ranking System Implementation",
+                    "item1_5": "Balance Game Event Implementation for User Engagement",
+                    "item1_6": "Mileage Accumulation/Usage System Design and Implementation",
+                    "item2": "Admin System Development",
+                    "item2_1": "Event Management Dashboard Design and Implementation",
+                    "item2_2": "Admin Page Development for Data Analysis and Statistics",
+                    "item2_3": "SQL Query Writing",
+                    "item3": "Job Matching Service Development",
+                    "item3_1": "User Application History Page Implementation using TypeScript and React",
+                    "item3_2": "User Activity Log System Development and Monitoring Feature Implementation"
                 }
             }
         }
     },
     "skills": {
+        "title": "Technical Skills",
         "backend": "Backend",
         "frontend": "Frontend",
         "database": "Database",
-        "learning": "Learning"
+        "learning": "Learning",
+        "items": {
+            "java": {
+                "name": "Java",
+                "experience": "3 years"
+            },
+            "springboot": {
+                "name": "Spring Boot",
+                "experience": "3 years"
+            },
+            "react": {
+                "name": "React",
+                "experience": "2 years"
+            },
+            "nextjs": {
+                "name": "Next.js",
+                "experience": "2 years"
+            },
+            "mysql": {
+                "name": "MySQL",
+                "experience": "2 years"
+            },
+            "postgresql": {
+                "name": "PostgreSQL",
+                "experience": "1 year"
+            },
+            "aws": {
+                "name": "AWS"
+            },
+            "docker": {
+                "name": "Docker"
+            },
+            "graphql": {
+                "name": "GraphQL"
+            }
+        }
     },
     "certifications": {
         "title": "Certifications",

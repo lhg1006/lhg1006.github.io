@@ -225,6 +225,9 @@ const initExperienceSlider = () => {
     function updateSliderPosition() {
         slider.style.transform = `translateX(-${currentIndex * 100}%)`;
         updateButtonState();
+        
+        // 현재 보이는 카드의 스크롤 위치 초기화
+        cards[currentIndex].scrollTop = 0;
     }
 
     prevBtn.addEventListener('click', () => {
@@ -416,7 +419,7 @@ document.addEventListener('DOMContentLoaded', function() {
     projectsContainer.innerHTML = '';
     projectsContainer.appendChild(projectsSlider);
 
-    const scrollDots = document.querySelectorAll('.scroll-dot');
+    const scrollDotsContainer = document.querySelector('.scroll-indicator');
     const prevButton = document.querySelector('#projects .project-navigation .nav-button.prev');
     const nextButton = document.querySelector('#projects .project-navigation .nav-button.next');
     const isMobile = window.innerWidth <= 768;
@@ -425,8 +428,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
     let currentIndex = 0;
     let isAnimating = false;
-    const cardsPerView = isMobile ? 1 : 3; // 데스크톱에서 3개 보이도록 수정
+    const cardsPerView = isMobile ? 1 : 3;
     const totalSlides = Math.ceil(projectCards.length / cardsPerView);
+
+    // 스크롤 닷 생성
+    if (scrollDotsContainer) {
+        scrollDotsContainer.innerHTML = ''; // 기존 닷 제거
+        for (let i = 0; i < totalSlides; i++) {
+            const dot = document.createElement('div');
+            dot.className = 'scroll-dot' + (i === 0 ? ' active' : '');
+            dot.addEventListener('click', () => moveSlider(i));
+            scrollDotsContainer.appendChild(dot);
+        }
+    }
 
     // 슬라이더 이동
     function moveSlider(index) {
@@ -474,7 +488,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 스크롤 도트 업데이트
     function updateScrollDots() {
-        scrollDots.forEach((dot, index) => {
+        scrollDotsContainer.querySelectorAll('.scroll-dot').forEach((dot, index) => {
             dot.classList.toggle('active', index === currentIndex);
         });
     }
