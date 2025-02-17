@@ -108,7 +108,7 @@ const getNestedTranslation = (obj, path) => {
 };
 
 // fullPage 설정
-const initFullPage = (tooltips = ['소개', '경력', '기술', '자격증', '프로젝트', '연락처']) => {
+const initFullPage = (tooltips = ['소개', '경력', '프로젝트', '기술']) => {
     // 모바일 환경 체크
     const isMobile = window.innerWidth <= 768;
     

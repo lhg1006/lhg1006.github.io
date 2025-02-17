@@ -50,7 +50,7 @@
     .experience-card {
         flex: 0 0 100vw;
         border-radius: 0;
-        padding: 0 20px;
+        padding: 10px 20px;
     }
 
     /* Contact 섹션 */

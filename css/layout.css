@@ -63,16 +63,14 @@ nav ul li a:hover::after {
 }
 
 /* 메인 레이아웃 */
-main {
-    margin-top: 60px;
-}
 
 /* 섹션 레이아웃 */
 .section {
     position: relative;
-    min-height: 100vh;
-    transition: padding-top 0.3s ease;
-    background-color: var(--bg-primary);
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .section:nth-child(even) {
@@ -80,12 +78,14 @@ main {
 }
 
 .section-content {
-    position: relative;
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 2rem;
-    transition: transform 0.3s ease;
+    padding: 5rem 5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 /* 푸터 레이아웃 */
@@ -131,4 +131,11 @@ footer p {
 
 ::-webkit-scrollbar-thumb:hover {
     background: var(--secondary-color);
+}
+
+/* 반응형 조정 */
+@media (max-width: 768px) {
+    .section-content {
+        padding: 0 1rem;
+    }
 } 

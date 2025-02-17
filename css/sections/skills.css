@@ -1,22 +1,23 @@
 .skills-section {
-    padding: 2rem;
+    width: 100%;
     max-width: 1200px;
     margin: 0 auto;
+    padding: 2rem;
 }
 
 .skills-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
     gap: 2rem;
-    margin-top: 2rem;
+    width: 100%;
 }
 
 .skill-category {
-    background: var(--card-bg);
-    border-radius: 20px;
-    padding: 2rem;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: linear-gradient(145deg, var(--bg-card) 0%, var(--bg-secondary) 100%);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .skill-category:hover {
@@ -26,21 +27,9 @@
 
 .skill-category h3 {
     color: var(--text-primary);
-    margin-bottom: 2rem;
     font-size: 1.5rem;
-    position: relative;
-    padding-bottom: 0.5rem;
-}
-
-.skill-category h3::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 40px;
-    height: 3px;
-    background: var(--accent-color);
-    border-radius: 2px;
+    margin-bottom: 1.5rem;
+    text-align: center;
 }
 
 .skill-item {
@@ -167,4 +156,31 @@
 
 .skill-category:nth-child(4) {
     animation-delay: 0.6s;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 1200px) {
+    .skills-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .skills-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .skills-section {
+        padding: 1rem;
+    }
+
+    .skill-category {
+        padding: 1rem;
+    }
+
+    .skill-category h3 {
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
+    }
 } 

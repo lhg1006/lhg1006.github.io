@@ -118,4 +118,89 @@ img {
 
 #fp-nav ul li .fp-tooltip.fp-right {
     right: 30px;
+}
+
+/* 푸터 스타일 */
+.site-footer {
+    background-color: var(--bg-primary);
+    border-top: 1px solid var(--border-color);
+    padding: 1.5rem 0;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.footer-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.copyright {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.footer-links {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.footer-links a {
+    color: var(--text-secondary);
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: var(--accent-color);
+}
+
+/* 푸터로 인한 메인 컨텐츠 조정 */
+#fullpage {
+    margin-bottom: 80px; /* 푸터 높이만큼 여백 추가 */
+}
+
+@media (max-width: 768px) {
+    .footer-info {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.8rem;
+    }
+
+    .site-footer {
+        padding: 1rem 0;
+    }
+
+    .footer-links {
+        gap: 2rem;
+    }
+}
+
+/* fullpage.js 오버플로우 스크롤바 숨기기 */
+.fp-is-overflow .fp-overflow.fp-auto-height,
+.fp-is-overflow .fp-overflow.fp-auto-height-responsive,
+.fp-is-overflow > .fp-overflow {
+    -ms-overflow-style: none !important;  /* IE and Edge */
+    scrollbar-width: none !important;     /* Firefox */
+}
+
+.fp-is-overflow .fp-overflow.fp-auto-height::-webkit-scrollbar,
+.fp-is-overflow .fp-overflow.fp-auto-height-responsive::-webkit-scrollbar,
+.fp-is-overflow > .fp-overflow::-webkit-scrollbar {
+    display: none !important;  /* Chrome, Safari, Opera */
 } 
