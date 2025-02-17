@@ -41,10 +41,8 @@ const initI18n = async () => {
                 const tooltips = [
                     translations[currentLang].nav.about,
                     translations[currentLang].nav.experience,
-                    translations[currentLang].nav.skills,
-                    translations[currentLang].nav.certifications,
                     translations[currentLang].nav.projects,
-                    translations[currentLang].nav.contact
+                    translations[currentLang].nav.skills,    
                 ];
                 
                 if (fullpage_api) {
@@ -128,27 +126,34 @@ const initFullPage = (tooltips = ['소개', '경력', '프로젝트', '기술'])
             fitToSectionDelay: 600,
             scrollOverflow: true,
             touchSensitivity: 15,
-            normalScrollElements: '.experience-cards',
-            keyboardScrolling: false, // 키보드 스크롤 비활성화
-            animateAnchor: false, // 앵커 애니메이션 비활성화
-            
-            onLeave: handleSectionLeave,
-            afterLoad: handleSectionLoad,
-            afterRender: () => {
-                // 초기 렌더링 후 포커스 제거
-                document.querySelector('#about').blur();
-                document.activeElement.blur();
+            normalScrollElements: '.experience-card',
+            scrollOverflowReset: false,
+            bigSectionsDestination: 'top',
+            scrollOverflowOptions: {
+                scrollbars: true,
+                mouseWheel: true,
+                hideScrollbars: false,
+                fadeScrollbars: false,
+                disableMouse: false,
+                interactiveScrollbars: true
             },
-            afterResize: adjustSectionOffset
+            afterRender: function() {
+                // 프로젝트 컨테이너의 스크롤 방지
+                const projectsContainer = document.querySelector('.projects-container');
+                if (projectsContainer) {
+                    projectsContainer.style.overflowX = 'hidden';
+                }
+            },
+      
         });
     } else {
-        // 모바일에서는 일반 스크롤 적용
+        // 모바일 설정
         document.querySelector('#fullpage').style.overflow = 'auto';
         document.querySelectorAll('.section').forEach(section => {
             section.style.height = 'auto';
             section.style.minHeight = '100vh';
-            section.style.paddingTop = '80px'; // 헤더 높이만큼 여백
-            section.style.paddingBottom = '60px'; // 푸터 높이만큼 여백
+            section.style.paddingTop = '80px';
+            section.style.paddingBottom = '60px';
         });
     }
 };
@@ -205,20 +210,16 @@ const adjustSectionOffset = () => {
 // 경력 슬라이더 초기화
 const initExperienceSlider = () => {
     const slider = document.querySelector('.experience-cards');
-    const prevBtn = document.querySelector('.slider-btn.prev');
-    const nextBtn = document.querySelector('.slider-btn.next');
+    const prevBtn = document.querySelector('.experience-slider .nav-button.prev');
+    const nextBtn = document.querySelector('.experience-slider .nav-button.next');
     const cards = document.querySelectorAll('.experience-card');
     let currentIndex = 0;
 
-    // 초기 버튼 상태 설정
-    updateButtonState();
+    if (!slider || !prevBtn || !nextBtn) return;
 
     function updateButtonState() {
-        prevBtn.style.opacity = currentIndex === 0 ? '0.5' : '1';
-        prevBtn.style.pointerEvents = currentIndex === 0 ? 'none' : 'auto';
-        
-        nextBtn.style.opacity = currentIndex === cards.length - 1 ? '0.5' : '1';
-        nextBtn.style.pointerEvents = currentIndex === cards.length - 1 ? 'none' : 'auto';
+        prevBtn.disabled = currentIndex === 0;
+        nextBtn.disabled = currentIndex === cards.length - 1;
     }
 
     function updateSliderPosition() {
@@ -226,21 +227,22 @@ const initExperienceSlider = () => {
         updateButtonState();
     }
 
-    if (prevBtn && nextBtn) {
-        prevBtn.addEventListener('click', () => {
-            if (currentIndex > 0) {
-                currentIndex--;
-                updateSliderPosition();
-            }
-        });
+    prevBtn.addEventListener('click', () => {
+        if (currentIndex > 0) {
+            currentIndex--;
+            updateSliderPosition();
+        }
+    });
 
-        nextBtn.addEventListener('click', () => {
-            if (currentIndex < cards.length - 1) {
-                currentIndex++;
-                updateSliderPosition();
-            }
-        });
-    }
+    nextBtn.addEventListener('click', () => {
+        if (currentIndex < cards.length - 1) {
+            currentIndex++;
+            updateSliderPosition();
+        }
+    });
+
+    // 초기 버튼 상태 설정
+    updateButtonState();
 };
 
 // 리사이즈 이벤트 처리 (디바운스)
@@ -398,6 +400,150 @@ const debounce = (func, wait) => {
 const handleOptimizedScroll = debounce(() => {
     // 스크롤 관련 처리
 }, 150);
+
+// 프로젝트 슬라이더 기능
+document.addEventListener('DOMContentLoaded', function() {
+    const projectsContainer = document.querySelector('.projects-container');
+    if (!projectsContainer) return;
+
+    // 슬라이더 래퍼 생성 및 초기화
+    const projectsSlider = document.createElement('div');
+    projectsSlider.className = 'projects-slider';
+    const projectCards = document.querySelectorAll('.project-card');
+    projectCards.forEach(card => {
+        projectsSlider.appendChild(card.cloneNode(true));
+    });
+    projectsContainer.innerHTML = '';
+    projectsContainer.appendChild(projectsSlider);
+
+    const scrollDots = document.querySelectorAll('.scroll-dot');
+    const prevButton = document.querySelector('#projects .project-navigation .nav-button.prev');
+    const nextButton = document.querySelector('#projects .project-navigation .nav-button.next');
+    const isMobile = window.innerWidth <= 768;
+
+    if (!prevButton || !nextButton) return;
+
+    let currentIndex = 0;
+    let isAnimating = false;
+    const cardsPerView = isMobile ? 1 : 3; // 데스크톱에서 3개 보이도록 수정
+    const totalSlides = Math.ceil(projectCards.length / cardsPerView);
+
+    // 슬라이더 이동
+    function moveSlider(index) {
+        if (isAnimating) return;
+        isAnimating = true;
+        
+        // 인덱스 범위 제한
+        currentIndex = Math.max(0, Math.min(index, totalSlides - 1));
+        const slideWidth = projectsContainer.offsetWidth;
+        const translateX = -currentIndex * slideWidth;
+        
+        requestAnimationFrame(() => {
+            projectsSlider.style.transform = `translateX(${translateX}px)`;
+        });
+        
+        updateButtonState();
+        updateScrollDots();
+        
+        setTimeout(() => {
+            isAnimating = false;
+        }, 300);
+    }
+
+    // 버튼 상태 업데이트
+    function updateButtonState() {
+        prevButton.disabled = currentIndex <= 0;
+        nextButton.disabled = currentIndex >= totalSlides - 1;
+        
+        prevButton.style.opacity = prevButton.disabled ? '0.5' : '1';
+        nextButton.style.opacity = nextButton.disabled ? '0.5' : '1';
+    }
+
+    // 네비게이션 버튼 이벤트
+    prevButton.addEventListener('click', () => {
+        if (currentIndex > 0 && !isAnimating) {
+            moveSlider(currentIndex - 1);
+        }
+    });
+
+    nextButton.addEventListener('click', () => {
+        if (currentIndex < totalSlides - 1 && !isAnimating) {
+            moveSlider(currentIndex + 1);
+        }
+    });
+
+    // 스크롤 도트 업데이트
+    function updateScrollDots() {
+        scrollDots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === currentIndex);
+        });
+    }
+
+    // 터치 이벤트 처리
+    let touchStartX = 0;
+    let touchEndX = 0;
+    let isDragging = false;
+    let startTranslateX = 0;
+
+    projectsSlider.addEventListener('touchstart', (e) => {
+        if (isAnimating) return;
+        isDragging = true;
+        touchStartX = e.touches[0].clientX;
+        startTranslateX = -currentIndex * projectsContainer.offsetWidth;
+        projectsSlider.style.transition = 'none';
+    }, { passive: true });
+
+    projectsSlider.addEventListener('touchmove', (e) => {
+        if (!isDragging) return;
+        touchEndX = e.touches[0].clientX;
+        const diff = touchEndX - touchStartX;
+        const newTranslateX = startTranslateX + diff;
+        
+        // 슬라이드 범위 제한
+        if (newTranslateX > 0 || newTranslateX < -(totalSlides - 1) * projectsContainer.offsetWidth) {
+            return;
+        }
+        
+        requestAnimationFrame(() => {
+            projectsSlider.style.transform = `translateX(${newTranslateX}px)`;
+        });
+    }, { passive: true });
+
+    projectsSlider.addEventListener('touchend', () => {
+        if (!isDragging) return;
+        isDragging = false;
+        projectsSlider.style.transition = 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+        
+        const touchDiff = touchStartX - touchEndX;
+        const minSwipeDistance = 50;
+
+        if (Math.abs(touchDiff) > minSwipeDistance) {
+            if (touchDiff > 0 && currentIndex < totalSlides - 1) {
+                moveSlider(currentIndex + 1);
+            } else if (touchDiff < 0 && currentIndex > 0) {
+                moveSlider(currentIndex - 1);
+            } else {
+                moveSlider(currentIndex);
+            }
+        } else {
+            moveSlider(currentIndex);
+        }
+    });
+
+    // 초기 설정
+    updateButtonState();
+    updateScrollDots();
+
+    // 리사이즈 이벤트 처리
+    window.addEventListener('resize', debounce(() => {
+        const newIsMobile = window.innerWidth <= 768;
+        if (newIsMobile !== isMobile) {
+            location.reload();
+        } else {
+            moveSlider(currentIndex);
+        }
+    }, 250));
+});
 
 // 초기화
 document.addEventListener('DOMContentLoaded', () => {

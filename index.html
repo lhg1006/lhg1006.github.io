@@ -50,14 +50,7 @@
     </button>
 
     <header role="banner">
-        <nav role="navigation" aria-label="메인 네비게이션">
-            <ul>
-                <li><a href="#about" data-i18n="nav.about">소개</a></li>
-                <li><a href="#experience" data-i18n="nav.experience">경력</a></li>
-                <li><a href="#skills" data-i18n="nav.skills">기술</a></li>
-                <li><a href="#projects" data-i18n="nav.projects">프로젝트</a></li>
-            </ul>
-        </nav>
+        <div class="header-title">이효규 포트폴리오</div>
     </header>
 
     <main id="main-content" role="main">
@@ -227,12 +220,155 @@
                                 </div>
                             </div>
                         </div>
-                        <button class="slider-btn prev" aria-label="이전 경력">
+                        <div class="project-navigation">
+                            <button class="nav-button prev" aria-label="이전 경력">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <button class="nav-button next" aria-label="다음 경력">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+
+            <div class="section" id="projects" role="region" aria-label="프로젝트">
+                <div class="section-content">
+                    <h2 class="section-title" data-i18n="projects.title">프로젝트</h2>
+                    <div class="projects-container">
+                        <!-- 프로젝트 카드 1 -->
+                        <a href="https://github.com/lhg1006/lhg-portfolio" target="_blank" class="project-card">
+                            <div class="project-image">
+                                <img src="https://raw.githubusercontent.com/lhg1006/portfolio-images/7726310b5883116df60b99587bf7b8a1b606da75/images/project/pfs-0.png" alt="포트폴리오 프로젝트">
+                            </div>
+                            <div class="project-info">
+                                <h3 data-i18n="projects.portfolio.title">개인 포트폴리오 웹 사이트</h3>
+                                <p class="project-description" data-i18n="projects.portfolio.description">
+                                    풀스택 개발자로서의 역량과 경험을 보여주는
+                                    <br>
+                                    반응형 포트폴리오 웹사이트입니다.
+                                </p>
+                                <div class="project-skills">
+                                    <span>Next.js</span>
+                                    <span>React</span>
+                                    <span>TypeScript</span>
+                                    <span>Responsive Design</span>
+                                    <span>Java</span>
+                                    <span>Spring Boot</span>
+                                    <span>MySQL</span>
+                                </div>
+                            </div>
+                        </a>
+
+                        <!-- 프로젝트 카드 2 -->
+                        <a href="https://github.com/lhg1006/Take-a-picture-TAP_js" target="_blank" class="project-card">
+                            <div class="project-image">
+                                <img src="https://raw.githubusercontent.com/lhg1006/portfolio-images/2d28ecc0cfe5317675dcc42ac4f4fa020d17af21/images/project/tap-0.png" alt="프로젝트 2">
+                            </div>
+                            <div class="project-info">
+                                <h3 data-i18n="projects.tap.title">take-a-picture : TAP</h3>
+                                <p class="project-description" data-i18n="projects.tap.description">
+                                    모바일 화면 기준으로 만들어졌으며
+                                    <br>
+                                    인스타그램을 모티브로 한 웹 서비스입니다.
+                                </p>
+                                <div class="project-skills">
+                                    <span>Next.js</span>
+                                    <span>React</span>
+                                    <span>TypeScript</span>
+                                    <span>Responsive Design</span>
+                                    <span>Java</span>
+                                    <span>Spring Boot</span>
+                                    <span>MySQL</span>
+                                </div>
+                            </div>
+                        </a>
+
+                        <!-- 프로젝트 카드 3 -->
+                        <a href="https://github.com/lhg1006/mbti-test" target="_blank" class="project-card">
+                            <div class="project-image">
+                                <img src="https://raw.githubusercontent.com/lhg1006/portfolio-images/a3ed392a2921be631bc8d94977ee17c8f26fb0d6/images/project/mbti-0.png" alt="프로젝트 3">
+                            </div>
+                            <div class="project-info">
+                                <h3 data-i18n="projects.mbti.title">🧠 MBTI 성격유형 테스트</h3>
+                                <p class="project-description" data-i18n="projects.mbti.description">
+                                    20개의 질문을 통한 MBTI 성격유형 분석<br>
+                                    모바일 친화적인 반응형 디자인<br>
+                                    부드러운 애니메이션과 인터랙션
+                                </p>
+                                <div class="project-skills">
+                                    <span>Next.js</span>
+                                    <span>React</span>
+                                    <span>TypeScript</span>
+                                    <span>Responsive Design</span>
+                                </div>
+                            </div>
+                        </a>
+
+                        <!-- 프로젝트 카드 4 -->
+                        <a href="https://github.com/lhg1006/tarot-fortune" target="_blank" class="project-card">
+                            <div class="project-image">
+                                <img src="https://raw.githubusercontent.com/lhg1006/portfolio-images/e68c1d680a5e0ccbda716b34dec41439bc986949/images/project/tarot-0.png" alt="프로젝트 4">
+                            </div>
+                            <div class="project-info">
+                                <h3 data-i18n="projects.tarot.title">🔮 타로 운세 웹 애플리케이션</h3>
+                                <p class="project-description" data-i18n="projects.tarot.description">
+                                    타로 카드 선택<br>
+                                    선택한 카드에 따른 운세 결과 제공<br>
+                                </p>
+                                <div class="project-skills">
+                                    <span>Next.js</span>
+                                    <span>React</span>
+                                    <span>TypeScript</span>
+                                    <span>Responsive Design</span>
+                                </div>
+                            </div>
+                        </a>
+
+                        <!-- 프로젝트 카드 5-->
+                        <a href="https://github.com/lhg1006/lotto-number-generator" target="_blank" class="project-card">
+                            <div class="project-image">
+                                <img src="https://raw.githubusercontent.com/lhg1006/portfolio-images/a3ed392a2921be631bc8d94977ee17c8f26fb0d6/images/project/ltg-0.png" alt="프로젝트 5">
+                            </div>
+                            <div class="project-info">
+                                <h3 data-i18n="projects.lotto.title">🎱 로또 번호 추첨기</h3>
+                                <p class="project-description" data-i18n="projects.lotto.description">
+                                    로또 번호 추첨기<br>
+                                    무료로 로또 번호를 생성할 수 있는 웹 애플리케이션입니다.
+                                </p>
+                                <div class="project-skills">
+                                    <span>Next.js</span>
+                                    <span>React</span>
+                                    <span>TypeScript</span>
+                                    <span>Responsive Design</span>
+                                </div>
+                            </div>
+                        </a>
+
+                        <!-- 스와이프 힌트 -->
+                        <div class="swipe-hint">
+                            <i class="fas fa-arrow-left"></i>
+                            <span>스와이프하여 더 보기</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </div>
+                    <div class="project-navigation">
+                        <button class="nav-button prev" aria-label="이전 프로젝트">
                             <i class="fas fa-chevron-left"></i>
                         </button>
-                        <button class="slider-btn next" aria-label="다음 경력">
+                        <button class="nav-button next" aria-label="다음 프로젝트">
                             <i class="fas fa-chevron-right"></i>
                         </button>
+                    </div>
+                    <!-- 스크롤 표시기 -->
+                    <div class="scroll-indicator">
+                        <span class="scroll-dot active"></span>
+                        <span class="scroll-dot"></span>
+                        <span class="scroll-dot"></span>
+                        <span class="scroll-dot"></span>
+                        <span class="scroll-dot"></span>
                     </div>
                 </div>
             </div>
@@ -324,61 +460,6 @@
                                 </span>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="section" id="projects" role="region" aria-label="프로젝트">
-                <div class="section-content">
-                    <h2 class="section-title" data-i18n="projects.title">프로젝트</h2>
-                    <div class="projects-container">
-                        <!-- 프로젝트 카드 1 -->
-                        <a href="https://github.com/lhg1006/lhg-portfolio" target="_blank" class="project-card">
-                            <div class="project-image">
-                                <img src="https://raw.githubusercontent.com/lhg1006/portfolio-images/7726310b5883116df60b99587bf7b8a1b606da75/images/project/pfs-0.png" alt="포트폴리오 프로젝트">
-                            </div>
-                            <div class="project-info">
-                                <h3 data-i18n="projects.portfolio.title">개인 포트폴리오 웹 사이트</h3>
-                                <p class="project-description" data-i18n="projects.portfolio.description">
-                                    풀스택 개발자로서의 역량과 경험을 보여주는
-                                    <br>
-                                    반응형 포트폴리오 웹사이트입니다.
-                                </p>
-                                <div class="project-skills">
-                                    <span>Next.js</span>
-                                    <span>React</span>
-                                    <span>TypeScript</span>
-                                    <span>Responsive Design</span>
-                                    <span>Java</span>
-                                    <span>Spring Boot</span>
-                                    <span>MySQL</span>
-                                </div>
-                            </div>
-                        </a>
-
-                        <!-- 프로젝트 카드 2 -->
-                        <a href="https://github.com/lhg1006/Take-a-picture-TAP_js" target="_blank" class="project-card">
-                            <div class="project-image">
-                                <img src="https://raw.githubusercontent.com/lhg1006/portfolio-images/2d28ecc0cfe5317675dcc42ac4f4fa020d17af21/images/project/tap-0.png" alt="프로젝트 2">
-                            </div>
-                            <div class="project-info">
-                                <h3 data-i18n="projects.tap.title">take-a-picture : TAP</h3>
-                                <p class="project-description" data-i18n="projects.tap.description">
-                                    모바일 화면 기준으로 만들어졌으며
-                                    <br>
-                                    인스타그램을 모티브로 한 웹 서비스입니다.
-                                </p>
-                                <div class="project-skills">
-                                    <span>Next.js</span>
-                                    <span>React</span>
-                                    <span>TypeScript</span>
-                                    <span>Responsive Design</span>
-                                    <span>Java</span>
-                                    <span>Spring Boot</span>
-                                    <span>MySQL</span>
-                                </div>
-                            </div>
-                        </a>
                     </div>
                 </div>
             </div>

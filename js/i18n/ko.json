@@ -51,6 +51,7 @@
         "education": "교육 이수"
     },
     "projects": {
+        "title": "프로젝트",
         "portfolio": {
             "title": "개인 포트폴리오 웹 사이트",
             "description": "풀스택 개발자로서의 역량과 경험을 보여주는\n반응형 포트폴리오 웹사이트입니다."
@@ -58,6 +59,18 @@
         "tap": {
             "title": "take-a-picture : TAP",
             "description": "모바일 화면 기준으로 만들어졌으며\n인스타그램을 모티브로 한 웹 서비스입니다."
+        },
+        "mbti": {
+            "title": "🧠 MBTI 성격유형 테스트",
+            "description": "20개의 질문을 통한 MBTI 성격유형 분석\n모바일 친화적인 반응형 디자인\n부드러운 애니메이션과 인터랙션"
+        },
+        "tarot": {
+            "title": "🔮 타로 운세 웹 애플리케이션",
+            "description": "타로 카드 선택\n선택한 카드에 따른 운세 결과 제공"
+        },
+        "lotto": {
+            "title": "🎱 로또 번호 추첨기",
+            "description": "로또 번호 추첨기\n무료로 로또 번호를 생성할 수 있는 웹 애플리케이션입니다."
         }
     },
     "contact": {

@@ -51,13 +51,26 @@
         "education": "Education"
     },
     "projects": {
+        "title": "Projects",
         "portfolio": {
             "title": "Personal Portfolio Website",
-            "description": "A responsive portfolio website showcasing\nmy capabilities and experience as a full-stack developer."
+            "description": "A responsive portfolio website\nshowcasing my skills and experience as a full-stack developer."
         },
         "tap": {
             "title": "take-a-picture : TAP",
-            "description": "A mobile-first web service\ninspired by Instagram."
+            "description": "A web service inspired by Instagram,\ndesigned primarily for mobile screens."
+        },
+        "mbti": {
+            "title": "🧠 MBTI Personality Test",
+            "description": "MBTI personality type analysis through 20 questions\nMobile-friendly responsive design\nSmooth animations and interactions"
+        },
+        "tarot": {
+            "title": "🔮 Tarot Fortune Web Application",
+            "description": "Tarot card selection\nFortune telling based on selected cards"
+        },
+        "lotto": {
+            "title": "🎱 Lotto Number Generator",
+            "description": "Lotto number generator\nA free web application for generating lottery numbers"
         }
     },
     "contact": {
