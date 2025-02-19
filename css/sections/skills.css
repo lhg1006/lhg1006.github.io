@@ -119,12 +119,14 @@
 }
 
 [data-theme="dark"] .learning-skill-tag {
-    background: var(--accent-color);
-    color: #ffffff;
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.9);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 [data-theme="dark"] .learning-skill-tag:hover {
+    background: var(--accent-color);
+    color: #ffffff;
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
 }
 
@@ -184,4 +186,40 @@
         font-size: 1.3rem;
         margin-bottom: 1rem;
     }
+}
+
+[data-theme="dark"] .skill-category {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .skill-category:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="dark"] .skill-category h3 {
+    color: rgba(255, 255, 255, 0.95);
+}
+
+[data-theme="dark"] .skill-name {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+[data-theme="dark"] .skill-experience {
+    color: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .skill-progress-container {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .skill-progress-bar {
+    background: var(--accent-color);
+}
+
+[data-theme="dark"] .skill-progress-bar::after {
+    color: rgba(255, 255, 255, 0.9);
 } 
