@@ -1,576 +1,336 @@
-// 언어 관리
-let currentLang = 'ko';
-let translations = {};
+// 포트폴리오 메인 JavaScript
 
-const initI18n = async () => {
-    try {
-        // 번역 파일 로드
-        const [koResponse, enResponse] = await Promise.all([
-            fetch('js/i18n/ko.json'),
-            fetch('js/i18n/en.json')
-        ]);
-        
-        if (!koResponse.ok || !enResponse.ok) {
-            throw new Error('Failed to load translation files');
-        }
-
-        translations = {
-            ko: await koResponse.json(),
-            en: await enResponse.json()
-        };
-
-        // 저장된 언어 설정 확인
-        const savedLang = localStorage.getItem('language');
-        if (savedLang && ['ko', 'en'].includes(savedLang)) {
-            currentLang = savedLang;
-            document.documentElement.lang = currentLang;
-            updateLanguage(currentLang);
-        }
-
-        // 언어 변경 이벤트 리스너
-        const langToggle = document.querySelector('.language-toggle');
-        if (langToggle) {
-            langToggle.addEventListener('click', () => {
-                const currentSection = fullpage_api.getActiveSection().index;
-                currentLang = currentLang === 'ko' ? 'en' : 'ko';
-                document.documentElement.lang = currentLang;
-                updateLanguage(currentLang);
-                localStorage.setItem('language', currentLang);
-
-                // fullPage.js 네비게이션 툴팁 업데이트
-                const tooltips = [
-                    translations[currentLang].nav.about,
-                    translations[currentLang].nav.experience,
-                    translations[currentLang].nav.projects,
-                    translations[currentLang].nav.skills,    
-                ];
-                
-                if (fullpage_api) {
-                    fullpage_api.destroy('all');
-                    initFullPage(tooltips);
-                    // 이전 섹션으로 이동
-                    fullpage_api.silentMoveTo(currentSection + 1);
-                }
-            });
-        }
-    } catch (error) {
-        console.error('Failed to initialize translations:', error);
-    }
-};
-
-const updateLanguage = (lang) => {
-    try {
-        // 현재 언어 표시 업데이트
-        const langDisplay = document.querySelector('.current-lang');
-        if (langDisplay) {
-            langDisplay.textContent = lang.toUpperCase();
-        }
-        
-        // 모든 번역 요소 업데이트
-        document.querySelectorAll('[data-i18n]').forEach(element => {
-            const key = element.getAttribute('data-i18n');
-            const translation = getNestedTranslation(translations[lang], key);
-            if (translation) {
-                if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-                    element.placeholder = translation;
-                } else {
-                    element.textContent = translation;
-                }
-            }
-        });
-
-        // ARIA 레이블 업데이트
-        document.querySelectorAll('[aria-label]').forEach(element => {
-            const key = element.getAttribute('data-i18n-aria');
-            if (key) {
-                const translation = getNestedTranslation(translations[lang], key);
-                if (translation) {
-                    element.setAttribute('aria-label', translation);
-                }
-            }
-        });
-    } catch (error) {
-        console.error('Error updating language:', error);
-    }
-};
-
-const getNestedTranslation = (obj, path) => {
-    try {
-        return path.split('.').reduce((prev, curr) => {
-            return prev ? prev[curr] : null;
-        }, obj);
-    } catch (error) {
-        console.error('Error getting translation:', error);
-        return null;
-    }
-};
-
-// fullPage 설정
-const initFullPage = (tooltips = ['소개', '경력', '프로젝트', '기술']) => {
-    // 모바일 환경 체크
-    const isMobile = window.innerWidth <= 768;
-    
-    if (!isMobile) {
-        new fullpage('#fullpage', {
-            autoScrolling: true,
-            scrollHorizontally: true,
-            navigation: true,
-            navigationPosition: 'right',
-            navigationTooltips: tooltips,
-            showActiveTooltip: true,
-            slidesNavigation: true,
-            controlArrows: true,
-            scrollingSpeed: 700,
-            offsetSections: true,
-            fitToSection: true,
-            fitToSectionDelay: 600,
-            scrollOverflow: true,
-            touchSensitivity: 15,
-            normalScrollElements: '.experience-card',
-            scrollOverflowReset: false,
-            bigSectionsDestination: 'top',
-            scrollOverflowOptions: {
-                scrollbars: true,
-                mouseWheel: true,
-                hideScrollbars: false,
-                fadeScrollbars: false,
-                disableMouse: false,
-                interactiveScrollbars: true
-            },
-            afterRender: function() {
-                // 프로젝트 컨테이너의 스크롤 방지
-                const projectsContainer = document.querySelector('.projects-container');
-                if (projectsContainer) {
-                    projectsContainer.style.overflowX = 'hidden';
-                }
-            },
-      
-        });
-    } else {
-        // 모바일 설정
-        document.querySelector('#fullpage').style.overflow = 'auto';
-        document.querySelectorAll('.section').forEach(section => {
-            section.style.height = 'auto';
-            section.style.minHeight = '100vh';
-            section.style.paddingTop = '80px';
-            section.style.paddingBottom = '60px';
-        });
-    }
-};
-
-// 섹션 전환 처리
-const handleSectionLeave = (origin, destination, direction) => {
-    if (window.innerWidth <= 768) {
-        const headerHeight = document.querySelector('header').offsetHeight;
-        destination.item.style.paddingTop = `${headerHeight}px`;
-        
-        if (destination.index !== 0) {
-            destination.item.style.paddingTop = `${headerHeight + 20}px`;
-        }
-    } else {
-        destination.item.style.paddingTop = '0';
-    }
-};
-
-// 섹션 로드 처리
-const handleSectionLoad = (origin, destination, direction) => {
-    if (window.innerWidth <= 768) {
-        const headerHeight = document.querySelector('header').offsetHeight;
-        const content = destination.item.querySelector('.section-content');
-        if (content) {
-            // content.style.marginTop = `${headerHeight}px`;
-        }
-    }
-};
-
-// 섹션 오프셋 조정
-const adjustSectionOffset = () => {
-    const isMobile = window.innerWidth <= 768;
-    const headerHeight = document.querySelector('header').offsetHeight;
-    
-    document.querySelectorAll('.section').forEach((section, index) => {
-        if (isMobile) {
-            const padding = index === 0 ? headerHeight : headerHeight + 20;
-            section.style.paddingTop = `${padding}px`;
-            
-            const content = section.querySelector('.section-content');
-            if (content) {
-                // content.style.marginTop = `${headerHeight}px`;
-            }
-        } else {
-            section.style.paddingTop = '0';
-            const content = section.querySelector('.section-content');
-            if (content) {
-                content.style.marginTop = '0';
-            }
-        }
-    });
-};
-
-// 경력 슬라이더 초기화
-const initExperienceSlider = () => {
-    const slider = document.querySelector('.experience-cards');
-    const prevBtn = document.querySelector('.experience-slider .nav-button.prev');
-    const nextBtn = document.querySelector('.experience-slider .nav-button.next');
-    const cards = document.querySelectorAll('.experience-card');
-    let currentIndex = 0;
-
-    if (!slider || !prevBtn || !nextBtn) return;
-
-    function updateButtonState() {
-        prevBtn.disabled = currentIndex === 0;
-        nextBtn.disabled = currentIndex === cards.length - 1;
-    }
-
-    function updateSliderPosition() {
-        slider.style.transform = `translateX(-${currentIndex * 100}%)`;
-        updateButtonState();
-        
-        // 현재 보이는 카드의 스크롤 위치 초기화
-        cards[currentIndex].scrollTop = 0;
-    }
-
-    prevBtn.addEventListener('click', () => {
-        if (currentIndex > 0) {
-            currentIndex--;
-            updateSliderPosition();
-        }
-    });
-
-    nextBtn.addEventListener('click', () => {
-        if (currentIndex < cards.length - 1) {
-            currentIndex++;
-            updateSliderPosition();
-        }
-    });
-
-    // 초기 버튼 상태 설정
-    updateButtonState();
-};
-
-// 리사이즈 이벤트 처리 (디바운스)
-const handleResize = () => {
-    let resizeTimer;
-    window.addEventListener('resize', () => {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(() => {
-            // 화면 크기가 변경될 때 페이지 새로고침
-            location.reload();
-        }, 250);
-    });
-};
+// DOM 요소들
+const themeToggles = document.querySelectorAll('.theme-toggle');
+const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+const mobileNavMenu = document.querySelector('.mobile-nav-menu');
+const navLinks = document.querySelectorAll('.nav-link');
+const navDots = document.querySelectorAll('.nav-dot');
+const sections = document.querySelectorAll('.section');
 
 // 테마 관리
 const initTheme = () => {
-    const themeToggle = document.querySelector('.theme-toggle');
-    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
-    
-    // 저장된 테마 또는 시스템 설정에 따른 초기 테마 설정
     const savedTheme = localStorage.getItem('theme');
+    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+
     if (savedTheme) {
         document.documentElement.setAttribute('data-theme', savedTheme);
     } else if (prefersDarkScheme.matches) {
         document.documentElement.setAttribute('data-theme', 'dark');
     }
 
-    // 테마 토글 이벤트
-    themeToggle.addEventListener('click', () => {
-        const currentTheme = document.documentElement.getAttribute('data-theme');
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-        
-        document.documentElement.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
-    });
-
-    // 시스템 테마 변경 감지
-    prefersDarkScheme.addEventListener('change', (e) => {
-        if (!localStorage.getItem('theme')) {
-            const newTheme = e.matches ? 'dark' : 'light';
-            document.documentElement.setAttribute('data-theme', newTheme);
+    // 테마 토글 이벤트 (모든 토글 버튼에 적용)
+    themeToggles.forEach(toggle => {
+        if (toggle) {
+            toggle.addEventListener('click', () => {
+                const currentTheme = document.documentElement.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                
+                document.documentElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+            });
         }
     });
 };
 
-// 스킬 프로그레스 바 초기화
-function initializeSkillBars() {
-    const progressBars = document.querySelectorAll('.skill-progress-bar');
+// 모바일 메뉴 관리
+const initMobileMenu = () => {
+    if (mobileMenuToggle && mobileNavMenu) {
+        mobileMenuToggle.addEventListener('click', () => {
+            const isActive = mobileNavMenu.classList.contains('active');
+            
+            if (isActive) {
+                mobileNavMenu.classList.remove('active');
+                mobileMenuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                mobileMenuToggle.setAttribute('aria-label', '모바일 메뉴 열기');
+            } else {
+                mobileNavMenu.classList.add('active');
+                mobileMenuToggle.innerHTML = '<i class="fas fa-times"></i>';
+                mobileMenuToggle.setAttribute('aria-label', '모바일 메뉴 닫기');
+            }
+        });
+
+        // 모바일 메뉴 링크 클릭 시 메뉴 닫기
+        const mobileNavLinks = mobileNavMenu.querySelectorAll('.nav-link');
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileNavMenu.classList.remove('active');
+                mobileMenuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                mobileMenuToggle.setAttribute('aria-label', '모바일 메뉴 열기');
+            });
+        });
+    }
+};
+
+// 부드러운 스크롤 및 네비게이션 활성화
+const initSmoothScroll = () => {
+    // 모든 내비게이션 링크에 부드러운 스크롤 적용
+    const allNavLinks = [...navLinks, ...navDots];
     
-    const animateProgressBar = (bar) => {
-        const level = bar.dataset.level;
-        bar.style.width = `${level}%`;
+    allNavLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = link.getAttribute('href').substring(1);
+            const targetSection = document.getElementById(targetId);
+            
+            if (targetSection) {
+                targetSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+};
+
+// 스크롤 시 활성 섹션 감지
+const initScrollSpy = () => {
+    const observerOptions = {
+        root: null,
+        rootMargin: '-50% 0px -50% 0px',
+        threshold: 0
     };
 
-    // Intersection Observer를 사용하여 화면에 보일 때 애니메이션 시작
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                animateProgressBar(entry.target);
-                observer.unobserve(entry.target); // 한 번만 애니메이션 실행
+                const sectionId = entry.target.id;
+                
+                // 네비게이션 링크 활성화 업데이트
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${sectionId}`) {
+                        link.classList.add('active');
+                    }
+                });
+
+                // 사이드 네비게이션 도트 활성화 업데이트
+                navDots.forEach(dot => {
+                    dot.classList.remove('active');
+                    if (dot.getAttribute('href') === `#${sectionId}`) {
+                        dot.classList.add('active');
+                    }
+                });
             }
         });
-    }, { threshold: 0.5 });
+    }, observerOptions);
 
-    progressBars.forEach(bar => {
-        observer.observe(bar);
-    });
-}
-
-// 로딩 처리
-const handleLoading = () => {
-    const loader = document.querySelector('.loader-container');
-    
-    // 모든 이미지 로딩 완료 대기
-    const images = document.querySelectorAll('img');
-    const imagePromises = Array.from(images).map(img => {
-        if (img.complete) {
-            return Promise.resolve();
-        }
-        return new Promise(resolve => {
-            img.addEventListener('load', resolve);
-            img.addEventListener('error', resolve); // 에러 시에도 진행
-        });
-    });
-
-    // 이미지 및 폰트 로딩 완료 후 로더 제거
-    Promise.all([
-        ...imagePromises,
-        document.fonts.ready // 웹폰트 로딩 대기
-    ]).then(() => {
-        loader.classList.add('loader-hidden');
-        setTimeout(() => {
-            loader.style.display = 'none';
-        }, 500);
+    sections.forEach(section => {
+        observer.observe(section);
     });
 };
 
-// 키보드 네비게이션 처리
-const handleKeyboardNavigation = () => {
-    const navLinks = document.querySelectorAll('nav a');
+// 기술 스택 애니메이션 (아이콘과 배지 빛 효과)
+const initSkillsAnimation = () => {
+    const skillCategories = document.querySelectorAll('.skill-category');
     
-    navLinks.forEach((link, index) => {
-        link.addEventListener('keydown', (e) => {
-            let targetLink;
-            
-            switch(e.key) {
-                case 'ArrowRight':
-                    targetLink = navLinks[index + 1] || navLinks[0];
-                    break;
-                case 'ArrowLeft':
-                    targetLink = navLinks[index - 1] || navLinks[navLinks.length - 1];
-                    break;
-            }
-            
-            if (targetLink) {
-                e.preventDefault();
-                targetLink.focus();
-            }
-        });
-    });
-};
+    const observerOptions = {
+        root: null,
+        rootMargin: '-10% 0px -10% 0px',
+        threshold: 0.2
+    };
 
-// 이미지 지연 로딩
-const initLazyLoading = () => {
-    const images = document.querySelectorAll('img[data-src]');
-    
-    const imageObserver = new IntersectionObserver((entries, observer) => {
+    const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                const img = entry.target;
-                img.src = img.dataset.src;
-                img.removeAttribute('data-src');
-                observer.unobserve(img);
+                // 스킬 카테고리 애니메이션 시작
+                if (entry.target.classList.contains('skill-category')) {
+                    entry.target.style.animationPlayState = 'running';
+                    
+                    // 내부 스킬 아이템들에 지연 애니메이션 추가
+                    const categorySkills = entry.target.querySelectorAll('.skill-item');
+                    categorySkills.forEach((skill, index) => {
+                        setTimeout(() => {
+                            skill.style.opacity = '1';
+                            skill.style.transform = 'translateY(0) scale(1)';
+                        }, index * 150);
+                    });
+                }
+                
+                observer.unobserve(entry.target);
             }
         });
+    }, observerOptions);
+
+    // 모든 스킬 카테고리 관찰
+    skillCategories.forEach(category => {
+        observer.observe(category);
+        
+        // 초기 애니메이션 일시정지
+        category.style.animationPlayState = 'paused';
+        
+        // 내부 스킬 아이템들 초기 상태 설정
+        const categorySkills = category.querySelectorAll('.skill-item');
+        categorySkills.forEach(skill => {
+            skill.style.opacity = '0';
+            skill.style.transform = 'translateY(20px) scale(0.9)';
+            skill.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+        });
     });
-
-    images.forEach(img => imageObserver.observe(img));
 };
 
-// 성능 최적화: 디바운스 함수
-const debounce = (func, wait) => {
-    let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-    };
-};
-
-// 스크롤 이벤트 최적화
-const handleOptimizedScroll = debounce(() => {
-    // 스크롤 관련 처리
-}, 150);
-
-// 프로젝트 슬라이더 기능
-document.addEventListener('DOMContentLoaded', function() {
+// 프로젝트 슬라이더
+const initProjectSlider = () => {
     const projectsContainer = document.querySelector('.projects-container');
+    const prevButton = document.querySelector('.project-navigation .prev');
+    const nextButton = document.querySelector('.project-navigation .next');
+    const scrollDots = document.querySelectorAll('.scroll-dot');
+    
     if (!projectsContainer) return;
 
-    // 슬라이더 래퍼 생성 및 초기화
-    const projectsSlider = document.createElement('div');
-    projectsSlider.className = 'projects-slider';
-    const projectCards = document.querySelectorAll('.project-card');
-    projectCards.forEach(card => {
-        projectsSlider.appendChild(card.cloneNode(true));
-    });
-    projectsContainer.innerHTML = '';
-    projectsContainer.appendChild(projectsSlider);
-
-    const scrollDotsContainer = document.querySelector('.scroll-indicator');
-    const prevButton = document.querySelector('#projects .project-navigation .nav-button.prev');
-    const nextButton = document.querySelector('#projects .project-navigation .nav-button.next');
-    const isMobile = window.innerWidth <= 768;
-
-    if (!prevButton || !nextButton) return;
-
     let currentIndex = 0;
-    let isAnimating = false;
-    const cardsPerView = isMobile ? 1 : 3;
-    const totalSlides = Math.ceil(projectCards.length / cardsPerView);
+    const projectCards = document.querySelectorAll('.project-card');
+    const totalProjects = projectCards.length;
 
-    // 스크롤 닷 생성
-    if (scrollDotsContainer) {
-        scrollDotsContainer.innerHTML = ''; // 기존 닷 제거
-        for (let i = 0; i < totalSlides; i++) {
-            const dot = document.createElement('div');
-            dot.className = 'scroll-dot' + (i === 0 ? ' active' : '');
-            dot.addEventListener('click', () => moveSlider(i));
-            scrollDotsContainer.appendChild(dot);
-        }
-    }
-
-    // 슬라이더 이동
-    function moveSlider(index) {
-        if (isAnimating) return;
-        isAnimating = true;
+    const updateSlider = (index) => {
+        const cardWidth = projectCards[0].offsetWidth;
+        const gap = parseInt(getComputedStyle(projectsContainer).gap) || 24;
+        const scrollPosition = index * (cardWidth + gap);
         
-        // 인덱스 범위 제한
-        currentIndex = Math.max(0, Math.min(index, totalSlides - 1));
-        const slideWidth = projectsContainer.offsetWidth;
-        const translateX = -currentIndex * slideWidth;
-        
-        requestAnimationFrame(() => {
-            projectsSlider.style.transform = `translateX(${translateX}px)`;
+        projectsContainer.scrollTo({
+            left: scrollPosition,
+            behavior: 'smooth'
         });
-        
-        updateButtonState();
-        updateScrollDots();
-        
-        setTimeout(() => {
-            isAnimating = false;
-        }, 300);
-    }
 
-    // 버튼 상태 업데이트
-    function updateButtonState() {
-        prevButton.disabled = currentIndex <= 0;
-        nextButton.disabled = currentIndex >= totalSlides - 1;
-        
-        prevButton.style.opacity = prevButton.disabled ? '0.5' : '1';
-        nextButton.style.opacity = nextButton.disabled ? '0.5' : '1';
-    }
-
-    // 네비게이션 버튼 이벤트
-    prevButton.addEventListener('click', () => {
-        if (currentIndex > 0 && !isAnimating) {
-            moveSlider(currentIndex - 1);
+        // 도트 업데이트
+        if (scrollDots.length > 0) {
+            scrollDots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
         }
+
+        currentIndex = index;
+    };
+
+    // 버튼 이벤트
+    if (prevButton) {
+        prevButton.addEventListener('click', () => {
+            const newIndex = currentIndex > 0 ? currentIndex - 1 : totalProjects - 1;
+            updateSlider(newIndex);
+        });
+    }
+
+    if (nextButton) {
+        nextButton.addEventListener('click', () => {
+            const newIndex = currentIndex < totalProjects - 1 ? currentIndex + 1 : 0;
+            updateSlider(newIndex);
+        });
+    }
+
+    // 도트 클릭 이벤트
+    scrollDots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+            updateSlider(index);
+        });
     });
 
-    nextButton.addEventListener('click', () => {
-        if (currentIndex < totalSlides - 1 && !isAnimating) {
-            moveSlider(currentIndex + 1);
-        }
-    });
-
-    // 스크롤 도트 업데이트
-    function updateScrollDots() {
-        scrollDotsContainer.querySelectorAll('.scroll-dot').forEach((dot, index) => {
-            dot.classList.toggle('active', index === currentIndex);
-        });
-    }
-
-    // 터치 이벤트 처리
-    let touchStartX = 0;
-    let touchEndX = 0;
-    let isDragging = false;
-    let startTranslateX = 0;
-
-    projectsSlider.addEventListener('touchstart', (e) => {
-        if (isAnimating) return;
-        isDragging = true;
-        touchStartX = e.touches[0].clientX;
-        startTranslateX = -currentIndex * projectsContainer.offsetWidth;
-        projectsSlider.style.transition = 'none';
-    }, { passive: true });
-
-    projectsSlider.addEventListener('touchmove', (e) => {
-        if (!isDragging) return;
-        touchEndX = e.touches[0].clientX;
-        const diff = touchEndX - touchStartX;
-        const newTranslateX = startTranslateX + diff;
-        
-        // 슬라이드 범위 제한
-        if (newTranslateX > 0 || newTranslateX < -(totalSlides - 1) * projectsContainer.offsetWidth) {
-            return;
-        }
-        
-        requestAnimationFrame(() => {
-            projectsSlider.style.transform = `translateX(${newTranslateX}px)`;
-        });
-    }, { passive: true });
-
-    projectsSlider.addEventListener('touchend', () => {
-        if (!isDragging) return;
-        isDragging = false;
-        projectsSlider.style.transition = 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
-        
-        const touchDiff = touchStartX - touchEndX;
-        const minSwipeDistance = 50;
-
-        if (Math.abs(touchDiff) > minSwipeDistance) {
-            if (touchDiff > 0 && currentIndex < totalSlides - 1) {
-                moveSlider(currentIndex + 1);
-            } else if (touchDiff < 0 && currentIndex > 0) {
-                moveSlider(currentIndex - 1);
-            } else {
-                moveSlider(currentIndex);
+    // 스크롤 이벤트로 현재 위치 감지
+    let scrollTimeout;
+    projectsContainer.addEventListener('scroll', () => {
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+            const scrollLeft = projectsContainer.scrollLeft;
+            const cardWidth = projectCards[0].offsetWidth;
+            const gap = parseInt(getComputedStyle(projectsContainer).gap) || 24;
+            const index = Math.round(scrollLeft / (cardWidth + gap));
+            
+            if (scrollDots.length > 0) {
+                scrollDots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === index);
+                });
             }
-        } else {
-            moveSlider(currentIndex);
-        }
+            
+            currentIndex = Math.max(0, Math.min(index, totalProjects - 1));
+        }, 100);
     });
 
-    // 초기 설정
-    updateButtonState();
-    updateScrollDots();
+    // 초기 도트 설정
+    if (scrollDots.length > 0 && scrollDots[0]) {
+        scrollDots[0].classList.add('active');
+    }
+};
 
-    // 리사이즈 이벤트 처리
-    window.addEventListener('resize', debounce(() => {
-        const newIsMobile = window.innerWidth <= 768;
-        if (newIsMobile !== isMobile) {
-            location.reload();
-        } else {
-            moveSlider(currentIndex);
+// Experience는 이제 슬라이더가 아닌 리스트 형태
+const initExperienceSlider = () => {
+    // Experience 슬라이더 기능 제거됨 - 리스트 형태로 변경
+    return;
+};
+
+// 로딩 애니메이션 제거
+const hideLoader = () => {
+    const loader = document.querySelector('.loader-container');
+    if (loader) {
+        setTimeout(() => {
+            loader.classList.add('loader-hidden');
+        }, 1000);
+    }
+};
+
+// 키보드 네비게이션
+const initKeyboardNavigation = () => {
+    document.addEventListener('keydown', (e) => {
+        // 화살표 키로 섹션 이동
+        if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+            e.preventDefault();
+            
+            const currentSection = document.querySelector('.section.active') || document.querySelector('.section');
+            if (!currentSection) return;
+
+            const sectionIndex = Array.from(sections).indexOf(currentSection);
+            let targetIndex;
+
+            if (e.key === 'ArrowDown') {
+                targetIndex = sectionIndex < sections.length - 1 ? sectionIndex + 1 : 0;
+            } else {
+                targetIndex = sectionIndex > 0 ? sectionIndex - 1 : sections.length - 1;
+            }
+
+            sections[targetIndex].scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
         }
-    }, 250));
+
+        // ESC 키로 모바일 메뉴 닫기
+        if (e.key === 'Escape' && mobileNavMenu.classList.contains('active')) {
+            mobileNavMenu.classList.remove('active');
+            mobileMenuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+        }
+    });
+};
+
+// 초기화 함수
+const init = () => {
+    hideLoader();
+    initTheme();
+    initMobileMenu();
+    initSmoothScroll();
+    initScrollSpy();
+    initSkillsAnimation();
+    initProjectSlider();
+    initExperienceSlider();
+    initKeyboardNavigation();
+};
+
+// DOM 로드 완료 시 초기화
+document.addEventListener('DOMContentLoaded', init);
+
+// 리사이즈 시 슬라이더 재초기화
+window.addEventListener('resize', () => {
+    // 디바운싱
+    clearTimeout(window.resizeTimeout);
+    window.resizeTimeout = setTimeout(() => {
+        initProjectSlider();
+    }, 250);
 });
 
-// 초기화
-document.addEventListener('DOMContentLoaded', () => {
-    initTheme();
-    initFullPage();
-    initExperienceSlider();
-    adjustSectionOffset();
-    handleResize();
-    initializeSkillBars();
-    handleLoading();
-    handleKeyboardNavigation();
-    initLazyLoading();
-    initI18n();
-    
-    window.addEventListener('scroll', handleOptimizedScroll, { passive: true });
-}); 
+// 페이지 가시성 변경 시 애니메이션 일시정지/재개
+document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+        // 페이지가 숨겨졌을 때 애니메이션 일시정지
+        document.body.style.animationPlayState = 'paused';
+    } else {
+        // 페이지가 다시 보일 때 애니메이션 재개
+        document.body.style.animationPlayState = 'running';
+    }
+});

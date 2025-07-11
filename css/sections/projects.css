@@ -1,48 +1,68 @@
 /* Projects 섹션 스타일 */
-.section-content {
+.projects-section .section-content {
     position: relative;
-    height: 100vh;
-    overflow: hidden;
+    min-height: auto;
+    overflow: visible;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    padding-bottom: 100px;
+    justify-content: flex-start;
+    padding-bottom: var(--space-3xl);
 }
 
 .projects-container {
     position: relative;
-    width: calc(100% - 12rem);
+    width: 100%;
+    max-width: 1200px;
     margin: 0 auto;
-    overflow: hidden;
+    overflow-x: auto;
+    padding: 0 var(--space-xl);
+    scroll-behavior: smooth;
+    display: flex;
+    gap: var(--space-xl);
+    scrollbar-width: thin;
+    -ms-overflow-style: none;
 }
 
-.projects-slider {
-    display: flex;
-    gap: 2rem;
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+.projects-container::-webkit-scrollbar {
+    height: 8px;
+}
+
+.projects-container::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+    border-radius: var(--radius-md);
+}
+
+.projects-container::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: var(--radius-md);
+}
+
+.projects-container::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-hover);
 }
 
 .project-card {
-    flex: 0 0 auto;
-    width: calc((100% - 4rem) / 3);
-    min-width: calc((100% - 4rem) / 3);
+    flex: 0 0 320px;
+    width: 320px;
     height: auto;
     min-height: 480px;
-    background: var(--color-white);
-    border-radius: 1.5rem;
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    transition: all 0.3s ease;
+    background: var(--bg-card);
+    border-radius: var(--radius-xl);
+    border: 2px solid var(--border-color);
+    transition: all var(--transition-normal);
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.06);
+    box-shadow: var(--shadow-md);
+    text-decoration: none;
+    color: inherit;
 }
 
 .project-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    border-color: rgba(0, 0, 0, 0.12);
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: var(--shadow-xl);
+    border-color: var(--primary-color);
 }
 
 .project-image {
@@ -64,17 +84,17 @@
 }
 
 .project-info {
-    padding: 1.5rem;
+    padding: var(--space-xl);
     display: flex;
     flex-direction: column;
-    gap: 0.8rem;
+    gap: var(--space-md);
     flex: 1;
-    background: var(--color-white);
+    background: transparent;
 }
 
 .project-info h3 {
-    font-size: 1.4rem;
-    color: #000000;
+    font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+    color: var(--text-primary);
     margin: 0;
     line-height: 1.3;
     font-weight: 700;
@@ -82,101 +102,58 @@
 }
 
 .project-description {
-    color: #333333;
+    color: var(--text-secondary);
     line-height: 1.6;
     margin: 0;
-    font-size: 0.95rem;
+    font-size: clamp(0.875rem, 1.5vw, 1rem);
     flex-grow: 1;
     word-break: keep-all;
-    opacity: 0.9;
 }
 
-.project-skills {
+.job-skills {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.6rem;
-    margin-top: 0.8rem;
+    gap: var(--space-sm);
+    margin-top: var(--space-md);
 }
 
-.project-skills span {
-    background: var(--color-bg-variant);
-    color: var(--color-primary);
-    padding: 0.4rem 0.8rem;
-    border-radius: 0.8rem;
-    font-size: 0.85rem;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+.job-skills .tag {
+    background: var(--bg-tertiary);
+    color: var(--text-secondary);
+    padding: var(--space-xs) var(--space-md);
+    border-radius: var(--radius-2xl);
+    font-size: 0.75rem;
+    font-weight: 600;
+    transition: all var(--transition-normal);
     white-space: nowrap;
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    border: 2px solid var(--border-color);
+    position: relative;
+    overflow: hidden;
 }
 
-.project-skills span:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08);
-    background: var(--color-primary);
-    color: var(--color-white);
+.job-skills .tag::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: var(--gradient-primary);
+    transition: left var(--transition-normal);
+    z-index: -1;
 }
 
-/* 다크 모드 대응 */
-[data-theme='dark'] .project-card {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.1);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+.job-skills .tag:hover::before {
+    left: 0;
 }
 
-[data-theme='dark'] .project-card:hover {
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-    border-color: rgba(255, 255, 255, 0.2);
+.job-skills .tag:hover {
+    color: white;
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: var(--shadow-md);
+    border-color: var(--primary-color);
 }
 
-[data-theme='dark'] .project-info {
-    background: transparent;
-}
-
-[data-theme='dark'] .project-info h3 {
-    color: rgba(255, 255, 255, 0.95);
-}
-
-[data-theme='dark'] .project-description {
-    color: rgba(255, 255, 255, 0.7);
-}
-
-[data-theme='dark'] .project-skills span {
-    background: rgba(255, 255, 255, 0.08);
-    color: rgba(255, 255, 255, 0.9);
-    border-color: rgba(255, 255, 255, 0.15);
-}
-
-[data-theme='dark'] .project-skills span:hover {
-    background: var(--color-primary);
-    color: var(--color-white);
-    border-color: var(--color-primary);
-}
-
-[data-theme='dark'] .nav-button {
-    background: rgba(255, 255, 255, 0.1);
-}
-
-[data-theme='dark'] .nav-button:hover {
-    background: rgba(255, 255, 255, 0.2);
-}
-
-[data-theme='dark'] .nav-button i {
-    color: rgba(255, 255, 255, 0.9);
-}
-
-[data-theme='dark'] .scroll-indicator {
-    background: rgba(0, 0, 0, 0.3);
-}
-
-[data-theme='dark'] .scroll-dot {
-    background: rgba(255, 255, 255, 0.3);
-}
-
-[data-theme='dark'] .scroll-dot.active {
-    background: var(--color-primary);
-}
 
 .swipe-hint {
     display: none;
@@ -284,18 +261,14 @@
 /* 모바일 스타일 */
 @media screen and (max-width: 768px) {
     .projects-container {
-        width: calc(100% - 3rem);
-        padding: 0 1.5rem;
+        padding: 0 var(--space-lg);
+        gap: var(--space-lg);
     }
 
     .project-card {
-        width: 100%;
-        min-width: 100%;
+        flex: 0 0 280px;
+        width: 280px;
         min-height: 420px;
-    }
-
-    .projects-slider {
-        gap: 2rem;
     }
 
     .swipe-hint {
@@ -339,50 +312,33 @@
         padding: 0.35rem 0.7rem;
     }
 
-    .section-content {
-        padding-bottom: 120px;
+    .projects-section .section-content {
+        padding-bottom: var(--space-2xl);
     }
 }
 
 @media (max-width: 480px) {
-    .section-content {
-        padding-bottom: 140px;
-    }
-
     .projects-container {
-        padding: 1rem;
-        gap: 1rem;
-        margin-bottom: 4rem;
+        padding: 0 var(--space-md);
+        gap: var(--space-md);
     }
     
     .project-card {
-        min-width: 280px;
-        width: 280px;
+        flex: 0 0 260px;
+        width: 260px;
         min-height: 400px;
     }
     
     .project-info {
-        padding: 1rem;
+        padding: var(--space-lg);
     }
     
-    .project-info h3 {
-        font-size: 1.2rem;
+    .job-skills .tag {
+        font-size: 0.7rem;
+        padding: var(--space-xs) var(--space-sm);
     }
     
-    .project-description {
-        font-size: 0.85rem;
-    }
-
-    .swipe-hint {
-        bottom: 160px;
-    }
-
-    .scroll-indicator {
-        bottom: 120px;
-    }
-
-    .project-skills span {
-        font-size: 0.75rem;
-        padding: 0.3rem 0.6rem;
+    .projects-section .section-content {
+        padding-bottom: var(--space-xl);
     }
 } 

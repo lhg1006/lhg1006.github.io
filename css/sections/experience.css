@@ -16,99 +16,49 @@
     color: var(--text-primary);
 }
 
-.experience-slider {
+.experience-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xl);
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+
+
+.experience-card {
+    background: var(--bg-card);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-lg);
+    padding: var(--space-2xl);
+    border: 2px solid var(--border-color);
+    transition: all var(--transition-normal);
     position: relative;
-    width: 100%;
     overflow: hidden;
-}
-
-.experience-cards {
-    display: flex;
-    transition: transform 0.3s ease;
-    gap: 2rem;
-}
-
-.experience-card {
-    flex: 0 0 100%;
-    background: #ffffff;
-    border-radius: 20px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    padding: 2rem;
-    transition: all 0.3s ease;
-}
-
-.project-navigation {
-    display: flex;
-    justify-content: space-between;
-    position: absolute;
     width: 100%;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 10;
-    pointer-events: none;
-    padding: 0 1rem;
+    box-sizing: border-box;
 }
 
-.nav-button {
-    background: rgba(255, 255, 255, 0.9);
-    border: none;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    pointer-events: auto;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
+.experience-card::before {
+    content: '';
     position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.8s ease;
 }
 
-.nav-button:hover {
-    background: white;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    transform: scale(1.1);
+.experience-card:hover::before {
+    left: 100%;
 }
 
-.nav-button i {
-    color: #333;
-    font-size: 1.2rem;
-}
-
-.nav-button.prev {
-    left: 1rem;
-}
-
-.nav-button.next {
-    right: 1rem;
-}
-
-.nav-button:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    pointer-events: none;
-}
-
-.experience-card {
-    flex: 0 0 100%;
-    background: linear-gradient(135deg, 
-        rgba(255, 255, 255, 0.1) 0%,
-        rgba(255, 255, 255, 0.05) 100%
-    );
-    border-radius: 1.2rem;
-    box-shadow: 
-        0 10px 30px rgba(0, 0, 0, 0.1),
-        0 4px 8px rgba(0, 0, 0, 0.05);
-    padding: 1.5rem;
-    margin: 0.5rem 0;
-    max-height: calc(100vh - 280px);
-    overflow-y: auto;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    scrollbar-width: thin;
-    -ms-overflow-style: auto;
+.experience-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-2xl);
+    border-color: var(--primary-color);
 }
 
 [data-theme="light"] .experience-card {
@@ -353,6 +303,8 @@
 .achievement-item ul {
     padding-left: 1.5rem;
     margin: 0.5rem 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .achievement-item ul li {
@@ -361,6 +313,8 @@
     line-height: 1.6;
     margin-bottom: 0.4rem;
     position: relative;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .achievement-item ul li::before {
@@ -382,14 +336,12 @@
 }
 
 @media (max-width: 768px) {
-    .experience-slider {
-        padding: 0 3rem;
-        height: calc(100vh - 150px);
+    .experience-list {
+        gap: var(--space-xl);
     }
 
     .experience-card {
-        padding: 1rem;
-        max-height: calc(100vh - 170px);
+        padding: var(--space-xl);
     }
 
     .company-info h3 {
@@ -416,8 +368,12 @@
 }
 
 @media (max-width: 480px) {
-    .experience-slider {
-        padding: 0 2rem;
+    .experience-list {
+        gap: var(--space-lg);
+    }
+
+    .experience-card {
+        padding: var(--space-lg);
     }
 
     .company-info {
