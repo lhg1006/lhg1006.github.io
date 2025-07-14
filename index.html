@@ -1,1208 +1,1241 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="이효규의 포트폴리오 웹사이트입니다. 풀스택 개발자로서의 프로젝트, 기술 스택, 경력 사항을 소개합니다.">
-    <title>이효규 포트폴리오</title>
-    
-    <!-- Ant Design CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/antd/5.12.8/reset.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/antd/5.12.8/antd.min.css">
-    
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-    
-    <!-- Custom CSS -->
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'WantedSans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            line-height: 1.6;
-            background: #f5f5f5;
-            color: #333;
-        }
-
-        .portfolio-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            background: white;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
-            border-radius: 8px;
-            margin-top: 20px;
-            margin-bottom: 20px;
-        }
-
-        /* Header Section */
-        .header-section {
-            text-align: center;
-            padding: 40px 0 60px 0;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            margin: -20px -20px 40px -20px;
-            border-radius: 8px 8px 0 0;
-        }
-
-        .profile-avatar {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            border: 5px solid white;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-            margin-bottom: 24px;
-        }
-
-        .header-title {
-            font-size: 2.5rem;
-            font-weight: 900;
-            margin-bottom: 8px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-
-        .header-subtitle {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            margin-bottom: 24px;
-        }
-
-        .header-description {
-            font-size: 1rem;
-            opacity: 0.8;
-            max-width: 600px;
-            margin: 0 auto;
-            line-height: 1.6;
-            word-break: keep-all;
-            -webkit-word-break: keep-all;
-        }
-
-        /* Contact Info */
-        .contact-info {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-top: 30px;
-            flex-wrap: wrap;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: white;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .contact-item:hover {
-            color: #ffd700;
-            transform: translateY(-2px);
-        }
-
-        /* Skills Section */
-        .skills-section {
-            margin-bottom: 40px;
-        }
-
-        .skill-category {
-            margin-bottom: 30px;
-        }
-
-        .skill-items {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-
-        .skill-tag {
-            padding: 8px 16px;
-            border-radius: 20px;
-            background: #f0f2ff;
-            border: 1px solid #d6e4ff;
-            color: #1890ff;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .skill-tag:hover {
-            background: #1890ff;
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(24, 144, 255, 0.3);
-        }
-
-        .skill-experience {
-            background: #52c41a;
-            color: white;
-            font-size: 12px;
-            padding: 2px 8px;
-            border-radius: 10px;
-            margin-left: 8px;
-            font-weight: 600;
-        }
-
-        .learning-tag {
-            background: #fff7e6;
-            border-color: #ffd591;
-            color: #fa8c16;
-        }
-
-        .learning-tag:hover {
-            background: #fa8c16;
-            color: white;
-        }
-
-        /* Experience Cards */
-        .experience-card {
-            margin-bottom: 24px;
-            border-radius: 12px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            border: 1px solid #f0f0f0;
-        }
-
-        .experience-card:hover {
-            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-            transform: translateY(-4px);
-        }
-
-        .experience-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 20px;
-        }
-
-        .company-name {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-
-        .position-info {
-            opacity: 0.9;
-            margin-bottom: 12px;
-            color: rgb(255, 255, 255);
-        }
-
-        .employment-status {
-            display: inline-block;
-            padding: 4px 12px;
-            background: rgba(255,255,255,0.2);
-            border-radius: 12px;
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-
-        .current-job {
-            background: #52c41a;
-        }
-
-        .experience-content {
-            padding: 24px;
-        }
-
-        .project-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: #262626;
-            margin-bottom: 16px;
-        }
-
-        .tech-stack {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 20px;
-        }
-
-        .tech-tag {
-            padding: 6px 12px;
-            background: #1890ff;
-            color: white;
-            border: none;
-            border-radius: 16px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            margin: 2px;
-            display: inline-block;
-        }
-
-        .achievements {
-            list-style: none;
-        }
-
-        .achievement-item {
-            margin-bottom: 16px;
-            padding-left: 20px;
-            position: relative;
-        }
-
-        .achievement-item::before {
-            content: "▶";
-            position: absolute;
-            left: 0;
-            color: #1890ff;
-            font-weight: bold;
-        }
-
-        .achievement-title {
-            font-weight: 600;
-            color: #262626;
-            margin-bottom: 8px;
-        }
-
-        .achievement-details {
-            list-style: none;
-            margin-left: 16px;
-        }
-
-        .achievement-details li {
-            margin-bottom: 4px;
-            color: #6b7280;
-            position: relative;
-            padding-left: 16px;
-        }
-
-        .achievement-details li::before {
-            content: "•";
-            position: absolute;
-            left: 0;
-            color: #8c8c8c;
-        }
-
-        /* Project Cards */
-        .project-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 24px;
-            margin-top: 20px;
-        }
-
-        .project-card {
-            border-radius: 12px;
-            overflow: hidden;
-            border: 1px solid #f0f0f0;
-            transition: all 0.3s ease;
-            background: white;
-        }
-
-        .project-card:hover {
-            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-            transform: translateY(-4px);
-        }
-
-        .project-image {
-            width: 100%;
-            height: 200px;
-            background: #f5f5f5;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .project-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.3s ease;
-        }
-
-        .project-card:hover .project-image img {
-            transform: scale(1.05);
-        }
-
-        .project-content {
-            padding: 20px;
-        }
-
-        .project-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 12px;
-            color: #262626;
-        }
-
-        .project-description {
-            color: #6b7280;
-            margin-bottom: 16px;
-            line-height: 1.6;
-        }
-
-        .project-tech {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 4px;
-            margin-top: 12px;
-        }
-
-        .project-tech-tag {
-            padding: 4px 8px;
-            background: #f0f2ff;
-            color: #1890ff;
-            border-radius: 12px;
-            font-size: 0.75rem;
-            font-weight: 500;
-            white-space: nowrap;
-        }
-
-        /* Section Titles */
-        .section-title {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 24px;
-            color: #262626;
-            position: relative;
-            padding-left: 20px;
-        }
-
-        .section-title::before {
-            content: "";
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 4px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 2px;
-        }
-
-        /* Navigation */
-        .main-nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid #f0f0f0;
-            z-index: 1000;
-            padding: 0;
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 12px 20px;
-        }
-
-        .nav-brand {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #262626;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .nav-menu {
-            display: flex;
-            align-items: center;
-            gap: 24px;
-        }
-
-        .nav-link {
-            color: #6b7280;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            padding: 8px 12px;
-            border-radius: 6px;
-        }
-
-        .nav-link:hover,
-        .nav-link.active {
-            color: #1890ff;
-            background: #f0f2ff;
-        }
-        
-        .nav-link.active {
-            font-weight: 600;
-        }
-
-        .theme-toggle {
-            background: #f0f2ff;
-            border: none;
-            border-radius: 8px;
-            padding: 8px 12px;
-            cursor: pointer;
-            color: #1890ff;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .theme-toggle:hover {
-            background: #1890ff;
-            color: white;
-        }
-
-        .mobile-menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 1.2rem;
-            color: #6b7280;
-            cursor: pointer;
-            padding: 8px;
-        }
-
-        .mobile-menu {
-            display: none;
-            background: white;
-            border-top: 1px solid #f0f0f0;
-            padding: 16px 20px;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .mobile-menu.active {
-            display: flex;
-        }
-
-        /* Add top padding to portfolio container */
-        .portfolio-container {
-            margin-top: 80px;
-        }
-
-        /* Dark Mode */
-        .dark-mode {
-            background: #141414;
-            color: #fff;
-        }
-
-        .dark-mode .portfolio-container {
-            background: #1f1f1f;
-            box-shadow: 0 0 20px rgba(0,0,0,0.5);
-        }
-
-        .dark-mode .experience-card,
-        .dark-mode .project-card {
-            background: #262626;
-            border-color: #434343;
-        }
-
-        .dark-mode .skill-tag {
-            background: #262626;
-            border-color: #434343;
-            color: #69c0ff;
-        }
-
-        .dark-mode .main-nav {
-            background: rgba(31, 31, 31, 0.95);
-            border-bottom-color: #434343;
-        }
-
-        .dark-mode .nav-brand {
-            background: linear-gradient(135deg, #60a5fa 0%, #a855f7 100%);
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .dark-mode .nav-link {
-            color: #d1d5db;
-        }
-
-        .dark-mode .nav-link:hover,
-        .dark-mode .nav-link.active {
-            color: #60a5fa;
-            background: rgba(96, 165, 250, 0.1);
-        }
-
-        .dark-mode .theme-toggle {
-            background: rgba(96, 165, 250, 0.1);
-            color: #60a5fa;
-        }
-
-        .dark-mode .theme-toggle:hover {
-            background: #60a5fa;
-            color: #1f1f1f;
-        }
-
-        .dark-mode .mobile-menu {
-            background: #1f1f1f;
-            border-top-color: #434343;
-        }
-
-        .dark-mode .tech-tag {
-            background: #60a5fa;
-            color: #1f1f1f;
-        }
-
-        .dark-mode .project-tech-tag {
-            background: rgba(96, 165, 250, 0.2);
-            color: #69c0ff;
-        }
-
-        .dark-mode .section-title {
-            color: #f3f4f6;
-        }
-
-        .dark-mode .project-title,
-        .dark-mode .achievement-title {
-            color: #f3f4f6;
-        }
-        
-        .dark-mode .project-description {
-            color: #d1d5db;
-        }
-        
-        .dark-mode .achievement-details li {
-            color: #d1d5db;
-        }
-        
-        .dark-mode .position-info {
-            color: rgb(255, 255, 255);
-        }
-        
-        /* 헤더 설명 다크모드 스타일 */
-        .dark-mode .header-description {
-            color: rgba(255, 255, 255, 0.85);
-        }
-        
-        /* 스킬 카테고리 제목 다크모드 */
-        .dark-mode .skill-category h3 {
-            color: #f3f4f6 !important;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .nav-menu {
-                display: none;
-            }
-
-            .mobile-menu-toggle {
-                display: block;
-            }
-
-            .portfolio-container {
-                margin: 10px;
-                padding: 16px;
-                margin-top: 70px;
-            }
-
-            .header-title {
-                font-size: 2rem;
-            }
-
-            .contact-info {
-                gap: 15px;
-            }
-
-            .contact-item {
-                font-size: 0.9rem;
-            }
-
-            .project-grid {
-                grid-template-columns: 1fr;
-                gap: 16px;
-            }
-
-            .skills-section {
-                margin-bottom: 30px;
-            }
-
-            .skill-items {
-                gap: 8px;
-            }
-
-            .skill-tag {
-                padding: 6px 12px;
-                font-size: 0.9rem;
-            }
-
-            .experience-content {
-                padding: 16px;
-            }
-
-            .tech-stack {
-                gap: 4px;
-            }
-
-            .tech-tag {
-                font-size: 0.8rem;
-                padding: 4px 8px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .header-section {
-                padding: 30px 16px 40px 16px;
-            }
-
-            .profile-avatar {
-                width: 120px;
-                height: 120px;
-            }
-
-            .header-title {
-                font-size: 1.8rem;
-            }
-
-            .contact-info {
-                flex-direction: column;
-                gap: 10px;
-            }
-        }
-
-        /* Animation Classes */
-        .fade-in {
-            animation: fadeIn 0.8s ease-in-out;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .slide-in-left {
-            animation: slideInLeft 0.6s ease-out;
-        }
-
-        @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .slide-in-right {
-            animation: slideInRight 0.6s ease-out;
-        }
-
-        @keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translateX(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="이효규의 포트폴리오 웹사이트입니다. 풀스택 개발자로서의 프로젝트, 기술 스택, 경력 사항을 소개합니다.">
+  <title>이효규 포트폴리오</title>
+
+  <!-- Ant Design CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/antd/5.12.8/reset.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/antd/5.12.8/antd.min.css">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap"
+    rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'WantedSans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      line-height: 1.6;
+      background: #f5f5f5;
+      color: #333;
+    }
+
+    .portfolio-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      background: white;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+
+    /* Header Section */
+    .header-section {
+      text-align: center;
+      padding: 40px 0 60px 0;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      margin: -20px -20px 40px -20px;
+      border-radius: 8px 8px 0 0;
+    }
+
+    .profile-avatar {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 5px solid white;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      margin-bottom: 24px;
+    }
+
+    .header-title {
+      font-size: 2.5rem;
+      font-weight: 900;
+      margin-bottom: 8px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .header-subtitle {
+      font-size: 1.2rem;
+      opacity: 0.9;
+      margin-bottom: 24px;
+    }
+
+    .header-description {
+      font-size: 1rem;
+      opacity: 0.8;
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.6;
+      word-break: keep-all;
+      -webkit-word-break: keep-all;
+    }
+
+    /* Contact Info */
+    .contact-info {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: white;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .contact-item:hover {
+      color: #ffd700;
+      transform: translateY(-2px);
+    }
+
+    /* Skills Section */
+    .skills-section {
+      margin-bottom: 40px;
+    }
+
+    .skill-category {
+      margin-bottom: 30px;
+    }
+
+    .skill-items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .skill-tag {
+      padding: 8px 16px;
+      border-radius: 20px;
+      background: #f0f2ff;
+      border: 1px solid #d6e4ff;
+      color: #1890ff;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .skill-tag:hover {
+      background: #1890ff;
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(24, 144, 255, 0.3);
+    }
+
+    .skill-experience {
+      background: #52c41a;
+      color: white;
+      font-size: 12px;
+      padding: 2px 8px;
+      border-radius: 10px;
+      margin-left: 8px;
+      font-weight: 600;
+    }
+
+    .learning-tag {
+      background: #fff7e6;
+      border-color: #ffd591;
+      color: #fa8c16;
+    }
+
+    .learning-tag:hover {
+      background: #fa8c16;
+      color: white;
+    }
+
+    /* Experience Cards */
+    .experience-card {
+      margin-bottom: 24px;
+      border-radius: 12px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      border: 1px solid #f0f0f0;
+    }
+
+    .experience-card:hover {
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+      transform: translateY(-4px);
+    }
+
+    .experience-header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 20px;
+    }
+
+    .company-name {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .position-info {
+      opacity: 0.9;
+      margin-bottom: 12px;
+      color: rgb(255, 255, 255);
+    }
+
+    .employment-status {
+      display: inline-block;
+      padding: 4px 12px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 12px;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .current-job {
+      background: #52c41a;
+    }
+
+    .experience-content {
+      padding: 24px;
+    }
+
+    .project-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #262626;
+      margin-bottom: 16px;
+    }
+
+    .tech-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .tech-tag {
+      padding: 6px 12px;
+      background: #1890ff;
+      color: white;
+      border: none;
+      border-radius: 16px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin: 2px;
+      display: inline-block;
+    }
+
+    .achievements {
+      list-style: none;
+    }
+
+    .achievement-item {
+      margin-bottom: 16px;
+      padding-left: 20px;
+      position: relative;
+    }
+
+    .achievement-item::before {
+      content: "▶";
+      position: absolute;
+      left: 0;
+      color: #1890ff;
+      font-weight: bold;
+    }
+
+    .achievement-title {
+      font-weight: 600;
+      color: #262626;
+      margin-bottom: 8px;
+    }
+
+    .achievement-details {
+      list-style: none;
+      margin-left: 16px;
+    }
+
+    .achievement-details li {
+      margin-bottom: 4px;
+      color: #6b7280;
+      position: relative;
+      padding-left: 16px;
+    }
+
+    .achievement-details li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: #8c8c8c;
+    }
+
+    /* Project Cards */
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      margin-top: 20px;
+    }
+
+    .project-card {
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid #f0f0f0;
+      transition: all 0.3s ease;
+      background: white;
+    }
+
+    .project-card:hover {
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+      transform: translateY(-4px);
+    }
+
+    .project-image {
+      width: 100%;
+      height: 200px;
+      background: #f5f5f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .project-card:hover .project-image img {
+      transform: scale(1.05);
+    }
+
+    .project-content {
+      padding: 20px;
+    }
+
+    .project-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: #262626;
+    }
+
+    .project-description {
+      color: #6b7280;
+      margin-bottom: 16px;
+      line-height: 1.6;
+    }
+
+    .project-tech {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-top: 12px;
+    }
+
+    .project-tech-tag {
+      padding: 4px 8px;
+      background: #f0f2ff;
+      color: #1890ff;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    /* Section Titles */
+    .section-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 24px;
+      color: #262626;
+      position: relative;
+      padding-left: 20px;
+    }
+
+    .section-title::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 2px;
+    }
+
+    /* Navigation */
+    .main-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #f0f0f0;
+      z-index: 1000;
+      padding: 0;
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 20px;
+    }
+
+    .nav-brand {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #262626;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .nav-link {
+      color: #6b7280;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      padding: 8px 12px;
+      border-radius: 6px;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: #1890ff;
+      background: #f0f2ff;
+    }
+
+    .nav-link.active {
+      font-weight: 600;
+    }
+
+    .theme-toggle {
+      background: #f0f2ff;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 12px;
+      cursor: pointer;
+      color: #1890ff;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .theme-toggle:hover {
+      background: #1890ff;
+      color: white;
+    }
+
+    .mobile-menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      color: #6b7280;
+      cursor: pointer;
+      padding: 8px;
+    }
+
+    .mobile-menu {
+      display: none;
+      background: white;
+      border-top: 1px solid #f0f0f0;
+      padding: 16px 20px;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .mobile-menu.active {
+      display: flex;
+    }
+
+    /* Add top padding to portfolio container */
+    .portfolio-container {
+      margin-top: 80px;
+    }
+
+    /* Dark Mode */
+    .dark-mode {
+      background: #141414;
+      color: #fff;
+    }
+
+    .dark-mode .portfolio-container {
+      background: #1f1f1f;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .dark-mode .experience-card,
+    .dark-mode .project-card {
+      background: #262626;
+      border-color: #434343;
+    }
+
+    .dark-mode .skill-tag {
+      background: #262626;
+      border-color: #434343;
+      color: #69c0ff;
+    }
+
+    .dark-mode .main-nav {
+      background: rgba(31, 31, 31, 0.95);
+      border-bottom-color: #434343;
+    }
+
+    .dark-mode .nav-brand {
+      background: linear-gradient(135deg, #60a5fa 0%, #a855f7 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .dark-mode .nav-link {
+      color: #d1d5db;
+    }
+
+    .dark-mode .nav-link:hover,
+    .dark-mode .nav-link.active {
+      color: #60a5fa;
+      background: rgba(96, 165, 250, 0.1);
+    }
+
+    .dark-mode .theme-toggle {
+      background: rgba(96, 165, 250, 0.1);
+      color: #60a5fa;
+    }
+
+    .dark-mode .theme-toggle:hover {
+      background: #60a5fa;
+      color: #1f1f1f;
+    }
+
+    .dark-mode .mobile-menu {
+      background: #1f1f1f;
+      border-top-color: #434343;
+    }
+
+    .dark-mode .tech-tag {
+      background: #60a5fa;
+      color: #1f1f1f;
+    }
+
+    .dark-mode .project-tech-tag {
+      background: rgba(96, 165, 250, 0.2);
+      color: #69c0ff;
+    }
+
+    .dark-mode .section-title {
+      color: #f3f4f6;
+    }
+
+    .dark-mode .project-title,
+    .dark-mode .achievement-title {
+      color: #f3f4f6;
+    }
+
+    .dark-mode .project-description {
+      color: #d1d5db;
+    }
+
+    .dark-mode .achievement-details li {
+      color: #d1d5db;
+    }
+
+    .dark-mode .position-info {
+      color: rgb(255, 255, 255);
+    }
+
+    /* 헤더 설명 다크모드 스타일 */
+    .dark-mode .header-description {
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    /* 스킬 카테고리 제목 다크모드 */
+    .dark-mode .skill-category h3 {
+      color: #f3f4f6 !important;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .nav-menu {
+        display: none;
+      }
+
+      .mobile-menu-toggle {
+        display: block;
+      }
+
+      .portfolio-container {
+        margin: 10px;
+        padding: 16px;
+        margin-top: 70px;
+      }
+
+      .header-title {
+        font-size: 2rem;
+      }
+
+      .contact-info {
+        gap: 15px;
+      }
+
+      .contact-item {
+        font-size: 0.9rem;
+      }
+
+      .project-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .skills-section {
+        margin-bottom: 30px;
+      }
+
+      .skill-items {
+        gap: 8px;
+      }
+
+      .skill-tag {
+        padding: 6px 12px;
+        font-size: 0.9rem;
+      }
+
+      .experience-content {
+        padding: 16px;
+      }
+
+      .tech-stack {
+        gap: 4px;
+      }
+
+      .tech-tag {
+        font-size: 0.8rem;
+        padding: 4px 8px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .header-section {
+        padding: 30px 16px 40px 16px;
+      }
+
+      .profile-avatar {
+        width: 120px;
+        height: 120px;
+      }
+
+      .header-title {
+        font-size: 1.8rem;
+      }
+
+      .contact-info {
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+
+    /* Animation Classes */
+    .fade-in {
+      animation: fadeIn 0.8s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .slide-in-left {
+      animation: slideInLeft 0.6s ease-out;
+    }
+
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .slide-in-right {
+      animation: slideInRight 0.6s ease-out;
+    }
+
+    @keyframes slideInRight {
+      from {
+        opacity: 0;
+        transform: translateX(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+  </style>
 </head>
+
 <body>
-    <!-- Navigation -->
-    <nav class="main-nav">
-        <div class="nav-container">
-            <div class="nav-brand">
-                <span>이효규</span>
-            </div>
-            <div class="nav-menu">
-                <a href="#skills" class="nav-link">기술스택</a>
-                <a href="#experience" class="nav-link">경력사항</a>
-                <a href="#projects" class="nav-link">프로젝트</a>
-                <button class="theme-toggle" onclick="toggleTheme()" aria-label="테마 변경">
-                    <i class="fas fa-sun" id="theme-icon"></i>
-                </button>
-            </div>
-            <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
-                <i class="fas fa-bars"></i>
-            </button>
-        </div>
-        <div class="mobile-menu" id="mobile-menu">
-            <a href="#skills" class="nav-link">기술스택</a>
-            <a href="#experience" class="nav-link">경력사항</a>
-            <a href="#projects" class="nav-link">프로젝트</a>
-        </div>
-    </nav>
-
-    <div class="portfolio-container">
-        <!-- Header Section -->
-        <header class="header-section fade-in">
-            <img src="https://raw.githubusercontent.com/lhg1006/portfolio-images/5032de1886111f194687dad5a893497f89fd12fe/images/common/profileImage.png" 
-                 alt="이효규 프로필 사진" class="profile-avatar">
-            <h1 class="header-title">이효규</h1>
-            <p class="header-subtitle">풀스택 개발자</p>
-            <p class="header-description">
-                안녕하세요! 백엔드부터 프론트엔드까지<br>
-                다양한 경험을 가진 풀스택 개발자입니다.<br>
-                <strong>Spring Boot(JAVA)</strong>와 <strong>NextJS(React/TS)</strong>를 주력으로 사용하며,<br>
-                새로운 기술 습득에 대한 열정을 가지고 있습니다.<br>
-                사용자 경험과 코드 품질을 모두 중요시하며,<br>
-                효율적이고 확장 가능한 웹 서비스 개발을 지향합니다.
-            </p>
-            <div class="contact-info">
-                <a href="mailto:lhg961006@gmail.com" class="contact-item">
-                    <i class="fas fa-envelope"></i>
-                    <span>lhg961006@gmail.com</span>
-                </a>
-                <a href="https://github.com/lhg1006" target="_blank" class="contact-item">
-                    <i class="fab fa-github"></i>
-                    <span>GitHub</span>
-                </a>
-                <a href="https://www.linkedin.com/in/hyo-lee-13b536340" target="_blank" class="contact-item">
-                    <i class="fab fa-linkedin"></i>
-                    <span>LinkedIn</span>
-                </a>
-            </div>
-        </header>
-
-        <!-- Skills Section -->
-        <section id="skills" class="skills-section slide-in-left">
-            <h2 class="section-title">기술 스택</h2>
-            
-            <div class="skill-category">
-                <h3 style="font-size: 1.2rem; font-weight: 600; margin-bottom: 16px; color: #262626;">
-                    <i class="fas fa-server" style="color: #52c41a; margin-right: 8px;"></i>백엔드
-                </h3>
-                <div class="skill-items">
-                    <span class="skill-tag">
-                        <i class="fab fa-java"></i> Java <span class="skill-experience">2022년~</span>
-                    </span>
-                    <span class="skill-tag">
-                        <i class="fas fa-leaf"></i> Spring Boot <span class="skill-experience">2022년~</span>
-                    </span>
-                </div>
-            </div>
-
-            <div class="skill-category">
-                <h3 style="font-size: 1.2rem; font-weight: 600; margin-bottom: 16px; color: #262626;">
-                    <i class="fas fa-code" style="color: #1890ff; margin-right: 8px;"></i>프론트엔드
-                </h3>
-                <div class="skill-items">
-                    <span class="skill-tag">
-                        <i class="fab fa-react"></i> React <span class="skill-experience">2022년~</span>
-                    </span>
-                    <span class="skill-tag">
-                        <i class="fas fa-arrow-right"></i> Next.js <span class="skill-experience">2022년~</span>
-                    </span>
-                    <span class="skill-tag">
-                        <i class="fab fa-js-square"></i> JavaScript <span class="skill-experience">2022년~</span>
-                    </span>
-                    <span class="skill-tag">
-                        <i class="fas fa-code"></i> TypeScript <span class="skill-experience">2022년~</span>
-                    </span>
-                    <span class="skill-tag">
-                        <i class="fab fa-html5"></i> HTML5/CSS3 <span class="skill-experience">2022년~</span>
-                    </span>
-                </div>
-            </div>
-
-            <div class="skill-category">
-                <h3 style="font-size: 1.2rem; font-weight: 600; margin-bottom: 16px; color: #262626;">
-                    <i class="fas fa-database" style="color: #fa8c16; margin-right: 8px;"></i>데이터베이스
-                </h3>
-                <div class="skill-items">
-                    <span class="skill-tag">
-                        <i class="fas fa-database"></i> MySQL <span class="skill-experience">2022년~</span>
-                    </span>
-                    <span class="skill-tag">
-                        <i class="fas fa-elephant"></i> PostgreSQL <span class="skill-experience">2024년~</span>
-                    </span>
-                </div>
-            </div>
-
-            <div class="skill-category">
-                <h3 style="font-size: 1.2rem; font-weight: 600; margin-bottom: 16px; color: #262626;">
-                    <i class="fas fa-graduation-cap" style="color: #722ed1; margin-right: 8px;"></i>학습 중인 기술
-                </h3>
-                <div class="skill-items">
-                    <span class="skill-tag learning-tag">
-                        <i class="fab fa-aws"></i> AWS
-                    </span>
-                    <span class="skill-tag learning-tag">
-                        <i class="fab fa-docker"></i> Docker
-                    </span>
-                    <span class="skill-tag learning-tag">
-                        <i class="fas fa-project-diagram"></i> GraphQL
-                    </span>
-                </div>
-            </div>
-        </section>
-
-        <!-- Experience Section -->
-        <section id="experience" class="experience-section slide-in-right">
-            <h2 class="section-title">경력사항</h2>
-            
-            <!-- Current Job -->
-            <div class="experience-card">
-                <div class="experience-header">
-                    <div class="company-name">(주)지피티코리아</div>
-                    <div class="position-info">개발팀 · 사원/팀원 · 웹개발 | 2024.07 - 현재</div>
-                    <span class="employment-status current-job">재직중</span>
-                </div>
-                <div class="experience-content">
-                    <div class="project-title">AI 기반 웹 서비스 풀스택 개발</div>
-                    <div class="tech-stack">
-                        <span class="tech-tag">Next.js</span>
-                        <span class="tech-tag">React</span>
-                        <span class="tech-tag">React-Query</span>
-                        <span class="tech-tag">Recoil</span>
-                        <span class="tech-tag">Spring Boot</span>
-                        <span class="tech-tag">PostgreSQL</span>
-                        <span class="tech-tag">OpenAI API</span>
-                        <span class="tech-tag">Anthropic API</span>
-                        <span class="tech-tag">Ubuntu</span>
-                        <span class="tech-tag">Apache</span>
-                        <span class="tech-tag">Shell Script</span>
-                    </div>
-                    <ul class="achievements">
-                        <li class="achievement-item">
-                            <div class="achievement-title">Next.js 기반의 프론트엔드 단독 개발 및 구현</div>
-                            <ul class="achievement-details">
-                                <li>RESTful API 연동 및 상태관리 구현</li>
-                                <li>반응형 UI/UX 설계 및 개발</li>
-                            </ul>
-                        </li>
-                        <li class="achievement-item">
-                            <div class="achievement-title">Spring Boot 기반 백엔드 API 서버 개발</div>
-                            <ul class="achievement-details">
-                                <li>RESTful API 설계 및 구현</li>
-                                <li>PostgreSQL 데이터베이스 설계 및 연동</li>
-                                <li>AI 모델 API 통합 및 Prompt Engineering 구현</li>
-                            </ul>
-                        </li>
-                        <li class="achievement-item">
-                            <div class="achievement-title">AI 기능 구현</div>
-                            <ul class="achievement-details">
-                                <li>OpenAI API 연동 및 프롬프트 기능 개발</li>
-                                <li>PostgreSQL의 벡터 검색 기능을 활용한 임베딩 기반 유사도 검색 시스템 구현</li>
-                            </ul>
-                        </li>
-                        <li class="achievement-item">
-                            <div class="achievement-title">서버 인프라 구축 및 배포 환경 관리</div>
-                            <ul class="achievement-details">
-                                <li>Ubuntu 서버 환경 구축 및 Apache 웹서버 설정</li>
-                                <li>Shell Script를 활용한 자동화 배포 파이프라인 구현</li>
-                                <li>SSH를 통한 안전한 원격 서버 관리 및 운영</li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Previous Job -->
-            <div class="experience-card">
-                <div class="experience-header">
-                    <div class="company-name">(주)여보야</div>
-                    <div class="position-info">글로벌사업부 · 사원/팀원 2년차 · 웹개발 | 2022.05 - 2023.12</div>
-                </div>
-                <div class="experience-content">
-                    <div class="project-title">여보야 (매칭 서비스) - Backend/Frontend 개발</div>
-                    <div class="tech-stack">
-                        <span class="tech-tag">Java</span>
-                        <span class="tech-tag">Spring Boot</span>
-                        <span class="tech-tag">MySQL</span>
-                        <span class="tech-tag">JavaScript</span>
-                        <span class="tech-tag">TypeScript</span>
-                        <span class="tech-tag">React</span>
-                        <span class="tech-tag">RESTful API</span>
-                        <span class="tech-tag">Git</span>
-                    </div>
-                    <ul class="achievements">
-                        <li class="achievement-item">
-                            <div class="achievement-title">서비스 유지보수 및 개발</div>
-                            <ul class="achievement-details">
-                                <li>RESTful API 설계 및 구현을 통한 매칭 서비스 백엔드 시스템 개발</li>
-                                <li>사용자 참여형 이벤트 시스템 설계 및 구현</li>
-                                <li>성혼지수 이벤트 시스템 구현</li>
-                                <li>좋아요 랭킹 시스템 구현</li>
-                                <li>사용자 참여도 향상을 위한 밸런스 게임 이벤트 구현</li>
-                                <li>마일리지 적립/사용 시스템 설계 및 구현</li>
-                            </ul>
-                        </li>
-                        <li class="achievement-item">
-                            <div class="achievement-title">관리자 시스템 개발</div>
-                            <ul class="achievement-details">
-                                <li>이벤트 관리 대시보드 설계 및 구현</li>
-                                <li>데이터 분석 및 통계를 위한 어드민 페이지 개발</li>
-                                <li>SQL 쿼리 작성</li>
-                            </ul>
-                        </li>
-                        <li class="achievement-item">
-                            <div class="achievement-title">구인구직 서비스 개발</div>
-                            <ul class="achievement-details">
-                                <li>TypeScript와 React를 활용한 사용자 지원내역 페이지 구현</li>
-                                <li>사용자 활동 로그 시스템 개발 및 모니터링 기능 구현</li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <!-- Projects Section -->
-        <section id="projects" class="projects-section fade-in">
-            <h2 class="section-title">프로젝트</h2>
-            <div class="project-grid">
-                <!-- Project 1 -->
-                <a href="https://github.com/lhg1006/lhg-portfolio" target="_blank" class="project-card">
-                    <div class="project-image">
-                        <img src="https://raw.githubusercontent.com/lhg1006/portfolio-images/7726310b5883116df60b99587bf7b8a1b606da75/images/project/pfs-0.png" 
-                             alt="포트폴리오 프로젝트">
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">개인 포트폴리오 웹</h3>
-                        <p class="project-description">
-                            풀스택 개발자로서의 역량과 경험을 보여주는 반응형 포트폴리오 웹사이트입니다.
-                        </p>
-                        <div class="project-tech">
-                            <span class="project-tech-tag">Next.js</span>
-                            <span class="project-tech-tag">React</span>
-                            <span class="project-tech-tag">TypeScript</span>
-                            <span class="project-tech-tag">Java</span>
-                            <span class="project-tech-tag">Spring Boot</span>
-                            <span class="project-tech-tag">MySQL</span>
-                        </div>
-                    </div>
-                </a>
-
-                <!-- Project 2 -->
-                <a href="https://github.com/lhg1006/Take-a-picture-TAP_js" target="_blank" class="project-card">
-                    <div class="project-image">
-                        <img src="https://raw.githubusercontent.com/lhg1006/portfolio-images/2d28ecc0cfe5317675dcc42ac4f4fa020d17af21/images/project/tap-0.png" 
-                             alt="TAP 프로젝트">
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">take-a-picture : TAP</h3>
-                        <p class="project-description">
-                            모바일 화면 기준으로 만들어졌으며 인스타그램을 모티브로 한 웹 서비스입니다.
-                        </p>
-                        <div class="project-tech">
-                            <span class="project-tech-tag">Next.js</span>
-                            <span class="project-tech-tag">React</span>
-                            <span class="project-tech-tag">TypeScript</span>
-                            <span class="project-tech-tag">Java</span>
-                            <span class="project-tech-tag">Spring Boot</span>
-                            <span class="project-tech-tag">MySQL</span>
-                        </div>
-                    </div>
-                </a>
-
-                <!-- Project 3 -->
-                <a href="https://github.com/lhg1006/mbti-test" target="_blank" class="project-card">
-                    <div class="project-image">
-                        <img src="https://raw.githubusercontent.com/lhg1006/portfolio-images/a3ed392a2921be631bc8d94977ee17c8f26fb0d6/images/project/mbti-0.png" 
-                             alt="MBTI 테스트 프로젝트">
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">🧠 MBTI 성격유형 테스트</h3>
-                        <p class="project-description">
-                            20개의 질문을 통한 MBTI 성격유형 분석. 모바일 친화적인 반응형 디자인과 부드러운 애니메이션을 제공합니다.
-                        </p>
-                        <div class="project-tech">
-                            <span class="project-tech-tag">Next.js</span>
-                            <span class="project-tech-tag">React</span>
-                            <span class="project-tech-tag">TypeScript</span>
-                        </div>
-                    </div>
-                </a>
-
-                <!-- Project 4 -->
-                <a href="https://github.com/lhg1006/tarot-fortune" target="_blank" class="project-card">
-                    <div class="project-image">
-                        <img src="https://raw.githubusercontent.com/lhg1006/portfolio-images/e68c1d680a5e0ccbda716b34dec41439bc986949/images/project/tarot-0.png" 
-                             alt="타로 운세 프로젝트">
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">🔮 타로 운세 웹 애플리케이션</h3>
-                        <p class="project-description">
-                            타로 카드 선택을 통해 운세 결과를 제공하는 웹 애플리케이션입니다.
-                        </p>
-                        <div class="project-tech">
-                            <span class="project-tech-tag">Next.js</span>
-                            <span class="project-tech-tag">React</span>
-                            <span class="project-tech-tag">TypeScript</span>
-                        </div>
-                    </div>
-                </a>
-
-                <!-- Project 5 -->
-                <a href="https://github.com/lhg1006/lotto-number-generator" target="_blank" class="project-card">
-                    <div class="project-image">
-                        <img src="https://raw.githubusercontent.com/lhg1006/portfolio-images/a3ed392a2921be631bc8d94977ee17c8f26fb0d6/images/project/ltg-0.png" 
-                             alt="로또 번호 추첨기 프로젝트">
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">🎱 로또 번호 추첨기</h3>
-                        <p class="project-description">
-                            무료로 로또 번호를 생성할 수 있는 웹 애플리케이션입니다.
-                        </p>
-                        <div class="project-tech">
-                            <span class="project-tech-tag">Next.js</span>
-                            <span class="project-tech-tag">React</span>
-                            <span class="project-tech-tag">TypeScript</span>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </section>
+  <!-- Navigation -->
+  <nav class="main-nav">
+    <div class="nav-container">
+      <div class="nav-brand">
+        <span>이효규</span>
+      </div>
+      <div class="nav-menu">
+        <a href="#skills" class="nav-link">기술스택</a>
+        <a href="#experience" class="nav-link">경력사항</a>
+        <a href="#projects" class="nav-link">프로젝트</a>
+        <button class="theme-toggle" onclick="toggleTheme()" aria-label="테마 변경">
+          <i class="fas fa-sun" id="theme-icon"></i>
+        </button>
+      </div>
+      <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+        <i class="fas fa-bars"></i>
+      </button>
     </div>
+    <div class="mobile-menu" id="mobile-menu">
+      <a href="#skills" class="nav-link">기술스택</a>
+      <a href="#experience" class="nav-link">경력사항</a>
+      <a href="#projects" class="nav-link">프로젝트</a>
+    </div>
+  </nav>
 
-    <!-- Scripts -->
-    <script>
-        // Theme Toggle Functionality
-        function toggleTheme() {
-            const body = document.body;
-            const themeIcon = document.getElementById('theme-icon');
-            
-            body.classList.toggle('dark-mode');
-            
-            if (body.classList.contains('dark-mode')) {
-                themeIcon.className = 'fas fa-moon';
-                localStorage.setItem('theme', 'dark');
-            } else {
-                themeIcon.className = 'fas fa-sun';
-                localStorage.setItem('theme', 'light');
-            }
-        }
+  <div class="portfolio-container">
+    <!-- Header Section -->
+    <header class="header-section fade-in">
+      <img
+        src="https://raw.githubusercontent.com/lhg1006/portfolio-images/5032de1886111f194687dad5a893497f89fd12fe/images/common/profileImage.png"
+        alt="이효규 프로필 사진" class="profile-avatar">
+      <h1 class="header-title">이효규</h1>
+      <p class="header-subtitle">풀스택 개발자</p>
+      <p class="header-description">
+        안녕하세요! 백엔드부터 프론트엔드까지<br>
+        다양한 경험을 가진 풀스택 개발자입니다.<br>
+        <strong>Spring Boot(JAVA)</strong>와 <strong>NextJS(React/TS)</strong>를 주력으로 사용하며,<br>
+        새로운 기술 습득에 대한 열정을 가지고 있습니다.<br>
+        사용자 경험과 코드 품질을 모두 중요시하며,<br>
+        효율적이고 확장 가능한 웹 서비스 개발을 지향합니다.
+      </p>
+      <div class="contact-info">
+        <a href="mailto:lhg961006@gmail.com" class="contact-item">
+          <i class="fas fa-envelope"></i>
+          <span>lhg961006@gmail.com</span>
+        </a>
+        <a href="https://github.com/lhg1006" target="_blank" class="contact-item">
+          <i class="fab fa-github"></i>
+          <span>GitHub</span>
+        </a>
+        <a href="https://www.linkedin.com/in/hyo-lee-13b536340" target="_blank" class="contact-item">
+          <i class="fab fa-linkedin"></i>
+          <span>LinkedIn</span>
+        </a>
+      </div>
+    </header>
 
-        // Load saved theme
-        function loadTheme() {
-            const savedTheme = localStorage.getItem('theme');
-            const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
-            const themeIcon = document.getElementById('theme-icon');
-            
-            if (savedTheme === 'dark' || (!savedTheme && prefersDarkScheme.matches)) {
-                document.body.classList.add('dark-mode');
-                themeIcon.className = 'fas fa-moon';
-            } else {
-                themeIcon.className = 'fas fa-sun';
-            }
-        }
+    <!-- Skills Section -->
+    <section id="skills" class="skills-section slide-in-left">
+      <h2 class="section-title">기술 스택</h2>
 
-        // Intersection Observer for scroll animations
-        function initScrollAnimations() {
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
+      <div class="skill-category">
+        <h3 style="font-size: 1.2rem; font-weight: 600; margin-bottom: 16px; color: #262626;">
+          <i class="fas fa-server" style="color: #52c41a; margin-right: 8px;"></i>백엔드
+        </h3>
+        <div class="skill-items">
+          <span class="skill-tag">
+            <i class="fab fa-java"></i> Java <span class="skill-experience">2022년~</span>
+          </span>
+          <span class="skill-tag">
+            <i class="fas fa-leaf"></i> Spring Boot <span class="skill-experience">2022년~</span>
+          </span>
+        </div>
+      </div>
 
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                    }
-                });
-            }, observerOptions);
+      <div class="skill-category">
+        <h3 style="font-size: 1.2rem; font-weight: 600; margin-bottom: 16px; color: #262626;">
+          <i class="fas fa-code" style="color: #1890ff; margin-right: 8px;"></i>프론트엔드
+        </h3>
+        <div class="skill-items">
+          <span class="skill-tag">
+            <i class="fab fa-react"></i> React <span class="skill-experience">2022년~</span>
+          </span>
+          <span class="skill-tag">
+            <i class="fas fa-arrow-right"></i> Next.js <span class="skill-experience">2022년~</span>
+          </span>
+          <span class="skill-tag">
+            <i class="fab fa-js-square"></i> JavaScript <span class="skill-experience">2022년~</span>
+          </span>
+          <span class="skill-tag">
+            <i class="fas fa-code"></i> TypeScript <span class="skill-experience">2022년~</span>
+          </span>
+          <span class="skill-tag">
+            <i class="fab fa-html5"></i> HTML5/CSS3 <span class="skill-experience">2022년~</span>
+          </span>
+        </div>
+      </div>
 
-            // Observe all animated elements
-            document.querySelectorAll('.slide-in-left, .slide-in-right, .fade-in').forEach(el => {
-                el.style.opacity = '0';
-                el.style.transform = 'translateY(20px)';
-                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-                observer.observe(el);
+      <div class="skill-category">
+        <h3 style="font-size: 1.2rem; font-weight: 600; margin-bottom: 16px; color: #262626;">
+          <i class="fas fa-database" style="color: #fa8c16; margin-right: 8px;"></i>데이터베이스
+        </h3>
+        <div class="skill-items">
+          <span class="skill-tag">
+            <i class="fas fa-database"></i> MySQL <span class="skill-experience">2022년~</span>
+          </span>
+          <span class="skill-tag">
+            <i class="fas fa-elephant"></i> PostgreSQL <span class="skill-experience">2024년~</span>
+          </span>
+        </div>
+      </div>
+
+      <div class="skill-category">
+        <h3 style="font-size: 1.2rem; font-weight: 600; margin-bottom: 16px; color: #262626;">
+          <i class="fas fa-graduation-cap" style="color: #722ed1; margin-right: 8px;"></i>학습 중인 기술
+        </h3>
+        <div class="skill-items">
+          <span class="skill-tag learning-tag">
+            <i class="fab fa-aws"></i> AWS
+          </span>
+          <span class="skill-tag learning-tag">
+            <i class="fab fa-docker"></i> Docker
+          </span>
+          <span class="skill-tag learning-tag">
+            <i class="fas fa-project-diagram"></i> GraphQL
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="experience-section slide-in-right">
+      <h2 class="section-title">경력사항</h2>
+
+      <!-- Current Job -->
+      <div class="experience-card">
+        <div class="experience-header">
+          <div class="company-name">(주)지피티코리아</div>
+          <div class="position-info">개발팀 · 사원/팀원 · 웹개발 | 2024.07 - 현재</div>
+          <span class="employment-status current-job">재직중</span>
+        </div>
+        <div class="experience-content">
+          <div class="project-title">AI 기반 웹 서비스 풀스택 개발</div>
+          <div class="tech-stack">
+            <span class="tech-tag">Next.js</span>
+            <span class="tech-tag">React</span>
+            <span class="tech-tag">React-Query</span>
+            <span class="tech-tag">Recoil</span>
+            <span class="tech-tag">Spring Boot</span>
+            <span class="tech-tag">PostgreSQL</span>
+            <span class="tech-tag">OpenAI API</span>
+            <span class="tech-tag">Anthropic API</span>
+            <span class="tech-tag">Ubuntu</span>
+            <span class="tech-tag">Apache</span>
+            <span class="tech-tag">Shell Script</span>
+          </div>
+          <ul class="achievements">
+            <li class="achievement-item">
+              <div class="achievement-title">Next.js 기반의 프론트엔드 단독 개발 및 구현</div>
+              <ul class="achievement-details">
+                <li>RESTful API 연동 및 상태관리 구현</li>
+                <li>반응형 UI/UX 설계 및 개발</li>
+              </ul>
+            </li>
+            <li class="achievement-item">
+              <div class="achievement-title">Spring Boot 기반 백엔드 API 서버 개발</div>
+              <ul class="achievement-details">
+                <li>RESTful API 설계 및 구현</li>
+                <li>PostgreSQL 데이터베이스 설계 및 연동</li>
+                <li>AI 모델 API 통합 및 Prompt Engineering 구현</li>
+              </ul>
+            </li>
+            <li class="achievement-item">
+              <div class="achievement-title">AI 기능 구현</div>
+              <ul class="achievement-details">
+                <li>OpenAI API 연동 및 프롬프트 기능 개발</li>
+                <li>PostgreSQL의 벡터 검색 기능을 활용한 임베딩 기반 유사도 검색 시스템 구현</li>
+              </ul>
+            </li>
+            <li class="achievement-item">
+              <div class="achievement-title">서버 인프라 구축 및 배포 환경 관리</div>
+              <ul class="achievement-details">
+                <li>Ubuntu 서버 환경 구축 및 Apache 웹서버 설정</li>
+                <li>Shell Script를 활용한 자동화 배포 파이프라인 구현</li>
+                <li>SSH를 통한 안전한 원격 서버 관리 및 운영</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Previous Job -->
+      <div class="experience-card">
+        <div class="experience-header">
+          <div class="company-name">(주)여보야</div>
+          <div class="position-info">글로벌사업부 · 사원/팀원 2년차 · 웹개발 | 2022.05 - 2023.12</div>
+        </div>
+        <div class="experience-content">
+          <div class="project-title">여보야 (매칭 서비스) - Backend/Frontend 개발</div>
+          <div class="tech-stack">
+            <span class="tech-tag">Java</span>
+            <span class="tech-tag">Spring Boot</span>
+            <span class="tech-tag">MySQL</span>
+            <span class="tech-tag">JavaScript</span>
+            <span class="tech-tag">TypeScript</span>
+            <span class="tech-tag">React</span>
+            <span class="tech-tag">RESTful API</span>
+            <span class="tech-tag">Git</span>
+          </div>
+          <ul class="achievements">
+            <li class="achievement-item">
+              <div class="achievement-title">서비스 유지보수 및 개발</div>
+              <ul class="achievement-details">
+                <li>RESTful API 설계 및 구현을 통한 매칭 서비스 백엔드 시스템 개발</li>
+                <li>사용자 참여형 이벤트 시스템 설계 및 구현</li>
+                <li>성혼지수 이벤트 시스템 구현</li>
+                <li>좋아요 랭킹 시스템 구현</li>
+                <li>사용자 참여도 향상을 위한 밸런스 게임 이벤트 구현</li>
+                <li>마일리지 적립/사용 시스템 설계 및 구현</li>
+              </ul>
+            </li>
+            <li class="achievement-item">
+              <div class="achievement-title">관리자 시스템 개발</div>
+              <ul class="achievement-details">
+                <li>이벤트 관리 대시보드 설계 및 구현</li>
+                <li>데이터 분석 및 통계를 위한 어드민 페이지 개발</li>
+                <li>SQL 쿼리 작성</li>
+              </ul>
+            </li>
+            <li class="achievement-item">
+              <div class="achievement-title">구인구직 서비스 개발</div>
+              <ul class="achievement-details">
+                <li>TypeScript와 React를 활용한 사용자 지원내역 페이지 구현</li>
+                <li>사용자 활동 로그 시스템 개발 및 모니터링 기능 구현</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects-section fade-in">
+      <h2 class="section-title">프로젝트</h2>
+      <div class="project-grid">
+        <!-- Project 1 -->
+        <a href="https://github.com/lhg1006/toss-portfolio" target="_blank" class="project-card">
+          <div class="project-image">
+            <img
+              src="https://raw.githubusercontent.com/lhg1006/portfolio-images/c475ae28e562b5cda858b007e16a9788a91aeb43/images/project/toss-main.png"
+              alt="토스뱅크 포트폴리오">
+          </div>
+          <div class="project-content">
+            <h3 class="project-title">토스뱅크 포트폴리오 데모</h3>
+            <p class="project-description">
+              현대적인 핀테크 UI/UX를 구현한 뱅킹 앱 포트폴리오입니다. 토스뱅크의 디자인 언어에서 영감을 받아 제작되었으며, 최신 웹 기술 스택을 활용하여 반응형 뱅킹 인터페이스를 구현했습니다.
+            </p>
+            <div class="project-tech">
+              <span class="project-tech-tag">Next.js</span>
+              <span class="project-tech-tag">React</span>
+              <span class="project-tech-tag">TypeScript</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Project 2 -->
+        <a href="https://github.com/lhg1006/lhg-portfolio" target="_blank" class="project-card">
+          <div class="project-image">
+            <img
+              src="https://raw.githubusercontent.com/lhg1006/portfolio-images/7726310b5883116df60b99587bf7b8a1b606da75/images/project/pfs-0.png"
+              alt="포트폴리오 프로젝트">
+          </div>
+          <div class="project-content">
+            <h3 class="project-title">개인 포트폴리오 웹</h3>
+            <p class="project-description">
+              풀스택 개발자로서의 역량과 경험을 보여주는 반응형 포트폴리오 웹사이트입니다.
+            </p>
+            <div class="project-tech">
+              <span class="project-tech-tag">Next.js</span>
+              <span class="project-tech-tag">React</span>
+              <span class="project-tech-tag">TypeScript</span>
+              <span class="project-tech-tag">Java</span>
+              <span class="project-tech-tag">Spring Boot</span>
+              <span class="project-tech-tag">MySQL</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Project 3 -->
+        <a href="https://github.com/lhg1006/Take-a-picture-TAP_js" target="_blank" class="project-card">
+          <div class="project-image">
+            <img
+              src="https://raw.githubusercontent.com/lhg1006/portfolio-images/2d28ecc0cfe5317675dcc42ac4f4fa020d17af21/images/project/tap-0.png"
+              alt="TAP 프로젝트">
+          </div>
+          <div class="project-content">
+            <h3 class="project-title">take-a-picture : TAP</h3>
+            <p class="project-description">
+              모바일 화면 기준으로 만들어졌으며 인스타그램을 모티브로 한 웹 서비스입니다.
+            </p>
+            <div class="project-tech">
+              <span class="project-tech-tag">Next.js</span>
+              <span class="project-tech-tag">React</span>
+              <span class="project-tech-tag">TypeScript</span>
+              <span class="project-tech-tag">Java</span>
+              <span class="project-tech-tag">Spring Boot</span>
+              <span class="project-tech-tag">MySQL</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Project 4 -->
+        <a href="https://github.com/lhg1006/mbti-test" target="_blank" class="project-card">
+          <div class="project-image">
+            <img
+              src="https://raw.githubusercontent.com/lhg1006/portfolio-images/a3ed392a2921be631bc8d94977ee17c8f26fb0d6/images/project/mbti-0.png"
+              alt="MBTI 테스트 프로젝트">
+          </div>
+          <div class="project-content">
+            <h3 class="project-title">🧠 MBTI 성격유형 테스트</h3>
+            <p class="project-description">
+              20개의 질문을 통한 MBTI 성격유형 분석. 모바일 친화적인 반응형 디자인과 부드러운 애니메이션을 제공합니다.
+            </p>
+            <div class="project-tech">
+              <span class="project-tech-tag">Next.js</span>
+              <span class="project-tech-tag">React</span>
+              <span class="project-tech-tag">TypeScript</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Project 5 -->
+        <a href="https://github.com/lhg1006/tarot-fortune" target="_blank" class="project-card">
+          <div class="project-image">
+            <img
+              src="https://raw.githubusercontent.com/lhg1006/portfolio-images/e68c1d680a5e0ccbda716b34dec41439bc986949/images/project/tarot-0.png"
+              alt="타로 운세 프로젝트">
+          </div>
+          <div class="project-content">
+            <h3 class="project-title">🔮 타로 운세 웹 애플리케이션</h3>
+            <p class="project-description">
+              타로 카드 선택을 통해 운세 결과를 제공하는 웹 애플리케이션입니다.
+            </p>
+            <div class="project-tech">
+              <span class="project-tech-tag">Next.js</span>
+              <span class="project-tech-tag">React</span>
+              <span class="project-tech-tag">TypeScript</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Project 6 -->
+        <a href="https://github.com/lhg1006/lotto-number-generator" target="_blank" class="project-card">
+          <div class="project-image">
+            <img
+              src="https://raw.githubusercontent.com/lhg1006/portfolio-images/a3ed392a2921be631bc8d94977ee17c8f26fb0d6/images/project/ltg-0.png"
+              alt="로또 번호 추첨기 프로젝트">
+          </div>
+          <div class="project-content">
+            <h3 class="project-title">🎱 로또 번호 추첨기</h3>
+            <p class="project-description">
+              무료로 로또 번호를 생성할 수 있는 웹 애플리케이션입니다.
+            </p>
+            <div class="project-tech">
+              <span class="project-tech-tag">Next.js</span>
+              <span class="project-tech-tag">React</span>
+              <span class="project-tech-tag">TypeScript</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
+  </div>
+
+  <!-- Scripts -->
+  <script>
+    // Theme Toggle Functionality
+    function toggleTheme() {
+      const body = document.body;
+      const themeIcon = document.getElementById('theme-icon');
+
+      body.classList.toggle('dark-mode');
+
+      if (body.classList.contains('dark-mode')) {
+        themeIcon.className = 'fas fa-moon';
+        localStorage.setItem('theme', 'dark');
+      } else {
+        themeIcon.className = 'fas fa-sun';
+        localStorage.setItem('theme', 'light');
+      }
+    }
+
+    // Load saved theme
+    function loadTheme() {
+      const savedTheme = localStorage.getItem('theme');
+      const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+      const themeIcon = document.getElementById('theme-icon');
+
+      if (savedTheme === 'dark' || (!savedTheme && prefersDarkScheme.matches)) {
+        document.body.classList.add('dark-mode');
+        themeIcon.className = 'fas fa-moon';
+      } else {
+        themeIcon.className = 'fas fa-sun';
+      }
+    }
+
+    // Intersection Observer for scroll animations
+    function initScrollAnimations() {
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+          }
+        });
+      }, observerOptions);
+
+      // Observe all animated elements
+      document.querySelectorAll('.slide-in-left, .slide-in-right, .fade-in').forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(el);
+      });
+    }
+
+    // Smooth scrolling for anchor links
+    function initSmoothScroll() {
+      // Handle all navigation links (both desktop and mobile)
+      document.querySelectorAll('.nav-link[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const targetId = this.getAttribute('href');
+          const target = document.querySelector(targetId);
+          if (target) {
+            // Calculate offset for fixed navigation
+            const navHeight = document.querySelector('.main-nav').offsetHeight;
+            const targetPosition = target.offsetTop - navHeight - 20;
+
+            window.scrollTo({
+              top: targetPosition,
+              behavior: 'smooth'
             });
-        }
 
-        // Smooth scrolling for anchor links
-        function initSmoothScroll() {
-            // Handle all navigation links (both desktop and mobile)
-            document.querySelectorAll('.nav-link[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href');
-                    const target = document.querySelector(targetId);
-                    if (target) {
-                        // Calculate offset for fixed navigation
-                        const navHeight = document.querySelector('.main-nav').offsetHeight;
-                        const targetPosition = target.offsetTop - navHeight - 20;
-                        
-                        window.scrollTo({
-                            top: targetPosition,
-                            behavior: 'smooth'
-                        });
-                        
-                        // Close mobile menu if open
-                        const mobileMenu = document.getElementById('mobile-menu');
-                        if (mobileMenu.classList.contains('active')) {
-                            mobileMenu.classList.remove('active');
-                        }
-                    }
-                });
-            });
-            
-            // Handle other anchor links (like contact links)
-            document.querySelectorAll('a[href^="#"]:not(.nav-link)').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        target.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }
-                });
-            });
-        }
-
-        // Mobile menu toggle
-        function toggleMobileMenu() {
+            // Close mobile menu if open
             const mobileMenu = document.getElementById('mobile-menu');
-            mobileMenu.classList.toggle('active');
-        }
+            if (mobileMenu.classList.contains('active')) {
+              mobileMenu.classList.remove('active');
+            }
+          }
+        });
+      });
 
-        // Initialize everything when DOM is loaded
-        document.addEventListener('DOMContentLoaded', function() {
-            loadTheme();
-            initScrollAnimations();
-            initSmoothScroll();
-            
-            // Navigation active state tracking
-            window.addEventListener('scroll', () => {
-                const sections = document.querySelectorAll('section[id]');
-                const navLinks = document.querySelectorAll('.nav-link');
-                const navHeight = document.querySelector('.main-nav').offsetHeight;
-                
-                let currentSection = '';
-                
-                sections.forEach(section => {
-                    const sectionTop = section.offsetTop - navHeight - 50;
-                    const sectionHeight = section.offsetHeight;
-                    
-                    if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
-                        currentSection = section.getAttribute('id');
-                    }
-                });
-                
-                // Update active nav link
-                navLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === `#${currentSection}`) {
-                        link.classList.add('active');
-                    }
-                });
+      // Handle other anchor links (like contact links)
+      document.querySelectorAll('a[href^="#"]:not(.nav-link)').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            target.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
             });
+          }
+        });
+      });
+    }
+
+    // Mobile menu toggle
+    function toggleMobileMenu() {
+      const mobileMenu = document.getElementById('mobile-menu');
+      mobileMenu.classList.toggle('active');
+    }
+
+    // Initialize everything when DOM is loaded
+    document.addEventListener('DOMContentLoaded', function () {
+      loadTheme();
+      initScrollAnimations();
+      initSmoothScroll();
+
+      // Navigation active state tracking
+      window.addEventListener('scroll', () => {
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const navHeight = document.querySelector('.main-nav').offsetHeight;
+
+        let currentSection = '';
+
+        sections.forEach(section => {
+          const sectionTop = section.offsetTop - navHeight - 50;
+          const sectionHeight = section.offsetHeight;
+
+          if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
+            currentSection = section.getAttribute('id');
+          }
         });
 
-        // Handle resize events
-        window.addEventListener('resize', function() {
-            // Reinitialize animations if needed
-            clearTimeout(window.resizeTimer);
-            window.resizeTimer = setTimeout(() => {
-                // Any resize-specific code here
-            }, 250);
+        // Update active nav link
+        navLinks.forEach(link => {
+          link.classList.remove('active');
+          if (link.getAttribute('href') === `#${currentSection}`) {
+            link.classList.add('active');
+          }
         });
-    </script>
+      });
+    });
+
+    // Handle resize events
+    window.addEventListener('resize', function () {
+      // Reinitialize animations if needed
+      clearTimeout(window.resizeTimer);
+      window.resizeTimer = setTimeout(() => {
+        // Any resize-specific code here
+      }, 250);
+    });
+  </script>
 </body>
+
 </html>
