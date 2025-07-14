@@ -134,6 +134,8 @@
     overflow: hidden;
     animation: experienceGlow 2s ease-in-out infinite alternate;
     white-space: nowrap;
+    word-break: keep-all;
+    -webkit-word-break: keep-all;
 }
 
 @keyframes experienceGlow {

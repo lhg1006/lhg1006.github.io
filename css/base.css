@@ -1,3 +1,52 @@
+/* Wanted Sans 폰트 정의 */
+@font-face {
+    font-family: 'WantedSans';
+    src: url('../font/wanted-sans/WantedSans-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'WantedSans';
+    src: url('../font/wanted-sans/WantedSans-Medium.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'WantedSans';
+    src: url('../font/wanted-sans/WantedSans-SemiBold.woff2') format('woff2');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'WantedSans';
+    src: url('../font/wanted-sans/WantedSans-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'WantedSans';
+    src: url('../font/wanted-sans/WantedSans-ExtraBold.woff2') format('woff2');
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'WantedSans';
+    src: url('../font/wanted-sans/WantedSans-Black.woff2') format('woff2');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
 :root {
     /* 브랜드 색상 */
     --primary-color: #2563eb;
@@ -136,7 +185,7 @@ html {
 }
 
 body {
-    font-family: 'Pretendard', 'Apple SD Gothic Neo', 'Segoe UI', 'Roboto', system-ui, sans-serif;
+    font-family: 'WantedSans', 'Pretendard', 'Apple SD Gothic Neo', 'Segoe UI', 'Roboto', system-ui, sans-serif;
     line-height: 1.6;
     color: var(--text-primary);
     background-color: var(--bg-primary);
