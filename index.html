@@ -663,53 +663,96 @@
       }
     }
 
-    /* Animation Classes */
+    /* Enhanced Animation Classes */
     .fade-in {
-      animation: fadeIn 0.8s ease-in-out;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      opacity: 0;
+      transform: translateY(30px) scale(0.95);
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .slide-in-left {
-      animation: slideInLeft 0.6s ease-out;
-    }
-
-    @keyframes slideInLeft {
-      from {
-        opacity: 0;
-        transform: translateX(-30px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
+      opacity: 0;
+      transform: translateY(30px) scale(0.95);
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .slide-in-right {
-      animation: slideInRight 0.6s ease-out;
+      opacity: 0;
+      transform: translateY(30px) scale(0.95);
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    @keyframes slideInRight {
-      from {
-        opacity: 0;
-        transform: translateX(30px);
-      }
+    /* Animated state when in view */
+    .animate-in {
+      opacity: 1 !important;
+      transform: translateY(0) scale(1) !important;
+    }
 
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
+    /* Enhanced card animations */
+    .experience-card,
+    .project-card {
+      opacity: 0;
+      transform: translateY(40px) scale(0.9);
+      filter: blur(3px);
+      transition: all 0.7s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .experience-card.animate-in,
+    .project-card.animate-in {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      filter: blur(0px);
+    }
+
+    /* Skill category animations */
+    .skill-category {
+      opacity: 0;
+      transform: translateY(30px) scale(0.95);
+      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .skill-category.animate-in {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    /* Staggered skill tag animations */
+    .skill-tag {
+      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      transform-origin: center bottom;
+    }
+
+    .skill-tag:hover {
+      transform: translateY(-3px) scale(1.05) !important;
+      box-shadow: 0 8px 25px rgba(24, 144, 255, 0.4);
+    }
+
+    /* Project card enhanced hover effects */
+    .project-card:hover {
+      transform: translateY(-8px) scale(1.02) !important;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .experience-card:hover {
+      transform: translateY(-5px) scale(1.01) !important;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+    }
+
+    /* Smooth transitions for all interactive elements */
+    .nav-link,
+    .contact-item,
+    .theme-toggle {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Add subtle animation to profile avatar */
+    .profile-avatar {
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .profile-avatar:hover {
+      transform: scale(1.05) rotate(5deg);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
     }
   </style>
 </head>
@@ -1256,28 +1299,163 @@
       }
     }
 
-    // Intersection Observer for scroll animations
+    // Enhanced scroll animations with direction detection
     function initScrollAnimations() {
       const observerOptions = {
         threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
+        rootMargin: '0px 0px -100px 0px'
       };
 
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
+            // 요소가 뷰포트에 들어올 때 나타나는 애니메이션
             entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
+            entry.target.style.transform = 'translateY(0) scale(1)';
+            entry.target.classList.add('animate-in');
+          } else {
+            // 요소가 뷰포트에서 벗어날 때 사라지는 애니메이션
+            entry.target.style.opacity = '0';
+            entry.target.style.transform = 'translateY(30px) scale(0.95)';
+            entry.target.classList.remove('animate-in');
           }
         });
       }, observerOptions);
 
-      // Observe all animated elements
+      // 개별 카드나 요소들에 대한 더 세밀한 애니메이션
+      const cardObserverOptions = {
+        threshold: 0.2,
+        rootMargin: '0px 0px -50px 0px'
+      };
+
+      const cardObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0) scale(1)';
+            entry.target.style.filter = 'blur(0px)';
+          } else {
+            entry.target.style.opacity = '0';
+            entry.target.style.transform = 'translateY(40px) scale(0.9)';
+            entry.target.style.filter = 'blur(3px)';
+          }
+        });
+      }, cardObserverOptions);
+
+      // 모든 애니메이션 요소 초기화 및 관찰 시작
       document.querySelectorAll('.slide-in-left, .slide-in-right, .fade-in').forEach(el => {
         el.style.opacity = '0';
-        el.style.transform = 'translateY(20px)';
-        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        el.style.transform = 'translateY(30px) scale(0.95)';
+        el.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
         observer.observe(el);
+      });
+
+      // 카드 요소들에 대한 별도 애니메이션
+      document.querySelectorAll('.experience-card, .project-card, .skill-category').forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(40px) scale(0.9)';
+        el.style.filter = 'blur(3px)';
+        el.style.transition = 'all 0.7s cubic-bezier(0.25, 0.8, 0.25, 1)';
+        cardObserver.observe(el);
+      });
+
+      // 스킬 태그들에 대한 스태거드 애니메이션
+      document.querySelectorAll('.skill-items').forEach(skillGroup => {
+        const skillTags = skillGroup.querySelectorAll('.skill-tag');
+        skillTags.forEach((tag, index) => {
+          tag.style.opacity = '0';
+          tag.style.transform = 'translateY(20px) scale(0.8)';
+          tag.style.transition = `all 0.6s cubic-bezier(0.4, 0, 0.2, 1) ${index * 0.1}s`;
+        });
+
+        const skillGroupObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            const tags = entry.target.querySelectorAll('.skill-tag');
+            if (entry.isIntersecting) {
+              tags.forEach((tag, index) => {
+                setTimeout(() => {
+                  tag.style.opacity = '1';
+                  tag.style.transform = 'translateY(0) scale(1)';
+                }, index * 100);
+              });
+            } else {
+              tags.forEach((tag, index) => {
+                setTimeout(() => {
+                  tag.style.opacity = '0';
+                  tag.style.transform = 'translateY(20px) scale(0.8)';
+                }, index * 50);
+              });
+            }
+          });
+        }, { threshold: 0.3, rootMargin: '0px 0px -100px 0px' });
+
+        skillGroupObserver.observe(skillGroup);
+      });
+
+      // Achievement 아이템들에 대한 스태거드 애니메이션
+      document.querySelectorAll('.achievements').forEach(achievementList => {
+        const achievementItems = achievementList.querySelectorAll('.achievement-item');
+        achievementItems.forEach((item, index) => {
+          item.style.opacity = '0';
+          item.style.transform = 'translateX(-30px) scale(0.95)';
+          item.style.transition = `all 0.7s cubic-bezier(0.4, 0, 0.2, 1) ${index * 0.2}s`;
+        });
+
+        const achievementObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            const items = entry.target.querySelectorAll('.achievement-item');
+            if (entry.isIntersecting) {
+              items.forEach((item, index) => {
+                setTimeout(() => {
+                  item.style.opacity = '1';
+                  item.style.transform = 'translateX(0) scale(1)';
+                }, index * 150);
+              });
+            } else {
+              items.forEach((item, index) => {
+                setTimeout(() => {
+                  item.style.opacity = '0';
+                  item.style.transform = 'translateX(-30px) scale(0.95)';
+                }, index * 75);
+              });
+            }
+          });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        achievementObserver.observe(achievementList);
+      });
+
+      // 프로젝트 카드들에 대한 개별 애니메이션
+      document.querySelectorAll('.project-grid').forEach(projectGrid => {
+        const projectCards = projectGrid.querySelectorAll('.project-card');
+        projectCards.forEach((card, index) => {
+          card.style.opacity = '0';
+          card.style.transform = 'translateY(50px) scale(0.8) rotateX(10deg)';
+          card.style.transition = `all 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) ${index * 0.1}s`;
+        });
+
+        const projectObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            const cards = entry.target.querySelectorAll('.project-card');
+            if (entry.isIntersecting) {
+              cards.forEach((card, index) => {
+                setTimeout(() => {
+                  card.style.opacity = '1';
+                  card.style.transform = 'translateY(0) scale(1) rotateX(0deg)';
+                }, index * 150);
+              });
+            } else {
+              cards.forEach((card, index) => {
+                setTimeout(() => {
+                  card.style.opacity = '0';
+                  card.style.transform = 'translateY(50px) scale(0.8) rotateX(10deg)';
+                }, index * 100);
+              });
+            }
+          });
+        }, { threshold: 0.2, rootMargin: '0px 0px -100px 0px' });
+
+        projectObserver.observe(projectGrid);
       });
     }
 
