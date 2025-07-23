@@ -409,6 +409,11 @@
       background-clip: text;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .nav-brand:hover {
+      transform: scale(1.05);
     }
 
     .nav-menu {
@@ -493,6 +498,21 @@
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
     }
 
+    /* Dark mode header gradient */
+    .dark-mode .header-section {
+      background: linear-gradient(135deg, #1565C0 0%, #0277BD 50%, #00838F 100%);
+    }
+
+    /* Dark mode experience header gradient */
+    .dark-mode .experience-header {
+      background: linear-gradient(135deg, #1565C0 0%, #0277BD 50%, #00838F 100%);
+    }
+
+    /* Dark mode section title accent */
+    .dark-mode .section-title::before {
+      background: linear-gradient(135deg, #1565C0 0%, #0277BD 50%, #00838F 100%);
+    }
+
     .dark-mode .experience-card,
     .dark-mode .project-card {
       background: #262626;
@@ -511,7 +531,7 @@
     }
 
     .dark-mode .nav-brand {
-      background: linear-gradient(135deg, #64b5f6 0%, #42a5f5 50%, #2196f3 100%);
+      background: linear-gradient(135deg, #42A5F5 0%, #1E88E5 50%, #1565C0 100%);
       background-clip: text;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -761,7 +781,7 @@
   <!-- Navigation -->
   <nav class="main-nav">
     <div class="nav-container">
-      <div class="nav-brand">
+      <div class="nav-brand" id="nav-brand-home" style="cursor: pointer;">
         <span>이효규</span>
       </div>
       <div class="nav-menu">
@@ -1483,11 +1503,25 @@
       mobileMenu.classList.toggle('active');
     }
 
+    // Scroll to top function for nav brand
+    function scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+
     // Initialize everything when DOM is loaded
     document.addEventListener('DOMContentLoaded', function () {
       loadTheme();
       initScrollAnimations();
       initSmoothScroll();
+
+      // Add click event to nav brand for scroll to top
+      const navBrand = document.getElementById('nav-brand-home');
+      if (navBrand) {
+        navBrand.addEventListener('click', scrollToTop);
+      }
 
       // Navigation active state tracking
       window.addEventListener('scroll', () => {
