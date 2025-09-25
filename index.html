@@ -603,6 +603,163 @@
       color: #f3f4f6 !important;
     }
 
+    /* Project Modal Styles */
+    .project-modal {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(5px);
+    }
+
+    .project-modal.active {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background: white;
+      border-radius: 16px;
+      padding: 32px;
+      max-width: 500px;
+      width: 90%;
+      margin: 20px;
+      position: relative;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+      transform: scale(0.7);
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .project-modal.active .modal-content {
+      transform: scale(1);
+      opacity: 1;
+    }
+
+    .modal-close {
+      position: absolute;
+      right: 16px;
+      top: 16px;
+      background: #f5f5f5;
+      border: none;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      font-size: 14px;
+      color: #666;
+    }
+
+    .modal-close:hover {
+      background: #e5e5e5;
+      color: #333;
+    }
+
+    .modal-project-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: #262626;
+    }
+
+    .modal-project-description {
+      color: #6b7280;
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+
+    .modal-buttons {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .modal-btn {
+      flex: 1;
+      min-width: 120px;
+      padding: 12px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      text-align: center;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .modal-btn-primary {
+      background: linear-gradient(135deg, #2196F3 0%, #03A9F4 100%);
+      color: white;
+    }
+
+    .modal-btn-primary:hover {
+      background: linear-gradient(135deg, #1976D2 0%, #0288D1 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(33, 150, 243, 0.3);
+    }
+
+    .modal-btn-secondary {
+      background: #f5f5f5;
+      color: #333;
+      border: 1px solid #e5e5e5;
+    }
+
+    .modal-btn-secondary:hover {
+      background: #333;
+      color: white;
+      border-color: #333;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Dark mode modal styles */
+    .dark-mode .modal-content {
+      background: #1f1f1f;
+    }
+
+    .dark-mode .modal-project-title {
+      color: #f3f4f6;
+    }
+
+    .dark-mode .modal-project-description {
+      color: #d1d5db;
+    }
+
+    .dark-mode .modal-close {
+      background: #404040;
+      color: #d1d5db;
+    }
+
+    .dark-mode .modal-close:hover {
+      background: #525252;
+      color: #f3f4f6;
+    }
+
+    .dark-mode .modal-btn-secondary {
+      background: #404040;
+      color: #d1d5db;
+      border-color: #525252;
+    }
+
+    .dark-mode .modal-btn-secondary:hover {
+      background: #64b5f6;
+      color: #1f1f1f;
+      border-color: #64b5f6;
+    }
+
     /* Responsive Design */
     @media (max-width: 768px) {
       .nav-menu {
@@ -1107,7 +1264,37 @@
       <h2 class="section-title">프로젝트</h2>
       <div class="project-grid">
         <!-- Project -->
-        <a href="https://github.com/lhg1006/maple_util" target="_blank" class="project-card">
+        <div class="project-card" onclick="openProjectModal('maple-land-calcu')"
+             data-title="🍁 메이플랜드 계산기"
+             data-description="메이플랜드 게임의 각종 계산을 도와주는 유틸리티 웹 애플리케이션입니다."
+             data-github="https://github.com/lhg1006/maple-land-calcu"
+             data-site="https://maple-land-calcu.vercel.app"
+             style="cursor: pointer;">
+          <div class="project-image">
+            <img
+              src="https://github.com/lhg1006/portfolio-images/blob/b97137908b2a51a9bba25950a7b40ee8cb694ca0/images/project/mlcc-2.png?raw=true"
+              alt="메이플랜드 계산기 프로젝트">
+          </div>
+          <div class="project-content">
+            <h3 class="project-title">🍁 메이플랜드 계산기</h3>
+            <p class="project-description">
+              메이플랜드 게임의 각종 계산을 도와주는 유틸리티 웹 애플리케이션입니다.
+            </p>
+            <div class="project-tech">
+              <span class="project-tech-tag">Next.js</span>
+              <span class="project-tech-tag">React</span>
+              <span class="project-tech-tag">TypeScript</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project -->
+        <div class="project-card" onclick="openProjectModal('maple-data-viewer')"
+             data-title="메이플 데이터 뷰어"
+             data-description="MapleStory.io API를 활용한 데이터 시각화 프로젝트입니다. 반응형 디자인으로 모바일, 태블릿, 데스크탑 환경에 모두 적합합니다."
+             data-github="https://github.com/lhg1006/maple_util"
+             data-site="https://maple-data-viewer.vercel.app"
+             style="cursor: pointer;">
           <div class="project-image">
             <img
               src="https://raw.githubusercontent.com/lhg1006/portfolio-images/59e12f626e773d61b5225e0d6e40af7f1922016d/images/project/mdv-1.png"
@@ -1125,10 +1312,15 @@
               <span class="project-tech-tag">TypeScript</span>
             </div>
           </div>
-        </a>
+        </div>
 
         <!-- Project -->
-        <a href="https://github.com/lhg1006/toss-portfolio" target="_blank" class="project-card">
+        <div class="project-card" onclick="openProjectModal('toss-portfolio')"
+             data-title="토스뱅크 포트폴리오 데모"
+             data-description="현대적인 핀테크 UI/UX를 구현한 뱅킹 앱 포트폴리오입니다. 토스뱅크의 디자인 언어에서 영감을 받아 제작되었으며, 최신 웹 기술 스택을 활용하여 반응형 뱅킹 인터페이스를 구현했습니다."
+             data-github="https://github.com/lhg1006/toss-portfolio"
+             data-site="https://toss-portfolio.vercel.app"
+             style="cursor: pointer;">
           <div class="project-image">
             <img
               src="https://raw.githubusercontent.com/lhg1006/portfolio-images/1159e85e4e99889f0ca3c1a134bbb93986a7844f/images/project/toss-web-main.png"
@@ -1147,10 +1339,15 @@
               <span class="project-tech-tag">TypeScript</span>
             </div>
           </div>
-        </a>
+        </div>
 
         <!-- Project -->
-        <a href="https://github.com/lhg1006/lhg-portfolio" target="_blank" class="project-card">
+        <div class="project-card" onclick="openProjectModal('lhg-portfolio')"
+             data-title="개인 포트폴리오 웹"
+             data-description="풀스택 개발자로서의 역량과 경험을 보여주는 반응형 포트폴리오 웹사이트입니다."
+             data-github="https://github.com/lhg1006/lhg-portfolio"
+             data-site="not-deployed"
+             style="cursor: pointer;">
           <div class="project-image">
             <img
               src="https://raw.githubusercontent.com/lhg1006/portfolio-images/7726310b5883116df60b99587bf7b8a1b606da75/images/project/pfs-0.png"
@@ -1170,10 +1367,15 @@
               <span class="project-tech-tag">MySQL</span>
             </div>
           </div>
-        </a>
+        </div>
 
         <!-- Project -->
-        <a href="https://github.com/lhg1006/Take-a-picture-TAP_js" target="_blank" class="project-card">
+        <div class="project-card" onclick="openProjectModal('take-a-picture')"
+             data-title="take-a-picture : TAP"
+             data-description="모바일 화면 기준으로 만들어졌으며 인스타그램을 모티브로 한 웹 서비스입니다."
+             data-github="https://github.com/lhg1006/Take-a-picture-TAP_js"
+             data-site="not-deployed"
+             style="cursor: pointer;">
           <div class="project-image">
             <img
               src="https://raw.githubusercontent.com/lhg1006/portfolio-images/2d28ecc0cfe5317675dcc42ac4f4fa020d17af21/images/project/tap-0.png"
@@ -1193,10 +1395,15 @@
               <span class="project-tech-tag">MySQL</span>
             </div>
           </div>
-        </a>
+        </div>
 
         <!-- Project -->
-        <a href="https://github.com/lhg1006/mbti-test" target="_blank" class="project-card">
+        <div class="project-card" onclick="openProjectModal('mbti-test')"
+             data-title="🧠 MBTI 성격유형 테스트"
+             data-description="20개의 질문을 통한 MBTI 성격유형 분석. 모바일 친화적인 반응형 디자인과 부드러운 애니메이션을 제공합니다."
+             data-github="https://github.com/lhg1006/mbti-test"
+             data-site="https://mbti-test-blush.vercel.app"
+             style="cursor: pointer;">
           <div class="project-image">
             <img
               src="https://raw.githubusercontent.com/lhg1006/portfolio-images/a3ed392a2921be631bc8d94977ee17c8f26fb0d6/images/project/mbti-0.png"
@@ -1213,10 +1420,15 @@
               <span class="project-tech-tag">TypeScript</span>
             </div>
           </div>
-        </a>
+        </div>
 
         <!-- Project -->
-        <a href="https://github.com/lhg1006/tarot-fortune" target="_blank" class="project-card">
+        <div class="project-card" onclick="openProjectModal('tarot-fortune')"
+             data-title="🔮 타로 운세 웹 애플리케이션"
+             data-description="타로 카드 선택을 통해 운세 결과를 제공하는 웹 애플리케이션입니다."
+             data-github="https://github.com/lhg1006/tarot-fortune"
+             data-site="https://tarot-fortune.vercel.app"
+             style="cursor: pointer;">
           <div class="project-image">
             <img
               src="https://raw.githubusercontent.com/lhg1006/portfolio-images/e68c1d680a5e0ccbda716b34dec41439bc986949/images/project/tarot-0.png"
@@ -1233,10 +1445,15 @@
               <span class="project-tech-tag">TypeScript</span>
             </div>
           </div>
-        </a>
+        </div>
 
         <!-- Project -->
-        <a href="https://github.com/lhg1006/lotto-number-generator" target="_blank" class="project-card">
+        <div class="project-card" onclick="openProjectModal('lotto-generator')"
+             data-title="🎱 로또 번호 추첨기"
+             data-description="무료로 로또 번호를 생성할 수 있는 웹 애플리케이션입니다."
+             data-github="https://github.com/lhg1006/lotto-number-generator"
+             data-site="https://lotto-number-generator-pi.vercel.app"
+             style="cursor: pointer;">
           <div class="project-image">
             <img
               src="https://raw.githubusercontent.com/lhg1006/portfolio-images/a3ed392a2921be631bc8d94977ee17c8f26fb0d6/images/project/ltg-0.png"
@@ -1253,13 +1470,98 @@
               <span class="project-tech-tag">TypeScript</span>
             </div>
           </div>
-        </a>
+        </div>
+
       </div>
     </section>
   </div>
 
+  <!-- Project Modal -->
+  <div class="project-modal" id="projectModal">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeProjectModal()">&times;</button>
+      <h3 class="modal-project-title" id="modalTitle"></h3>
+      <p class="modal-project-description" id="modalDescription"></p>
+      <div class="modal-buttons">
+        <a id="modalSiteBtn" class="modal-btn modal-btn-primary" target="_blank" onclick="closeProjectModal()">
+          <i class="fas fa-external-link-alt"></i>
+          사이트 방문
+        </a>
+        <a id="modalGithubBtn" class="modal-btn modal-btn-secondary" target="_blank" onclick="closeProjectModal()">
+          <i class="fab fa-github"></i>
+          GitHub 방문
+        </a>
+      </div>
+    </div>
+  </div>
+
   <!-- Scripts -->
   <script>
+    // Project Modal Functionality
+    function openProjectModal(projectId) {
+      const projectCard = document.querySelector(`[onclick="openProjectModal('${projectId}')"]`);
+      if (!projectCard) return;
+
+      const modal = document.getElementById('projectModal');
+      const modalTitle = document.getElementById('modalTitle');
+      const modalDescription = document.getElementById('modalDescription');
+      const modalSiteBtn = document.getElementById('modalSiteBtn');
+      const modalGithubBtn = document.getElementById('modalGithubBtn');
+
+      // Get data from project card
+      const title = projectCard.getAttribute('data-title');
+      const description = projectCard.getAttribute('data-description');
+      const siteUrl = projectCard.getAttribute('data-site');
+      const githubUrl = projectCard.getAttribute('data-github');
+
+      // Set modal content
+      modalTitle.textContent = title;
+      modalDescription.textContent = description;
+      modalGithubBtn.href = githubUrl;
+
+      // Handle site button for non-deployed projects
+      if (siteUrl === 'not-deployed') {
+        modalSiteBtn.href = '#';
+        modalSiteBtn.onclick = function(e) {
+          e.preventDefault();
+          alert('현재 배포되지 않은 프로젝트입니다.\nGitHub에서 소스코드를 확인해주세요.');
+          return false;
+        };
+        modalSiteBtn.style.opacity = '0.6';
+      } else {
+        modalSiteBtn.href = siteUrl;
+        modalSiteBtn.onclick = function() {
+          closeProjectModal();
+        };
+        modalSiteBtn.style.opacity = '1';
+      }
+
+      // Show modal
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeProjectModal() {
+      const modal = document.getElementById('projectModal');
+      modal.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+
+    // Close modal when clicking outside
+    document.addEventListener('click', function(event) {
+      const modal = document.getElementById('projectModal');
+      if (event.target === modal) {
+        closeProjectModal();
+      }
+    });
+
+    // Close modal with Escape key
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape') {
+        closeProjectModal();
+      }
+    });
+
     // Theme Toggle Functionality
     function toggleTheme() {
       const body = document.body;
