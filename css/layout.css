@@ -10,7 +10,13 @@ header {
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--border-color);
-    transition: all var(--transition-normal);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
+}
+
+/* 스크롤 다운 시 헤더 숨김 */
+header.header-hidden {
+    transform: translateY(-100%);
+    box-shadow: none;
 }
 
 .header-container {

@@ -7,6 +7,7 @@ const mobileNavMenu = document.querySelector('.mobile-nav-menu');
 const navLinks = document.querySelectorAll('.nav-link');
 const navDots = document.querySelectorAll('.nav-dot');
 const sections = document.querySelectorAll('.section');
+const header = document.querySelector('header');
 
 // 테마 관리
 const initTheme = () => {
@@ -272,7 +273,7 @@ const initKeyboardNavigation = () => {
         // 화살표 키로 섹션 이동
         if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
             e.preventDefault();
-            
+
             const currentSection = document.querySelector('.section.active') || document.querySelector('.section');
             if (!currentSection) return;
 
@@ -299,6 +300,47 @@ const initKeyboardNavigation = () => {
     });
 };
 
+// 헤더 스크롤 효과
+const initHeaderScroll = () => {
+    let lastScrollTop = 0;
+    let scrollThreshold = 10; // 최소 스크롤 거리
+    let isScrolling = false;
+
+    const handleScroll = () => {
+        if (!isScrolling) {
+            window.requestAnimationFrame(() => {
+                const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+                // 맨 위에 있을 때는 항상 헤더 표시
+                if (currentScrollTop <= 0) {
+                    header.classList.remove('header-hidden');
+                    isScrolling = false;
+                    return;
+                }
+
+                // 스크롤 방향 감지
+                if (Math.abs(currentScrollTop - lastScrollTop) > scrollThreshold) {
+                    if (currentScrollTop > lastScrollTop) {
+                        // 스크롤 다운 - 헤더 숨김
+                        header.classList.add('header-hidden');
+                    } else {
+                        // 스크롤 업 - 헤더 표시
+                        header.classList.remove('header-hidden');
+                    }
+
+                    lastScrollTop = currentScrollTop;
+                }
+
+                isScrolling = false;
+            });
+
+            isScrolling = true;
+        }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+};
+
 // 초기화 함수
 const init = () => {
     hideLoader();
@@ -310,6 +352,7 @@ const init = () => {
     initProjectSlider();
     initExperienceSlider();
     initKeyboardNavigation();
+    initHeaderScroll();
 };
 
 // DOM 로드 완료 시 초기화
