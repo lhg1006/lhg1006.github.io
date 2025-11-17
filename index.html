@@ -1579,12 +1579,12 @@
           if (entry.isIntersecting) {
             // 요소가 뷰포트에 들어올 때 나타나는 애니메이션
             entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0) scale(1)';
+            entry.target.style.transform = 'translateY(0)';
             entry.target.classList.add('animate-in');
           } else {
             // 요소가 뷰포트에서 벗어날 때 사라지는 애니메이션
             entry.target.style.opacity = '0';
-            entry.target.style.transform = 'translateY(30px) scale(0.95)';
+            entry.target.style.transform = 'translateY(20px)';
             entry.target.classList.remove('animate-in');
           }
         });
@@ -1600,12 +1600,10 @@
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0) scale(1)';
-            entry.target.style.filter = 'blur(0px)';
+            entry.target.style.transform = 'translateY(0)';
           } else {
             entry.target.style.opacity = '0';
-            entry.target.style.transform = 'translateY(40px) scale(0.9)';
-            entry.target.style.filter = 'blur(3px)';
+            entry.target.style.transform = 'translateY(20px)';
           }
         });
       }, cardObserverOptions);
@@ -1613,17 +1611,16 @@
       // 모든 애니메이션 요소 초기화 및 관찰 시작
       document.querySelectorAll('.slide-in-left, .slide-in-right, .fade-in').forEach(el => {
         el.style.opacity = '0';
-        el.style.transform = 'translateY(30px) scale(0.95)';
-        el.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+        el.style.transform = 'translateY(20px)';
+        el.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
         observer.observe(el);
       });
 
       // 카드 요소들에 대한 별도 애니메이션
       document.querySelectorAll('.experience-card, .project-card, .skill-category').forEach(el => {
         el.style.opacity = '0';
-        el.style.transform = 'translateY(40px) scale(0.9)';
-        el.style.filter = 'blur(3px)';
-        el.style.transition = 'all 0.7s cubic-bezier(0.25, 0.8, 0.25, 1)';
+        el.style.transform = 'translateY(20px)';
+        el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
         cardObserver.observe(el);
       });
 
@@ -1643,15 +1640,15 @@
               tags.forEach((tag, index) => {
                 setTimeout(() => {
                   tag.style.opacity = '1';
-                  tag.style.transform = 'translateY(0) scale(1)';
-                }, index * 100);
+                  tag.style.transform = 'translateY(0)';
+                }, index * 80);
               });
             } else {
               tags.forEach((tag, index) => {
                 setTimeout(() => {
                   tag.style.opacity = '0';
-                  tag.style.transform = 'translateY(20px) scale(0.8)';
-                }, index * 50);
+                  tag.style.transform = 'translateY(10px)';
+                }, index * 40);
               });
             }
           });
@@ -1665,8 +1662,8 @@
         const achievementItems = achievementList.querySelectorAll('.achievement-item');
         achievementItems.forEach((item, index) => {
           item.style.opacity = '0';
-          item.style.transform = 'translateX(-30px) scale(0.95)';
-          item.style.transition = `all 0.7s cubic-bezier(0.4, 0, 0.2, 1) ${index * 0.2}s`;
+          item.style.transform = 'translateX(-20px)';
+          item.style.transition = `opacity 0.4s ease ${index * 0.1}s, transform 0.4s ease ${index * 0.1}s`;
         });
 
         const achievementObserver = new IntersectionObserver((entries) => {
@@ -1676,15 +1673,15 @@
               items.forEach((item, index) => {
                 setTimeout(() => {
                   item.style.opacity = '1';
-                  item.style.transform = 'translateX(0) scale(1)';
-                }, index * 150);
+                  item.style.transform = 'translateX(0)';
+                }, index * 100);
               });
             } else {
               items.forEach((item, index) => {
                 setTimeout(() => {
                   item.style.opacity = '0';
-                  item.style.transform = 'translateX(-30px) scale(0.95)';
-                }, index * 75);
+                  item.style.transform = 'translateX(-20px)';
+                }, index * 50);
               });
             }
           });
@@ -1698,8 +1695,8 @@
         const projectCards = projectGrid.querySelectorAll('.project-card');
         projectCards.forEach((card, index) => {
           card.style.opacity = '0';
-          card.style.transform = 'translateY(50px) scale(0.8) rotateX(10deg)';
-          card.style.transition = `all 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) ${index * 0.1}s`;
+          card.style.transform = 'translateY(20px)';
+          card.style.transition = `opacity 0.5s ease ${index * 0.1}s, transform 0.5s ease ${index * 0.1}s`;
         });
 
         const projectObserver = new IntersectionObserver((entries) => {
@@ -1709,15 +1706,15 @@
               cards.forEach((card, index) => {
                 setTimeout(() => {
                   card.style.opacity = '1';
-                  card.style.transform = 'translateY(0) scale(1) rotateX(0deg)';
-                }, index * 150);
+                  card.style.transform = 'translateY(0)';
+                }, index * 100);
               });
             } else {
               cards.forEach((card, index) => {
                 setTimeout(() => {
                   card.style.opacity = '0';
-                  card.style.transform = 'translateY(50px) scale(0.8) rotateX(10deg)';
-                }, index * 100);
+                  card.style.transform = 'translateY(20px)';
+                }, index * 50);
               });
             }
           });
