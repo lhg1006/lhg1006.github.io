@@ -275,7 +275,7 @@ export default function Home() {
           <div className="flex items-center justify-between">
             <motion.a
               href="#hero"
-              className="text-xl font-semibold gradient-text"
+              className={`text-xl font-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}
               whileHover={{ scale: 1.05 }}
             >
               LHG
@@ -652,18 +652,25 @@ export default function Home() {
         {/* Projects */}
         <section id="projects" className="py-32 px-6">
           <div className="max-w-7xl mx-auto">
-            <motion.div
-              className="text-center mb-20"
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              <p className={`text-base tracking-[0.3em] uppercase mb-4 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>Side Projects</p>
-              <h2 className="text-5xl md:text-6xl font-bold gradient-text">Projects</h2>
-            </motion.div>
+            <div className="flex flex-col lg:flex-row gap-12">
+              {/* 좌측: 타이틀 */}
+              <motion.div
+                className="lg:w-1/3 lg:sticky lg:top-32 lg:self-start"
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                <p className={`text-base tracking-[0.3em] uppercase mb-4 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>Side Projects</p>
+                <h2 className={`text-5xl md:text-6xl font-bold mb-6 ${isDark ? 'text-white' : 'text-gray-900'}`}>Projects</h2>
+                <p className={`text-lg ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                  개인 프로젝트를 통해<br />
+                  새로운 기술을 탐구합니다.
+                </p>
+              </motion.div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+              {/* 우측: 프로젝트 리스트 */}
+              <div className="lg:w-2/3 grid md:grid-cols-2 xl:grid-cols-3 gap-4">
               {projects.map((project, i) => (
                 <motion.div
                   key={i}
@@ -700,6 +707,7 @@ export default function Home() {
                   </div>
                 </motion.div>
               ))}
+              </div>
             </div>
           </div>
         </section>
