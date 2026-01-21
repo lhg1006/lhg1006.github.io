@@ -54,13 +54,24 @@ const experiences = [
     isCurrent: true,
     projects: [
       {
+        title: '아몬드에듀 백오피스 시스템',
+        description: '본사/지점 관리자 포털 및 API 서버 풀스택 개발',
+        tech: ['Next.js 15', 'React 19', 'TypeScript', 'TanStack Query', 'Tailwind CSS', 'Spring Boot', 'PostgreSQL', 'MongoDB'],
+        highlights: [
+          '본사/지점 관리자 포털 대다수 페이지 개발, 학생 앱 마무리 및 버그 수정',
+          'OpenAI API 연동 AI 총평 자동 생성 시스템 구축',
+          'Chart.js 기반 학습 데이터 시각화 (레이더 차트, 막대 그래프)',
+          '반응형 웹(모바일~PC) 및 Figma 디자인 시스템 준수',
+        ],
+      },
+      {
         title: 'AIELS 교육 플랫폼',
         description: 'AI 기반 영어 교육 플랫폼 프론트엔드 단독 개발',
-        tech: ['Next.js', 'TypeScript', 'Tailwind', 'Zustand', 'Tiptap', '@react-pdf/renderer', 'Puppeteer'],
+        tech: ['Next.js 14', 'TypeScript', 'Zustand', 'React Query', 'Tailwind CSS', 'shadcn/ui'],
         highlights: [
           '문법 시각화 엔진: 구문·절·등위 구조를 동적 괄호, 화살표, 색상 코딩으로 표현',
           'ResizeObserver 기반 좌표 계산 및 모바일 최적화',
-          '시험지 PDF 출력: 다중 모드 렌더링 및 복잡 레이아웃 최적화',
+          '시험지 PDF 출력: Puppeteer 활용 다중 모드 렌더링',
           'NextAuth.js 기반 JWT 세션 관리 및 역할별 접근 제어',
         ],
       },
@@ -338,100 +349,138 @@ export default function Home() {
       {/* Content */}
       <main className="relative z-10">
         {/* Hero */}
-        <section id="hero" className="min-h-screen flex items-center justify-center px-6">
-          <div className={`text-center max-w-3xl backdrop-blur-sm rounded-3xl p-12 ${
+        <section id="hero" className="min-h-screen flex items-center justify-center px-6 pt-20">
+          <div className={`max-w-6xl w-full backdrop-blur-sm rounded-3xl p-12 ${
             isDark ? 'bg-black/40' : 'bg-white/60'
           }`}>
-            <motion.div
-              initial={{ opacity: 0, scale: 0.5 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-              className="mb-8"
-            >
-              <div className="relative inline-block">
-                <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-full blur-lg opacity-50" />
-                <img
-                  src="/images/profile.png"
-                  alt="이효규 프로필 사진"
-                  className="relative w-28 h-28 rounded-full border-2 border-white/20"
-                  loading="eager"
-                />
+            <div className="flex flex-col md:flex-row items-center gap-12">
+              {/* 좌측: 텍스트 */}
+              <div className="flex-1 text-center md:text-left">
+                <motion.p
+                  className={`text-sm tracking-[0.3em] uppercase mb-4 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.5 }}
+                >
+                  Fullstack Developer
+                </motion.p>
+
+                <motion.h1
+                  className={`text-5xl md:text-7xl font-bold mb-6 tracking-tight ${isDark ? 'text-white' : 'text-gray-900'}`}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.6 }}
+                >
+                  이효규
+                </motion.h1>
+
+                <motion.p
+                  className={`text-xl md:text-2xl mb-6 leading-relaxed font-medium ${isDark ? 'text-white' : 'text-gray-800'}`}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.8 }}
+                >
+                  4년차 풀스택 개발자
+                </motion.p>
+
+                <motion.p
+                  className={`text-lg mb-5 leading-relaxed ${isDark ? 'text-gray-300' : 'text-gray-700'}`}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.9 }}
+                >
+                  <span className={`font-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>Spring Boot</span> 기반 API 서버부터{' '}
+                  <span className={`font-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>Next.js</span> 프론트엔드까지<br />
+                  제품 전체를 설계하고 구현합니다.
+                </motion.p>
+
+                <motion.p
+                  className={`text-base mb-8 leading-relaxed ${isDark ? 'text-gray-400' : 'text-gray-600'}`}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 1.0 }}
+                >
+                  AI API 통합 · PostgreSQL 벡터 검색 · 복잡한 DOM 조작<br />
+                  기술적 도전을 즐기며, 0→1 제품 개발 경험이 있습니다.
+                </motion.p>
+
+                <motion.div
+                  className="flex flex-wrap justify-center md:justify-start gap-4"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 1.2 }}
+                >
+                  <a
+                    href="#projects"
+                    className={`group px-8 py-3 font-medium rounded-full transition-all ${
+                      isDark ? 'bg-white text-gray-900 hover:bg-gray-100' : 'bg-gray-900 text-white hover:bg-gray-800'
+                    }`}
+                  >
+                    View Projects
+                    <span className="inline-block ml-2 group-hover:translate-x-1 transition-transform">→</span>
+                  </a>
+                  <a
+                    href="https://github.com/lhg1006"
+                    target="_blank"
+                    className={`px-8 py-3 glass rounded-full transition-all ${
+                      isDark ? 'text-gray-300 hover:text-white hover:bg-white/10' : 'text-gray-700 hover:text-gray-900 hover:bg-black/5'
+                    }`}
+                  >
+                    GitHub
+                  </a>
+                </motion.div>
               </div>
-            </motion.div>
 
-            <motion.p
-              className={`text-sm tracking-[0.3em] uppercase mb-4 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.5 }}
-            >
-              Fullstack Developer
-            </motion.p>
+              {/* 우측: 사진들 */}
+              <div className="flex-1 flex flex-col items-center">
+                {/* 반려동물 사진들 */}
+                <div className="flex justify-center gap-6 mb-6">
+                  {[
+                    { src: '/images/bbibbi.jpeg', alt: '삐삐', name: '삐삐 🐱' },
+                    { src: '/images/seulgi.jpeg', alt: '슬기', name: '슬기 🐱' },
+                    { src: '/images/berry.jpeg', alt: '베리', name: '베리 🐱' },
+                  ].map((pet, i) => (
+                    <motion.div
+                      key={pet.alt}
+                      className="relative group cursor-pointer"
+                      initial={{ opacity: 0, scale: 0, y: -20 }}
+                      animate={{ opacity: 1, scale: 1, y: 0 }}
+                      transition={{ duration: 0.4, delay: 0.1 + i * 0.15, type: 'spring', stiffness: 200 }}
+                      whileHover={{ scale: 1.1 }}
+                    >
+                      <div className="absolute -inset-0.5 bg-gradient-to-r from-pink-400 to-purple-400 rounded-full blur-sm opacity-40" />
+                      <img
+                        src={pet.src}
+                        alt={pet.alt}
+                        className="relative w-24 h-24 rounded-full border-2 border-white/30 object-cover"
+                        loading="eager"
+                      />
+                      {/* 툴팁 */}
+                      <div className="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 bg-gray-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                        {pet.name}
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
 
-            <motion.h1
-              className="text-5xl md:text-7xl font-bold mb-6 tracking-tight"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-            >
-              <span className="gradient-text">이효규</span>
-            </motion.h1>
-
-            <motion.p
-              className={`text-xl md:text-2xl mb-6 leading-relaxed font-medium ${isDark ? 'text-white' : 'text-gray-800'}`}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.8 }}
-            >
-              4년차 풀스택 개발자
-            </motion.p>
-
-            <motion.p
-              className={`text-lg mb-5 leading-relaxed max-w-xl mx-auto ${isDark ? 'text-gray-300' : 'text-gray-700'}`}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.9 }}
-            >
-              <span className={`font-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>Spring Boot</span> 기반 API 서버부터{' '}
-              <span className={`font-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>Next.js</span> 프론트엔드까지<br />
-              제품 전체를 설계하고 구현합니다.
-            </motion.p>
-
-            <motion.p
-              className={`text-base mb-12 leading-relaxed ${isDark ? 'text-gray-400' : 'text-gray-600'}`}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 1.0 }}
-            >
-              AI API 통합 · PostgreSQL 벡터 검색 · 복잡한 DOM 조작<br />
-              기술적 도전을 즐기며, 0→1 제품 개발 경험이 있습니다.
-            </motion.p>
-
-            <motion.div
-              className="flex flex-wrap justify-center gap-4"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 1.2 }}
-            >
-              <a
-                href="#projects"
-                className={`group px-8 py-3 font-medium rounded-full transition-all ${
-                  isDark ? 'bg-white text-gray-900 hover:bg-gray-100' : 'bg-gray-900 text-white hover:bg-gray-800'
-                }`}
-              >
-                View Projects
-                <span className="inline-block ml-2 group-hover:translate-x-1 transition-transform">→</span>
-              </a>
-              <a
-                href="https://github.com/lhg1006"
-                target="_blank"
-                className={`px-8 py-3 glass rounded-full transition-all ${
-                  isDark ? 'text-gray-300 hover:text-white hover:bg-white/10' : 'text-gray-700 hover:text-gray-900 hover:bg-black/5'
-                }`}
-              >
-                GitHub
-              </a>
-            </motion.div>
+                {/* 프로필 사진 */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.5 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.8, delay: 0.3 }}
+                >
+                  <div className="relative inline-block">
+                    <div className="absolute -inset-2 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-full blur-xl opacity-50" />
+                    <img
+                      src="/images/profile.jpeg"
+                      alt="이효규 프로필 사진"
+                      className="relative w-64 h-64 rounded-full border-4 border-white/20 object-cover"
+                      loading="eager"
+                    />
+                  </div>
+                </motion.div>
+              </div>
+            </div>
 
           </div>
 
@@ -456,74 +505,89 @@ export default function Home() {
 
         {/* Skills */}
         <section id="skills" className="py-32 px-6">
-          <div className="max-w-5xl mx-auto">
-            <motion.div
-              className="text-center mb-20"
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              <p className={`text-base tracking-[0.3em] uppercase mb-4 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>What I Use</p>
-              <h2 className="text-5xl md:text-6xl font-bold gradient-text">Skills</h2>
-            </motion.div>
+          <div className="max-w-7xl mx-auto">
+            <div className="flex flex-col lg:flex-row gap-12">
+              {/* 좌측: 타이틀 */}
+              <motion.div
+                className="lg:w-1/3 lg:sticky lg:top-32 lg:self-start"
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                <p className={`text-base tracking-[0.3em] uppercase mb-4 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>What I Use</p>
+                <h2 className={`text-5xl md:text-6xl font-bold mb-6 ${isDark ? 'text-white' : 'text-gray-900'}`}>Skills</h2>
+                <p className={`text-lg ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                  프론트엔드부터 백엔드, AI까지<br />
+                  다양한 기술 스택을 활용합니다.
+                </p>
+              </motion.div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[
-                { name: 'Backend', items: skills.backend, icon: '⚙️' },
-                { name: 'Frontend', items: skills.frontend, icon: '🎨' },
-                { name: 'Database', items: skills.database, icon: '💾' },
-                { name: 'AI/ML', items: skills.ai, icon: '🤖' },
-                { name: 'DevOps', items: skills.devops, icon: '☁️', span: true },
-              ].map((category, idx) => (
-                <motion.div
-                  key={category.name}
-                  className={`glass rounded-2xl p-8 glow-hover transition-all ${category.span ? 'lg:col-span-2' : ''}`}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: idx * 0.1 }}
-                  whileHover={{ y: -5 }}
-                >
-                  <div className="flex items-center gap-3 mb-5">
-                    <span className="text-3xl">{category.icon}</span>
-                    <h3 className={`text-xl font-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>{category.name}</h3>
-                  </div>
-                  <div className="flex flex-wrap gap-3">
-                    {category.items.map((skill) => (
-                      <span
-                        key={skill}
-                        className={`px-4 py-2 text-base rounded-lg border transition-all ${
-                          isDark
-                            ? 'text-gray-300 bg-white/5 border-white/10 hover:border-white/20 hover:text-white hover:bg-white/10'
-                            : 'text-gray-700 bg-black/5 border-black/10 hover:border-black/20 hover:text-gray-900 hover:bg-black/10'
-                        }`}
-                      >
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
-                </motion.div>
-              ))}
+              {/* 우측: 스킬 리스트 */}
+              <div className="lg:w-2/3 grid md:grid-cols-2 gap-5">
+                {[
+                  { name: 'Backend', items: skills.backend, icon: '⚙️' },
+                  { name: 'Frontend', items: skills.frontend, icon: '🎨' },
+                  { name: 'Database', items: skills.database, icon: '💾' },
+                  { name: 'AI/ML', items: skills.ai, icon: '🤖' },
+                  { name: 'DevOps', items: skills.devops, icon: '☁️', span: true },
+                ].map((category, idx) => (
+                  <motion.div
+                    key={category.name}
+                    className={`glass rounded-2xl p-6 glow-hover transition-all ${category.span ? 'md:col-span-2' : ''}`}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: idx * 0.1 }}
+                    whileHover={{ y: -5 }}
+                  >
+                    <div className="flex items-center gap-3 mb-4">
+                      <span className="text-2xl">{category.icon}</span>
+                      <h3 className={`text-lg font-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>{category.name}</h3>
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      {category.items.map((skill) => (
+                        <span
+                          key={skill}
+                          className={`px-3 py-1.5 text-sm rounded-lg border transition-all ${
+                            isDark
+                              ? 'text-gray-300 bg-white/5 border-white/10 hover:border-white/20 hover:text-white hover:bg-white/10'
+                              : 'text-gray-700 bg-black/5 border-black/10 hover:border-black/20 hover:text-gray-900 hover:bg-black/10'
+                          }`}
+                        >
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
             </div>
           </div>
         </section>
 
         {/* Experience */}
         <section id="experience" className="py-32 px-6">
-          <div className="max-w-5xl mx-auto">
-            <motion.div
-              className="text-center mb-20"
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              <p className={`text-base tracking-[0.3em] uppercase mb-4 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>Career</p>
-              <h2 className="text-5xl md:text-6xl font-bold gradient-text">Experience</h2>
-            </motion.div>
+          <div className="max-w-7xl mx-auto">
+            <div className="flex flex-col lg:flex-row gap-12">
+              {/* 좌측: 타이틀 */}
+              <motion.div
+                className="lg:w-1/3 lg:sticky lg:top-32 lg:self-start"
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                <p className={`text-base tracking-[0.3em] uppercase mb-4 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>Career</p>
+                <h2 className={`text-5xl md:text-6xl font-bold mb-6 ${isDark ? 'text-white' : 'text-gray-900'}`}>Experience</h2>
+                <p className={`text-lg ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                  4년간의 개발 경험을 통해<br />
+                  풀스택 역량을 키워왔습니다.
+                </p>
+              </motion.div>
 
-            <div className="space-y-10">
+              {/* 우측: 경력 리스트 */}
+              <div className="lg:w-2/3 space-y-10">
               {experiences.map((exp, idx) => (
                 <motion.div
                   key={idx}
@@ -580,6 +644,7 @@ export default function Home() {
                   </div>
                 </motion.div>
               ))}
+              </div>
             </div>
           </div>
         </section>
@@ -641,7 +706,7 @@ export default function Home() {
 
         {/* Footer */}
         <footer className={`py-16 px-6 border-t ${isDark ? 'border-white/5' : 'border-black/5'}`}>
-          <div className="max-w-5xl mx-auto">
+          <div className="max-w-7xl mx-auto">
             <div className="flex flex-col md:flex-row items-center justify-between gap-8">
               <div className="text-center md:text-left">
                 <p className={`text-base ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>© 2025 이효규</p>
