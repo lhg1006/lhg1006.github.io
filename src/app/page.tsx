@@ -115,7 +115,7 @@ const projects = [
     image: 'https://raw.githubusercontent.com/lhg1006/portfolio-images/main/images/project/ai-cr-0.png',
     tags: ['Next.js', 'TypeScript', 'OpenAI API'],
     github: 'https://github.com/lhg1006/ai-code-reviewer',
-    site: '',
+    site: 'https://ai-code-reviewer-two-eta.vercel.app',
   },
   {
     title: 'Grammar Visualizer',
@@ -586,7 +586,7 @@ export default function Home() {
 
         {/* Projects */}
         <section id="projects" className="py-32 px-6">
-          <div className="max-w-6xl mx-auto">
+          <div className="max-w-7xl mx-auto">
             <motion.div
               className="text-center mb-20"
               initial={{ opacity: 0, y: 50 }}
@@ -598,12 +598,12 @@ export default function Home() {
               <h2 className="text-5xl md:text-6xl font-bold gradient-text">Projects</h2>
             </motion.div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
               {projects.map((project, i) => (
                 <motion.div
                   key={i}
                   onClick={() => setSelectedProject(project)}
-                  className="group cursor-pointer glass rounded-2xl overflow-hidden glow-hover"
+                  className="group cursor-pointer glass rounded-xl overflow-hidden glow-hover"
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -618,16 +618,16 @@ export default function Home() {
                       loading="lazy"
                     />
                   </div>
-                  <div className="p-6">
-                    <h3 className={`text-lg font-semibold mb-2 transition-colors ${
+                  <div className="p-4">
+                    <h3 className={`text-sm font-semibold mb-1 transition-colors line-clamp-1 ${
                       isDark ? 'text-white group-hover:text-blue-400' : 'text-gray-900 group-hover:text-blue-600'
                     }`}>
                       {project.title}
                     </h3>
-                    <p className={`text-base mb-4 line-clamp-2 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>{project.description}</p>
-                    <div className="flex flex-wrap gap-2">
-                      {project.tags.map((tag) => (
-                        <span key={tag} className={`text-sm px-2 py-1 rounded ${
+                    <p className={`text-xs mb-3 line-clamp-2 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>{project.description}</p>
+                    <div className="flex flex-wrap gap-1">
+                      {project.tags.slice(0, 3).map((tag) => (
+                        <span key={tag} className={`text-xs px-1.5 py-0.5 rounded ${
                           isDark ? 'text-gray-400 bg-white/5' : 'text-gray-500 bg-black/5'
                         }`}>{tag}</span>
                       ))}
