@@ -7,7 +7,13 @@
       "Bash(git commit:*)",
       "Bash(python:*)",
       "Bash(rm:*)",
-      "Bash(python3:*)"
+      "Bash(python3:*)",
+      "Bash(gh api:*)",
+      "Bash(npm run dev:*)",
+      "Bash(git pull:*)",
+      "Bash(git remote:*)",
+      "Bash(npm run build)",
+      "Bash(git checkout:*)"
     ],
     "deny": []
   }
